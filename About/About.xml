@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+    <ModMetaData>
+        <name>[LTS]Tenants</name>
+        <author>LimeTreeSnake</author>
+        <supportedVersions>
+            <li>1.3</li>
+        </supportedVersions>
+        <packageId>LimeTreeSnake.Tenants</packageId>
+        <description>
+            -License- Code by LTS, art by ELIF and Goob and everything owned by LTS. Contact LTS for any inquiries.
+        </description>
+    </ModMetaData>

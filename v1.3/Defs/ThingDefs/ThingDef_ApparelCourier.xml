@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    <Defs>
+        <ThingDef Name="CourierWear" ParentName="ApparelBase" Abstract="True">
+            <thingCategories>
+                <li>CourierWear</li>
+            </thingCategories>
+            <techLevel>Industrial</techLevel>
+            <tradeability>None</tradeability>
+            <apparel>
+                <tags>
+                    <li>CourierWear</li>
+                </tags>
+                <defaultOutfitTags>
+                    <li>CourierWear</li>
+                </defaultOutfitTags>
+            </apparel>
+            <statBases>
+                <MaxHitPoints>200</MaxHitPoints>
+                <Flammability>0.6</Flammability>
+                <ArmorRating_Sharp>0.66</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.66</ArmorRating_Blunt>
+                <ArmorRating_Heat>0.33</ArmorRating_Heat>
+                <EquipDelay>5</EquipDelay>
+            </statBases>
+            <colorGenerator Class="ColorGenerator_Options">
+                <options>
+                    <li>
+                        <only>(0.44,0.44,0.44)</only>
+                    </li>
+                    <li>
+                        <only>(0.62,0.62,0.62)</only>
+                    </li>
+                </options>
+            </colorGenerator>
+            <!-- <recipeMaker>
+                <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                <workSkill>Crafting</workSkill>
+                <effectWorking>Tailor</effectWorking>
+                <soundWorking>Recipe_Tailor</soundWorking>
+                <recipeUsers>
+                    <li>ElectricTailoringBench</li>
+                    <li>HandTailoringBench</li>
+                </recipeUsers>
+                <useIngredientsForColor>false</useIngredientsForColor>
+                <skillRequirements>
+                    <Crafting>8</Crafting>
+                </skillRequirements>
+                <defaultIngredientFilter>
+                    <categories>
+                        <li>Root</li>
+                    </categories>
+                    <disallowedThingDefs>
+                        <li>Gold</li>
+                        <li>Silver</li>
+                        <li>Plasteel</li>
+                        <li>Jade</li>
+                        <li>Uranium</li>
+                    </disallowedThingDefs>
+                </defaultIngredientFilter>
+            </recipeMaker>-->
+        </ThingDef>
+
+
+        <!-- Courier Coat -->
+        <ThingDef ParentName="CourierWear">
+            <defName>LTS_CourierCoat</defName>
+            <label>courier coat</label>
+            <description>A sophisticated coat only for the finest of couriers.</description>
+            <graphicData>
+                <texPath>Apparel/CourierCoat/CourierCoat</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+                <drawSize>0.90</drawSize>
+            </graphicData>
+            <statBases>
+                <MarketValue>750</MarketValue>
+                <Insulation_Cold>20</Insulation_Cold>
+                <Insulation_Heat>10</Insulation_Heat>
+                <Mass>2</Mass>
+            </statBases>
+            <equippedStatOffsets>
+                <SocialImpact>0.10</SocialImpact>
+            </equippedStatOffsets>
+            <apparel>
+                <bodyPartGroups>
+                    <li>Torso</li>
+                    <li>Neck</li>
+                    <li>Shoulders</li>
+                    <li>Arms</li>
+                </bodyPartGroups>
+                <wornGraphicPath>Apparel/CourierCoat/CourierCoat</wornGraphicPath>
+                <layers>
+                    <li>Middle</li>
+                    <li>Shell</li>
+                </layers>
+            </apparel>
+        </ThingDef>
+
+        <!-- Courier Hat -->
+        <ThingDef ParentName="CourierWear">
+            <defName>LTS_CourierHat</defName>
+            <label>courier hat</label>
+            <description>A sophisticated coat only for the finest of couriers.</description>
+            <graphicData>
+                <texPath>Apparel/CourierHat/CourierHat</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+                <drawSize>0.90</drawSize>
+            </graphicData>
+            <statBases>
+                <MarketValue>500</MarketValue>
+                <Insulation_Cold>10</Insulation_Cold>
+                <Insulation_Heat>10</Insulation_Heat>
+                <Mass>1</Mass>
+            </statBases>
+            <equippedStatOffsets>
+                <SocialImpact>0.10</SocialImpact>
+            </equippedStatOffsets>
+            <apparel>
+                <bodyPartGroups>
+                    <li>UpperHead</li>
+                </bodyPartGroups>
+                <wornGraphicPath>Apparel/CourierHat/CourierHat</wornGraphicPath>
+                <layers>
+                    <li>Overhead</li>
+                </layers>
+            </apparel>
+        </ThingDef>
+    </Defs>

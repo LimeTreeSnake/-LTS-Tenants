@@ -1,0 +1,6 @@
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\v1.2\Assemblies\Tenants.dll
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\Source\obj\Debug\Tenants.csproj.CoreCompileInputs.cache
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\v1.3\Assemblies\Tenants.dll
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\Source\obj\Debug\Tenants.dll
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\Source\obj\Debug\Tenants.csproj.AssemblyReference.cache
+C:\Users\rikar\Desktop\GIT\LTSMods\[LTS]Tenants\Source\obj\Debug\Tenants.csproj.CopyComplete

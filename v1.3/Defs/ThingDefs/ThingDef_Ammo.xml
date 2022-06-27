@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <Defs>
+        <!--Musket-->
+        <Ammunition.Defs.AmmoCategoryDef MayRequire="LimeTreeSnake.Ammo">
+            <defName>LTS_MusketCategory</defName>
+            <label>musketball</label>
+            <ammoType>None</ammoType>
+            <ammoDefs>
+                <li>LTS_Musket</li>
+                <li>LTS_SilverMusket</li>
+            </ammoDefs>
+            <autoAssignable>false</autoAssignable>
+            <includeWeaponDefs>
+                <li>LTS_RevolverMusket</li>
+            </includeWeaponDefs>
+            <excludeWeaponDefs>
+            </excludeWeaponDefs>
+        </Ammunition.Defs.AmmoCategoryDef>
+        <ThingDef Name="LTS_Musket" ParentName="AmmunitionBase" MayRequire="LimeTreeSnake.Ammo">
+            <defName>LTS_Musket</defName>
+            <label>musket ammo</label>
+            <description>Early firearms and cannons use black powder to propel projectiles.</description>
+            <graphicData>
+                <texPath>Ammo/Musket</texPath>
+                <graphicClass>Graphic_StackCount</graphicClass>
+            </graphicData>
+            <soundInteract>Interact_Rifle</soundInteract>
+            <techLevel>Medieval</techLevel>
+            <statBases>
+                <MarketValue>0.5</MarketValue>
+                <Mass>0.025</Mass>
+            </statBases>
+            <tradeTags>
+                <li>AmmoMedieval</li>
+            </tradeTags>
+            <comps>
+                <li Class="CompProperties_Explosive">
+                    <explosiveRadius>2.0</explosiveRadius>
+                    <explosiveDamageType>Burn</explosiveDamageType>
+                    <requiredDamageTypeToExplode>Flame</requiredDamageTypeToExplode>
+                    <startWickHitPointsPercent>0.7</startWickHitPointsPercent>
+                    <wickTicks>
+                        <min>30</min>
+                        <max>60</max>
+                    </wickTicks>
+                </li>
+                <li Class="Ammunition.Components.CompProps_Ammunition">
+                    <bulletDef>LTS_MusketProjectile</bulletDef>
+                </li>
+            </comps>
+        </ThingDef>
+        <ThingDef Name="LTS_SilverMusket" ParentName="AmmunitionBase" MayRequire="LimeTreeSnake.Ammo">
+            <defName>LTS_SilverMusket</defName>
+            <label>silver musket ammo</label>
+            <description>Early firearms and cannons use black powder to propel projectiles.</description>
+            <graphicData>
+                <texPath>Ammo/SilverMusket</texPath>
+                <graphicClass>Graphic_StackCount</graphicClass>
+            </graphicData>
+            <soundInteract>Interact_Rifle</soundInteract>
+            <techLevel>Medieval</techLevel>
+            <statBases>
+                <MarketValue>0.5</MarketValue>
+                <Mass>0.025</Mass>
+            </statBases>
+            <tradeTags>
+                <li>AmmoMedieval</li>
+            </tradeTags>
+            <comps>
+                <li Class="CompProperties_Explosive">
+                    <explosiveRadius>2.0</explosiveRadius>
+                    <explosiveDamageType>Burn</explosiveDamageType>
+                    <requiredDamageTypeToExplode>Flame</requiredDamageTypeToExplode>
+                    <startWickHitPointsPercent>0.7</startWickHitPointsPercent>
+                    <wickTicks>
+                        <min>30</min>
+                        <max>60</max>
+                    </wickTicks>
+                </li>
+                <li Class="Ammunition.Components.CompProps_Ammunition">
+                    <bulletDef>LTS_SilverMusketProjectile</bulletDef>
+                </li>
+            </comps>
+        </ThingDef>
+        <ThingDef ParentName="BaseBullet">
+            <defName>LTS_MusketProjectile</defName>
+            <label>musket projectile</label>
+            <graphicData>
+                <texPath>Projectiles/Musket_Projectile</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+            </graphicData>
+            <projectile>
+                <damageDef>Bullet</damageDef>
+                <damageAmountBase>10</damageAmountBase>
+                <stoppingPower>1</stoppingPower>
+                <speed>80</speed>
+            </projectile>
+        </ThingDef>
+        <ThingDef ParentName="BaseBullet">
+            <defName>LTS_SilverMusketProjectile</defName>
+            <label>silver musket projectile</label>
+            <graphicData>
+                <texPath>Projectiles/SilverMusket_Projectile</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+            </graphicData>
+            <projectile>
+                <damageDef>Bullet</damageDef>
+                <damageAmountBase>15</damageAmountBase>
+                <stoppingPower>1</stoppingPower>
+                <armorPenetrationBase>0.1</armorPenetrationBase>
+                <speed>80</speed>
+            </projectile>
+        </ThingDef>
+
+        <!-- Pressure -->
+        <ThingDef ParentName="BaseBullet">
+            <defName>LTS_PressurizedProjectile</defName>
+            <label>pressurized projectile</label>
+            <graphicData>
+                <texPath>Projectiles/Pressure_Projectile</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+            </graphicData>
+            <projectile>
+                <damageDef>Bullet</damageDef>
+                <damageAmountBase>10</damageAmountBase>
+                <armorPenetrationBase>0.25</armorPenetrationBase>
+                <speed>100</speed>
+            </projectile>
+        </ThingDef>
+        <!-- Throwing Knife -->
+        <ThingDef ParentName="BaseBullet">
+            <defName>LTS_ThrowingKnifeProjectile</defName>
+            <label>throwing knife</label>
+            <graphicData>
+                <texPath>Projectiles/ThrowingKnife_Projectile</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+            </graphicData>
+            <projectile>
+                <damageDef>Bullet</damageDef>
+                <damageAmountBase>12</damageAmountBase>
+                <armorPenetrationBase>0.25</armorPenetrationBase>
+                <speed>60</speed>
+            </projectile>
+        </ThingDef>
+    </Defs>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <LanguageData>
+        <MultipleNoticeBoards>You may only have one notice board!</MultipleNoticeBoards>
+        <CourierDenied>No courier!</CourierDenied>
+        <CourierDeniedMessage>You have been denied a courier due to previous unfortunate incidents.</CourierDeniedMessage>
+        <CourierArrival>Courier</CourierArrival>
+        <CourierArrivalMessage>A courier named {PAWN_nameDef} have arrived. {PAWN_pronoun} will deliver rent and perhaps other things too! Do try to keep {PAWN_objective} safe.</CourierArrivalMessage>
+        <CourierDelivered>{PAWN_nameDef} have concluded {PAWN_possessive} delivery and will soon leave.</CourierDelivered>
+        <CourierDeliveredRent>{PAWN_nameDef} delivered a grand total of {0} silver from tenants.</CourierDeliveredRent>
+        <CourierTenancyNotice>{PAWN_nameDef} noticed your note for tenancy and will bring it with {PAWN_objective}. Do know that this not guarantee that anyone will come...</CourierTenancyNotice>
+        <CourierTenancyNoticeFail>{PAWN_nameDef} noticed your note for tenancy but it seems your previous one is still in circulation. {PAWN_pronoun} decides to leave it for now</CourierTenancyNoticeFail>
+        <AddNoticeForTenancy>Add notice for tenancy: cost {0} </AddNoticeForTenancy>
+        <AdvertisementPlaced>Advertisement is put up, let's wait for a courier to pick it up.</AdvertisementPlaced>
+        <TenancyDeniedMessage>{PAWN_nameDef} have heard of your negligence towards tenants thus decided against living in your colony.</TenancyDeniedMessage>
+        <ContractText>{PAWN_nameDef} would love to prolong {PAWN_possessive} stay. Would you accept the same contract of {0} silver per day for {1} days?</ContractText>
+        <ContractJoin>{PAWN_nameDef} seems to love {PAWN_possessive} stay and wishes to become a full fledged member of your colony. Do you accept?</ContractJoin>
+        <ContractJoinReject>{PAWN_nameDef} is saddened but does not pry further on your reasoning, {PAWN_possessive} vows she'll change your mind somehow.</ContractJoinReject>
+        <ContractJoinAccept>{PAWN_nameDef} is very happy and vows {PAWN_possessive} will not make you regret your decision.</ContractJoinAccept>
+        <ContractTitle>Tenancy</ContractTitle>
+        <ContractAgree>Accept tenant</ContractAgree>
+        <ContractReject>Reject tenant</ContractReject>
+        <KillPenalty>Kill penalty</KillPenalty>
+        <KillPenaltyDesc>Whether killing tenants have other consequenses</KillPenaltyDesc>
+        <MoodBelowThreshold>Tenants unhappy</MoodBelowThreshold>
+        <MoodBelowThresholdDesc>Your tenant {PAWN_nameDef} is unhappy. Try to make {PAWN_objective} feel better.</MoodBelowThresholdDesc>
+
+
+        <!-- Settings -->
+        <Races>Races</Races>
+        <Filter>Race filter:</Filter>
+        <DefaultSettings>Default Settings</DefaultSettings>
+        <TicksUntil>Mood ticks: {0}</TicksUntil>
+        <TicksUntilDesc>Amount of ticks until a tenant mood event may start.</TicksUntilDesc>
+        <AdvertisementCost>Advertisement cost: {0} </AdvertisementCost>
+        <TenancyDaysContract>{0} - {1} days long contracts</TenancyDaysContract>
+        <TenancyRentContract>{0} - {1} silver per day</TenancyRentContract>
+
+
+    </LanguageData>
