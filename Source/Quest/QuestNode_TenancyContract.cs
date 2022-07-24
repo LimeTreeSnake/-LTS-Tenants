@@ -17,6 +17,8 @@ namespace Tenants.QuestNodes {
 		public SlateRef<int> days;
 		[NoTranslate]
 		public SlateRef<int> rent;
+		[NoTranslate]
+		public SlateRef<int> rentSum;
 		public SlateRef<Pawn> tenant;
 		public SlateRef<Map> map;
 
@@ -34,6 +36,7 @@ namespace Tenants.QuestNodes {
 					QuestGen.slate.Set<Models.Contract>(this.contract.GetValue(slate), contract, false);
 					QuestGen.slate.Set<int>("days", contract.LengthDays, false);
 					QuestGen.slate.Set<int>("rent", contract.rent, false);
+					QuestGen.slate.Set<int>("rentSum", contract.rent * contract.LengthDays, false);
 					QuestGen.slate.Set<int>("ticks", contract.length, false);
 					QuestGen.slate.Set<int>("startdate", contract.startdate, false);
 					QuestGen.slate.Set<int>("endDate", contract.endDate, false);
