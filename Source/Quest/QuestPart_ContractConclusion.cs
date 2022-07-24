@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using RimWorld.QuestGen;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Verse;
 
@@ -38,10 +39,13 @@ namespace Tenants.QuestNodes {
                 DiaNode diaNode = new DiaNode(Language.Translate.ContractJoin(contract.tenant));
                 DiaOption agree = new DiaOption(Language.Translate.ContractAgree) {
                     action = delegate {
+                        Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                        comp.Payday(contract);
                         Messages.Message(Language.Translate.ContractJoinAccept(contract.tenant), MessageTypeDefOf.PositiveEvent);
                         contract.tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinAccept, null, null);
-                        Find.SignalManager.SendSignal(new Signal(this.recruitSignal, contract.tenant.Named("SUBJECT")));
+                        Find.SignalManager.SendSignal(new Signal(this.recruitSignal));
                         contract.tenant.SetFaction(Faction.OfPlayerSilentFail);
+                        contract.tenant.apparel.UnlockAll();
                     }
                 };
                 agree.resolveTree = true;
@@ -51,6 +55,7 @@ namespace Tenants.QuestNodes {
                         contract.tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinRejection, null, null);
                     }
                 };
+                reject.resolveTree = true;
                 diaNode.options.Add(agree);
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
@@ -62,6 +67,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref outSignal, "OutSignal", null, false);
             Scribe_Values.Look(ref terminateSignal, "TerminateSignal", null, false);
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
+            Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
             Scribe_Deep.Look(ref contract, "Contract");
             Scribe_References.Look(ref map, "Map");
         }

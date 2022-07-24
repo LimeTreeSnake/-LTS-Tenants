@@ -13,7 +13,6 @@ namespace Tenants.QuestNodes {
         public int minTicksAboveThreshold;
 
         public bool showAlert = true;
-
         private int moodBelowThresholdTicks;
         private int moodAboveThresholdTicks;
         public string OutSignalFailed => "Quest" + quest.id + ".Part" + base.Index + ".Failed";
@@ -25,7 +24,7 @@ namespace Tenants.QuestNodes {
                     return AlertReport.Inactive;
                 }
                 culpritsResult.Clear();
-                if (MoodBelowThreshold(contract.tenant)) {
+                if (contract.tenant != null && MoodBelowThreshold(contract.tenant)) {
                     culpritsResult.Add(contract.tenant);
                 }
                 return AlertReport.CulpritsAre(culpritsResult);
@@ -44,7 +43,6 @@ namespace Tenants.QuestNodes {
                 moodBelowThresholdTicks++;
                 if (moodBelowThresholdTicks >= minTicksBelowThreshold) {
                     SignalArgs signalArgs = new SignalArgs(contract.tenant.Named("SUBJECT"));
-                    Log.Message(signalArgs + " ");
                     Find.SignalManager.SendSignal(new Signal(OutSignalFailed, signalArgs));
                     for (int i = 0; i < outSignalsFailed.Count; i++) {
                         if (!outSignalsFailed[i].NullOrEmpty()) {
@@ -55,11 +53,9 @@ namespace Tenants.QuestNodes {
             }
             else if (MoodAboveThreshold(contract.tenant)) {
                 moodAboveThresholdTicks++;
-                Log.Message(moodAboveThresholdTicks + " " + minTicksAboveThreshold);
                 if (moodAboveThresholdTicks >= minTicksAboveThreshold) {
                     moodAboveThresholdTicks = 0;
                     SignalArgs signalArgs = new SignalArgs(contract.tenant.Named("SUBJECT"));
-                    Log.Message(signalArgs + " ");
                     Find.SignalManager.SendSignal(new Signal(OutSignalCompleted, signalArgs));
                     for (int i = 0; i < outSignalsCompleted.Count; i++) {
                         if (!outSignalsCompleted[i].NullOrEmpty()) {
@@ -75,7 +71,6 @@ namespace Tenants.QuestNodes {
         }
         public override void ExposeData() {
             base.ExposeData();
-            Scribe_References.Look(ref contract.tenant, "Pawn");
             Scribe_Values.Look(ref thresholdLow, "ThresholdLow", 0f);
             Scribe_Values.Look(ref thresholdHigh, "ThresholdHigh", 0f);
             Scribe_Values.Look(ref minTicksBelowThreshold, "MinTicksBelowThreshold", 0);

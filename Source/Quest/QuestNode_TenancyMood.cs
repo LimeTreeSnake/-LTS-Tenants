@@ -16,31 +16,36 @@ namespace Tenants.QuestNodes {
         public QuestNode node;
         public QuestNode elsenode;
         protected override void RunInt() {
-            Slate slate = QuestGen.slate;
-            if (contract.GetValue(slate) != null) {
-                QuestPart_TenancyMood questPart_TenancyMoodAbove = new QuestPart_TenancyMood {
-                    contract = contract.GetValue(slate),
-                    thresholdLow = thresholdLow.GetValue(slate),
-                    thresholdHigh = thresholdHigh.GetValue(slate),
-                    minTicksBelowThreshold = Settings.Settings.TicksUntil,
-                    minTicksAboveThreshold = Settings.Settings.TicksUntil,
-                    inSignalEnable = (QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal"))
-                };
-                if (!outSignal.GetValue(slate).NullOrEmpty()) {
-                    questPart_TenancyMoodAbove.outSignalsFailed.Add(outSignal.GetValue(slate));
-                    questPart_TenancyMoodAbove.outSignalsCompleted.Add(outSignal.GetValue(slate));
+            try {
+                Slate slate = QuestGen.slate;
+                if (contract.GetValue(slate) != null) {
+                    QuestPart_TenancyMood questPart_TenancyMoodAbove = new QuestPart_TenancyMood {
+                        contract = contract.GetValue(slate),
+                        thresholdLow = thresholdLow.GetValue(slate),
+                        thresholdHigh = thresholdHigh.GetValue(slate),
+                        minTicksBelowThreshold = Settings.Settings.TicksUntil,
+                        minTicksAboveThreshold = Settings.Settings.TicksUntil,
+                        inSignalEnable = (QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal"))
+                    };
+                    if (!outSignal.GetValue(slate).NullOrEmpty()) {
+                        questPart_TenancyMoodAbove.outSignalsFailed.Add(outSignal.GetValue(slate));
+                        questPart_TenancyMoodAbove.outSignalsCompleted.Add(outSignal.GetValue(slate));
+                    }
+                    if (node != null) {
+                        string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
+                        questPart_TenancyMoodAbove.outSignalsFailed.Add(text);
+                        QuestGenUtility.RunInnerNode(node, text);
+                    }
+                    if (elsenode != null) {
+                        string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
+                        questPart_TenancyMoodAbove.outSignalsCompleted.Add(text);
+                        QuestGenUtility.RunInnerNode(elsenode, text);
+                    }
+                    QuestGen.quest.AddPart(questPart_TenancyMoodAbove);
                 }
-                if (node != null) {
-                    string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
-                    questPart_TenancyMoodAbove.outSignalsFailed.Add(text);
-                    QuestGenUtility.RunInnerNode(node, text);
-                }
-                if (elsenode != null) {
-                    string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
-                    questPart_TenancyMoodAbove.outSignalsCompleted.Add(text);
-                    QuestGenUtility.RunInnerNode(elsenode, text);
-                }
-                QuestGen.quest.AddPart(questPart_TenancyMoodAbove);
+            }
+            catch (Exception ex) {
+                Log.Message("Error at QuestNode_TenancyMood RunInt: " + ex.Message);
             }
         }
 

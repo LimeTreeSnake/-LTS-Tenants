@@ -36,7 +36,7 @@ namespace Tenants.QuestNodes {
                 };
                 QuestGen.quest.AddPart(payment);
             } catch (Exception ex) {
-                Log.Message("Error at QuestNode_RentPayment RunInt: " + ex.Message);
+                Log.Message("Error at QuestNode_ContractConclusion RunInt: " + ex.Message);
             }
         }
 
