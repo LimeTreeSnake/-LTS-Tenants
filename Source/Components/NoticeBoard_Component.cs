@@ -15,7 +15,7 @@ namespace Tenants.Components {
             Scribe_Values.Look(ref noticeForTenancy, "NoticeForTenancy");
         }
         public override IEnumerable<FloatMenuOption> CompFloatMenuOptions(Pawn pawn) {
-            if (pawn.Faction.IsPlayer && pawn.RaceProps.intelligence > Intelligence.Animal && !noticeForTenancy) {
+            if (pawn.Faction.IsPlayer && pawn.RaceProps.intelligence > Intelligence.Animal && !noticeForTenancy && pawn.Map.resourceCounter.Silver > Settings.Settings.NoticeCourierCost) {
                 yield return new FloatMenuOption(Language.Translate.AddNoticeForTenancy(Settings.Settings.NoticeCourierCost), delegate {
                     Job job = JobMaker.MakeJob(Defs.JobDefOf.LTS_AddNotice, this.parent);
                     job.playerForced = true;
