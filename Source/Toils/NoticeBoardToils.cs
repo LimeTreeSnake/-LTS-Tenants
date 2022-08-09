@@ -12,7 +12,7 @@ namespace Tenants.Toils {
             Toil toil = new Toil();
             toil.initAction = delegate {
                 Pawn actor = toil.actor;
-                Predicate<Thing> validator = delegate (Thing pay) {
+                bool validator(Thing pay) {
                     if (!pay.Spawned) {
                         return false;
                     }
@@ -26,8 +26,8 @@ namespace Tenants.Toils {
                         return false;
                     }
                     return true;
-                };
-                job.targetB = GenClosest.ClosestThing_Global_Reachable(actor.Position, actor.Map, actor.Map.listerThings.ThingsOfDef(ThingDefOf.Silver), PathEndMode.OnCell, TraverseParms.For(actor), 9999f, validator);
+                }
+                job.targetB = GenClosest.ClosestThing_Global_Reachable(actor.Position, actor.Map, actor.Map.listerThings.ThingsOfDef(t), PathEndMode.OnCell, TraverseParms.For(actor), 9999f, validator);
                 job.count = Settings.Settings.NoticeCourierCost;
                 if (job.targetB == null) {
                     Messages.Message(Language.Translate.AdvertisementPlaced, null, MessageTypeDefOf.NeutralEvent);
@@ -41,8 +41,7 @@ namespace Tenants.Toils {
             {
                 Pawn actor = toil.GetActor();
                 if (actor.carryTracker.CarriedThing != null && !actor.carryTracker.innerContainer.TryTransferToContainer(actor.carryTracker.CarriedThing, actor.inventory.innerContainer, true)) {
-                    Thing thing;
-                    actor.carryTracker.TryDropCarriedThing(actor.Position, actor.carryTracker.CarriedThing.stackCount, ThingPlaceMode.Near, out thing, null);
+                    actor.carryTracker.TryDropCarriedThing(actor.Position, actor.carryTracker.CarriedThing.stackCount, ThingPlaceMode.Near, out Thing thing, null);
                     thing?.Destroy();
                 }
             };

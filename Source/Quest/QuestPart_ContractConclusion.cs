@@ -9,10 +9,14 @@ namespace Tenants.QuestNodes {
         public string inSignal;
         public string outSignal;
         public string terminateSignal;
+        public string badSignal;
         public string joinSignal;
         public string recruitSignal;
+        public string rejectSignal;
+        public string InitiateSignal;
         public Map map;
         public Models.Contract contract;
+
         public override void Notify_QuestSignalReceived(Signal signal) {
             base.Notify_QuestSignalReceived(signal);
             if (signal.tag == this.inSignal) {
@@ -22,15 +26,15 @@ namespace Tenants.QuestNodes {
                 DiaOption agree = new DiaOption(Language.Translate.ContractAgree) {
                     action = delegate {
                         Find.SignalManager.SendSignal(new Signal(this.outSignal));
-                    }
+                    },
+                    resolveTree = true
                 };
-                agree.resolveTree = true;
                 DiaOption reject = new DiaOption(Language.Translate.ContractReject) {
                     action = delegate {
                         Find.SignalManager.SendSignal(new Signal(this.terminateSignal));
-                    }
+                    },
+                    resolveTree = true
                 };
-                reject.resolveTree = true;
                 diaNode.options.Add(agree);
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
@@ -46,19 +50,27 @@ namespace Tenants.QuestNodes {
                         Find.SignalManager.SendSignal(new Signal(this.recruitSignal));
                         contract.tenant.SetFaction(Faction.OfPlayerSilentFail);
                         contract.tenant.apparel.UnlockAll();
-                    }
+                    },
+                    resolveTree = true
                 };
-                agree.resolveTree = true;
                 DiaOption reject = new DiaOption(Language.Translate.ContractReject) {
                     action = delegate {
                         Messages.Message(Language.Translate.ContractJoinReject(contract.tenant), MessageTypeDefOf.NeutralEvent);
                         contract.tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinRejection, null, null);
-                    }
+                    },
+                    resolveTree = true
                 };
-                reject.resolveTree = true;
                 diaNode.options.Add(agree);
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
+            }
+            else if (signal.tag == this.badSignal) {
+                Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                comp.TenantKills++;
+            }
+            else if (signal.tag == this.rejectSignal) {
+                Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                comp.TenantKills--;
             }
         }
         public override void ExposeData() {
@@ -66,6 +78,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref inSignal, "InSignal", null, false);
             Scribe_Values.Look(ref outSignal, "OutSignal", null, false);
             Scribe_Values.Look(ref terminateSignal, "TerminateSignal", null, false);
+            Scribe_Values.Look(ref badSignal, "BadSignal", null, false);
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
             Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
             Scribe_Deep.Look(ref contract, "Contract");

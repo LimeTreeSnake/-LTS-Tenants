@@ -13,6 +13,8 @@ namespace Tenants.Language {
         public static string CourierTenancyNoticeFail(Pawn pawn) => "CourierTenancyNoticeFail".Translate(pawn.Named("PAWN"));
         public static string AddNoticeForTenancy(int cost) => "AddNoticeForTenancy".Translate(cost);
         public static string AdvertisementPlaced => "AdvertisementPlaced".Translate();
+
+
         public static string TenancyDenied => "TenancyDenied".Translate();
         public static string TenancyDeniedMessage(Pawn pawn) => "TenancyDeniedMessage".Translate(pawn.Named("PAWN"));
         public static string ContractText(Pawn pawn, int rent, int days) => "ContractText".Translate(rent, days, pawn.Named("PAWN"));
@@ -30,11 +32,13 @@ namespace Tenants.Language {
         public static string Filter => "Filter".Translate();
         public static string DefaultSettings => "DefaultSettings".Translate();
         public static string TenancyDaysContract(int min, int max) => "TenancyDaysContract".Translate(min, max);
-        public static string TenancyRentContract(int min, int max) => "TenancyRentContract".Translate(min, max);
+        public static string TenancyRentContract(int rent) => "TenancyRentContract".Translate(rent);
         public static string AdvertisementCost(int value) => "AdvertisementCost".Translate(value);
-        public static string TicksUntil(int value) => "TicksUntil".Translate(value);
-        public static string TicksUntilDesc => "TicksUntilDesc".Translate();
+        public static string AdvertisementCostDesc() => "AdvertisementCostDesc".Translate();
+        public static string MoodTicks(int value) => "MoodTicks".Translate(value);
+        public static string MoodTicksDesc => "MoodTicksDesc".Translate();
         public static string KillPenalty => "KillPenalty".Translate();
+        public static string KillPenaltyDesc => "KillPenaltyDesc".Translate();
 
 
     }

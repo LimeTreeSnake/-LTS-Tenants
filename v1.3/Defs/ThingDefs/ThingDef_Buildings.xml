@@ -3,7 +3,7 @@
 
     <ThingDef ParentName="BuildingBase">
         <defName>LTS_NoticeBoard</defName>
-        <label>notice boartd</label>
+        <label>notice board</label>
         <thingClass>Building</thingClass>
         <category>Building</category>
         <description>A notice board, the main use of this board is to put notices on it. A great invention to spread news of what is transpiring within your colony and elsewhere. Couriers love these!</description>

@@ -13,6 +13,7 @@ namespace Tenants.QuestNodes {
         public int minTicksAboveThreshold;
 
         public bool showAlert = true;
+        public bool offeredJoin = false;
         private int moodBelowThresholdTicks;
         private int moodAboveThresholdTicks;
         public string OutSignalFailed => "Quest" + quest.id + ".Part" + base.Index + ".Failed";
@@ -51,10 +52,11 @@ namespace Tenants.QuestNodes {
                     }
                 }
             }
-            else if (MoodAboveThreshold(contract.tenant)) {
+            else if (!offeredJoin && MoodAboveThreshold(contract.tenant)) {
                 moodAboveThresholdTicks++;
                 if (moodAboveThresholdTicks >= minTicksAboveThreshold) {
                     moodAboveThresholdTicks = 0;
+                    offeredJoin = true;
                     SignalArgs signalArgs = new SignalArgs(contract.tenant.Named("SUBJECT"));
                     Find.SignalManager.SendSignal(new Signal(OutSignalCompleted, signalArgs));
                     for (int i = 0; i < outSignalsCompleted.Count; i++) {
@@ -76,6 +78,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref minTicksBelowThreshold, "MinTicksBelowThreshold", 0);
             Scribe_Values.Look(ref minTicksAboveThreshold, "MinTicksAboveThreshold", 0);
             Scribe_Values.Look(ref showAlert, "ShowAlert", defaultValue: true);
+            Scribe_Values.Look(ref offeredJoin, "OfferedJoin", defaultValue: false);
             Scribe_Values.Look(ref moodBelowThresholdTicks, "MoodBelowThresholdTicks", 0);
             Scribe_Values.Look(ref moodAboveThresholdTicks, "MoodAboveThresholdTicks", 0);
             Scribe_Collections.Look(ref outSignalsFailed, "OutSignalsFailed");

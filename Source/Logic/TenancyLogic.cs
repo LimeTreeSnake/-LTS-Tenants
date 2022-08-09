@@ -17,7 +17,7 @@ namespace Tenants.Logic {
                 startdate = Find.TickManager.TicksGame
             };
             contract.endDate = Find.TickManager.TicksAbs + contract.length + 60000;
-            contract.rent = Rand.Range(Settings.Settings.Rent.min, Settings.Settings.Rent.max);
+            contract.rent = Settings.Settings.Rent;
             return contract;
         }
     }

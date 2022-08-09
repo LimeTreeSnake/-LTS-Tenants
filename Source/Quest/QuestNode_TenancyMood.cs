@@ -23,8 +23,8 @@ namespace Tenants.QuestNodes {
                         contract = contract.GetValue(slate),
                         thresholdLow = thresholdLow.GetValue(slate),
                         thresholdHigh = thresholdHigh.GetValue(slate),
-                        minTicksBelowThreshold = Settings.Settings.TicksUntil,
-                        minTicksAboveThreshold = Settings.Settings.TicksUntil,
+                        minTicksBelowThreshold = Settings.Settings.MoodTicks,
+                        minTicksAboveThreshold = Settings.Settings.MoodTicks,
                         inSignalEnable = (QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal"))
                     };
                     if (!outSignal.GetValue(slate).NullOrEmpty()) {

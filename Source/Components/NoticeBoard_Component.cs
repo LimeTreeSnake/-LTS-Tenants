@@ -14,6 +14,12 @@ namespace Tenants.Components {
             base.PostExposeData();
             Scribe_Values.Look(ref noticeForTenancy, "NoticeForTenancy");
         }
+        public override string CompInspectStringExtra() {
+            if (noticeForTenancy)
+                return Language.Translate.AdvertisementPlaced;
+            else
+                return string.Empty;
+        }
         public override IEnumerable<FloatMenuOption> CompFloatMenuOptions(Pawn pawn) {
             if (pawn.Faction.IsPlayer && pawn.RaceProps.intelligence > Intelligence.Animal && !noticeForTenancy && pawn.Map.resourceCounter.Silver > Settings.Settings.NoticeCourierCost) {
                 yield return new FloatMenuOption(Language.Translate.AddNoticeForTenancy(Settings.Settings.NoticeCourierCost), delegate {

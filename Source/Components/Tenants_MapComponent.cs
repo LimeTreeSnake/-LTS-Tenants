@@ -107,7 +107,11 @@ namespace Tenants.Components {
                 if (courierPool.Count > 0) {
                     {
                         for (int i = 0; i < courierPool.Count; i++) {
-                            if (courierPool[i].DestroyedOrNull() || courierPool[i].Dead || courierPool[i].Faction == Faction.OfPlayer) {
+                            if (courierPool[i].DestroyedOrNull() || courierPool[i].Dead ) {
+                                courierPool.RemoveAt(i);
+                                i--;
+                            }
+                            else if ( courierPool[i].Faction == Faction.OfPlayer || courierPool[i].IsPrisoner) {
                                 courierPool.RemoveAt(i);
                                 courierKills++;
                                 i--;
