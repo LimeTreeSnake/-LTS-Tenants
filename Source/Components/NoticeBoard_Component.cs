@@ -32,7 +32,7 @@ namespace Tenants.Components {
         }
         public override void PostSpawnSetup(bool respawningAfterLoad) {
             base.PostSpawnSetup(respawningAfterLoad);
-            parent.Map.GetComponent<Components.Tenants_MapComponent>().FindNoticeBoardInMap();
+            parent.Map.GetComponent<Tenants_MapComponent>().FindNoticeBoardInMap();
         }
     }
     public class CompProps_NoticeBoard : CompProperties {

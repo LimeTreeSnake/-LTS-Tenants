@@ -16,7 +16,7 @@ namespace Tenants.Logic {
                 RCellFinder.TryFindRandomPawnEntryCell(out IntVec3 loc, map, CellFinder.EdgeRoadChance_Neutral, false, null);
                 Pawn courier = component.GetCourier();
                 if (courier != null) {
-                    //if (!Settings.Settings.KillPenalty)
+                    if (!Settings.Settings.KillPenalty)
                         component.CourierKills = 0;
                     if (component.CourierKills > 0) {
                         Find.LetterStack.ReceiveLetter(Language.Translate.CourierDenied, Language.Translate.CourierDeniedMessage(courier), LetterDefOf.NegativeEvent);
@@ -29,31 +29,7 @@ namespace Tenants.Logic {
                         Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival, Language.Translate.CourierArrivalMessage(courier), LetterDefOf.PositiveEvent, courier);
                         LordMaker.MakeNewLord(courier.Faction, new Lords.Courier_LordJob(), map, new List<Pawn> { courier });
                     }
-                }
-                else {
-                    Log.Message("Found no Courier :(  " + component);
-                    map.components.Remove(component);
-                    foreach (Type current in typeof(MapComponent).AllSubclassesNonAbstract()) {
-                        if (map.GetComponent(current) == null) {
-                            try {
-                                MapComponent co = (MapComponent)Activator.CreateInstance(current, new object[]
-                                {
-                            map
-                                });
-                                map.components.Add(co);
-                            }
-                            catch (Exception ex) {
-                                Log.Error(string.Concat(new object[]
-                                {
-                            "Could not instantiate a MapComponent of type ",
-                            current,
-                            ": ",
-                            ex
-                                }));
-                            }
-                        }
-                    }
-                }
+                }                
                 return true;
             }
             catch (Exception ex) {

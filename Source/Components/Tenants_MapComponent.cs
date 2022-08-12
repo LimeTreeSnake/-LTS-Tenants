@@ -9,12 +9,12 @@ namespace Tenants.Components {
     public class Tenants_MapComponent : MapComponent {
         #region Fields
         private Thing noticeBoard;
-        private int courierFireTick = 0, tenantFireTick = 0;
         private NoticeBoard_Component noticeBoardComp;
+        private int courierFireTick = 0, tenantFireTick = 0;
         private int tenantKills = 0, courierKills = 0, silver = 0;
         private List<Pawn> tenantsPool = new List<Pawn>();
         private List<Pawn> courierPool = new List<Pawn>();
-        private List<Pawn> activeTenants = new List<Pawn>();
+        private List<Models.Contract> activeContracts = new List<Models.Contract>();
         private bool tenantAddUpp = false, courierIsFiring = false;
         #endregion Fields
 
@@ -35,35 +35,46 @@ namespace Tenants.Components {
             get => courierKills;
             set => courierKills = value;
         }
+        public List<Models.Contract> ActiveContracts {
+            get => activeContracts;
+        }
+
         public Tenants_MapComponent(Map map)
            : base(map) {
         }
-        public Tenants_MapComponent(bool generateComponent, Map map)
-            : base(map) {
-            if (generateComponent) {
-                map.components.Add(this);
-            }
-        }
 
         #region Methods
-        public static Tenants_MapComponent GetComponent(Map map) {
-            return map.GetComponent<Tenants_MapComponent>() ?? new Tenants_MapComponent(generateComponent: true, map);
-        }
         public bool IsTenant(Pawn pawn) {
             return tenantsPool.Contains(pawn);
         }
         public bool IsCourier(Pawn pawn) {
             return courierPool.Contains(pawn);
         }
+        public bool IsContractedTenant(Pawn p, out Models.Contract cont) {
+            cont = null;
+            if (tenantsPool.Contains(p)) {
+                for (int i = 0; i < activeContracts.Count; i++) {
+                    if (activeContracts[i].tenant == p) {
+                        cont = activeContracts[i];
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public override void ExposeData() {
-            Scribe_Collections.Look(ref tenantsPool, "TenantsPool", LookMode.Reference);
-            Scribe_Collections.Look(ref courierPool, "CourierPool", LookMode.Reference);
-            Scribe_Collections.Look(ref activeTenants, "ActiveTenants", LookMode.Reference);
+            base.ExposeData();
             Scribe_References.Look(ref noticeBoard, "NoticeBoard");
+            Scribe_Values.Look(ref courierFireTick, "CourierFireTick", 0);
+            Scribe_Values.Look(ref tenantFireTick, "TenantFireTick", 0);
             Scribe_Values.Look(ref courierKills, "CourierKills", 0);
             Scribe_Values.Look(ref tenantKills, "TenantKills", 0);
             Scribe_Values.Look(ref silver, "Silver", 0);
+            Scribe_Collections.Look(ref tenantsPool, "TenantsPool", LookMode.Reference);
+            Scribe_Collections.Look(ref courierPool, "CourierPool", LookMode.Reference);
+            Scribe_Collections.Look(ref activeContracts, "ActiveContracts", LookMode.Deep);
             Scribe_Values.Look(ref tenantAddUpp, "TenantAddUpp", false);
+            Scribe_Values.Look(ref courierIsFiring, "CourierIsFiring", false);
         }
         #endregion Methods
         public override void MapComponentTick() {
@@ -87,12 +98,6 @@ namespace Tenants.Components {
                 }
             }
         }
-        public override void MapGenerated() {
-            base.MapGenerated();
-            if (noticeBoard == null) {
-                FindNoticeBoardInMap();
-            }
-        }
         public Pawn GetCourier() {
             try {
                 Pawn courier = null;
@@ -107,11 +112,11 @@ namespace Tenants.Components {
                 if (courierPool.Count > 0) {
                     {
                         for (int i = 0; i < courierPool.Count; i++) {
-                            if (courierPool[i].DestroyedOrNull() || courierPool[i].Dead ) {
+                            if (courierPool[i].DestroyedOrNull() || courierPool[i].Dead) {
                                 courierPool.RemoveAt(i);
                                 i--;
                             }
-                            else if ( courierPool[i].Faction == Faction.OfPlayer || courierPool[i].IsPrisoner) {
+                            else if (courierPool[i].Faction == Faction.OfPlayer || courierPool[i].IsPrisoner) {
                                 courierPool.RemoveAt(i);
                                 courierKills++;
                                 i--;
@@ -150,20 +155,20 @@ namespace Tenants.Components {
                     faction = FactionGenerator.NewGeneratedFaction(new FactionGeneratorParms(Defs.FactionDefOf.LTS_Tenant, default, null));
                     Find.FactionManager.Add(faction);
                 }
-                if (tenantAddUpp) {
-                    tenantAddUpp = false;
-                }
+                tenantAddUpp = false;
                 if (tenantsPool == null) {
                     tenantsPool = new List<Pawn>();
                 }
-                if (tenantsPool.Count > 0) {
-                    {
-                        for (int i = 0; i < tenantsPool.Count; i++) {
-                            if (tenantsPool[i].DestroyedOrNull() || tenantsPool[i].Dead) {
-                                tenantsPool.RemoveAt(i);
-                                i--;
-                            }
-                        }
+                for (int i = 0; i < activeContracts.Count; i++) {
+                    if (activeContracts[i].tenant == null || !activeContracts[i].tenant.Spawned) {
+                        activeContracts.RemoveAt(i);
+                        i--;
+                    }
+                }
+                for (int i = 0; i < tenantsPool.Count; i++) {
+                    if (tenantsPool[i].DestroyedOrNull() || tenantsPool[i].Dead) {
+                        tenantsPool.RemoveAt(i);
+                        i--;
                     }
                 }
                 tenantFireTick = 0;
@@ -202,13 +207,12 @@ namespace Tenants.Components {
                 return null;
             }
         }
+
+
         public void EmptyBoard(Pawn courier) {
             try {
                 if (noticeBoard == null) {
-                    FindNoticeBoardInMap();
-                }
-                if (noticeBoardComp == null || noticeBoardComp != noticeBoard.TryGetComp<NoticeBoard_Component>()) {
-                    noticeBoardComp = noticeBoard.TryGetComp<NoticeBoard_Component>();
+                    return;
                 }
                 if (silver > 0) {
                     Messages.Message(Language.Translate.CourierDeliveredRent(courier, silver), noticeBoard, MessageTypeDefOf.NeutralEvent);
@@ -239,7 +243,7 @@ namespace Tenants.Components {
         public void Payday(Models.Contract contract) {
             silver += contract.rent * contract.LengthDays;
         }
-        public void FindNoticeBoardInMap() {
+        public bool FindNoticeBoardInMap() {
             int count = 0;
             noticeBoard = null;
             foreach (Building current in this.map.listerBuildings.allBuildingsColonist) {
@@ -247,15 +251,19 @@ namespace Tenants.Components {
                     if (count > 1) {
                         noticeBoard.Destroy();
                         noticeBoard = current;
+                        noticeBoardComp = current.TryGetComp<NoticeBoard_Component>();
                         Messages.Message(Language.Translate.MultipleNoticeBoards, MessageTypeDefOf.NeutralEvent);
                         continue;
                     }
                     else {
                         noticeBoard = current;
+                        noticeBoardComp = current.TryGetComp<NoticeBoard_Component>();
                         count++;
                     }
                 }
             }
+            return noticeBoard != null;
         }
+
     }
 }

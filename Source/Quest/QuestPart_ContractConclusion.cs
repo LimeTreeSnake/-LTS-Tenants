@@ -6,14 +6,14 @@ using Verse;
 
 namespace Tenants.QuestNodes {
     public class QuestPart_ContractConclusion : QuestPart {
-        public string inSignal;
-        public string outSignal;
-        public string terminateSignal;
-        public string badSignal;
-        public string joinSignal;
-        public string recruitSignal;
-        public string rejectSignal;
-        public string InitiateSignal;
+        public string inSignal;             //Contract Finished
+        public string outSignal;            //Contract Reboot
+        public string terminateSignal;      //Signal out if player reject further tenancy
+        public string badSignal;            //When tenant dies
+        public string joinSignal;           //When tenant joins
+        public string recruitSignal;        //When tenant is recruited
+        public string rejectSignal;         //When tenant decides against coming
+        public string initiateSignal;       //When quest is accepted
         public Map map;
         public Models.Contract contract;
 
@@ -31,6 +31,7 @@ namespace Tenants.QuestNodes {
                 };
                 DiaOption reject = new DiaOption(Language.Translate.ContractReject) {
                     action = delegate {
+                        comp.ActiveContracts.Remove(contract);
                         Find.SignalManager.SendSignal(new Signal(this.terminateSignal));
                     },
                     resolveTree = true
@@ -38,6 +39,10 @@ namespace Tenants.QuestNodes {
                 diaNode.options.Add(agree);
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
+            }
+            else if (signal.tag == this.initiateSignal) {
+                Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                comp.ActiveContracts.Add(contract);
             }
             else if (signal.tag == this.joinSignal) {
                 DiaNode diaNode = new DiaNode(Language.Translate.ContractJoin(contract.tenant));
@@ -50,6 +55,7 @@ namespace Tenants.QuestNodes {
                         Find.SignalManager.SendSignal(new Signal(this.recruitSignal));
                         contract.tenant.SetFaction(Faction.OfPlayerSilentFail);
                         contract.tenant.apparel.UnlockAll();
+                        comp.ActiveContracts.Remove(contract);
                     },
                     resolveTree = true
                 };
@@ -64,8 +70,9 @@ namespace Tenants.QuestNodes {
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
             }
-            else if (signal.tag == this.badSignal) {
+            else if (signal.tag == this.badSignal && contract.tenant.Spawned) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                comp.ActiveContracts.Remove(contract);
                 comp.TenantKills++;
             }
             else if (signal.tag == this.rejectSignal) {
@@ -81,6 +88,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref badSignal, "BadSignal", null, false);
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
             Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
+            Scribe_Values.Look(ref rejectSignal, "RejectSignal", null, false);
             Scribe_Deep.Look(ref contract, "Contract");
             Scribe_References.Look(ref map, "Map");
         }

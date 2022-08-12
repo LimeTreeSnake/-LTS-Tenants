@@ -15,15 +15,17 @@ namespace Tenants.Harmony {
         }
         public static void IdleColonists_PostFix(ref List<Pawn> __result) {
             if (__result.Count > 0) {
-                Tenants_MapComponent comp = Tenants_MapComponent.GetComponent(__result[0].Map);
-                IEnumerable<Pawn> list = __result.Where(x => !comp.IsTenant(x)).ToList();
-                __result = list != null ? list.ToList() : __result;
+                Tenants_MapComponent comp = __result[0].Map.GetComponent<Tenants_MapComponent>();
+                if (comp != null) {
+                    IEnumerable<Pawn> list = __result.Where(x => !comp.IsTenant(x)).ToList();
+                    __result = list != null ? list.ToList() : __result;
+                }
             }
         }
         public static void Kill_PostFix(ref Pawn __instance) {
             if (__instance != null && __instance.Map != null && __instance.Map.IsPlayerHome && __instance.Spawned) {
-                Tenants_MapComponent comp = Tenants_MapComponent.GetComponent(__instance.Map);
-                if (comp.IsCourier(__instance)) {
+                Tenants_MapComponent comp = __instance.Map.GetComponent<Tenants_MapComponent>();
+                if (comp != null && comp.IsCourier(__instance)) {
                     comp.CourierKills++;
                 }
             }

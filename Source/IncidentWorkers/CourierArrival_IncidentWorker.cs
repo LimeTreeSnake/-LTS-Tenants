@@ -14,8 +14,10 @@ namespace Tenants.IncidentWorkers {
                 Map map = (Map)parms.target;
                 if(map != null) {
                     Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
-                    comp.FindNoticeBoardInMap();
-                    if (comp.NoticeBoard != null && RCellFinder.TryFindRandomPawnEntryCell(out parms.spawnCenter, map, CellFinder.EdgeRoadChance_Neutral, false, null)) {
+                    if (comp == null) {
+                        map.components.Add(new Components.Tenants_MapComponent(map));
+                    }
+                    if (comp.FindNoticeBoardInMap() && RCellFinder.TryFindRandomPawnEntryCell(out parms.spawnCenter, map, CellFinder.EdgeRoadChance_Neutral, false, null)) {
                         return true;
                     }
                 }
@@ -27,8 +29,11 @@ namespace Tenants.IncidentWorkers {
                 Map map = (Map)parms.target;
                 if (map != null) {
                     Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                    if (comp == null) {
+                        map.components.Add(new Components.Tenants_MapComponent(map));
+                    }
                     if (comp.NoticeBoard != null && comp.NoticeBoard.Spawned) {
-                        return Logic.CourierLogic.CourierEvent(parms, map.GetComponent<Components.Tenants_MapComponent>());
+                        return Logic.CourierLogic.CourierEvent(parms, comp);
                     }
                 }
             }

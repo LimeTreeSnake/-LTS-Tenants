@@ -17,7 +17,7 @@ namespace Tenants.QuestNodes {
         [NoTranslate]
         public SlateRef<string> tenantFaction;
         [NoTranslate]
-        public SlateRef<string> rejected;
+        public SlateRef<bool> rejected;
         public SlateRef<Map> map;
         protected override void RunInt() {
             try {
@@ -31,7 +31,7 @@ namespace Tenants.QuestNodes {
                 if (comp == null) {
                     mapStuff.components.Add(new Components.Tenants_MapComponent(mapStuff));
                 }
-                Pawn newTenant = comp.GetTenant();                
+                Pawn newTenant = comp.GetTenant();
                 if (newTenant != null) {
                     if (this.tenant.GetValue(slate) != null) {
                         QuestGen.slate.Set(tenant.GetValue(slate), newTenant, false);
@@ -43,17 +43,15 @@ namespace Tenants.QuestNodes {
                         QuestGen.slate.Set(gender.GetValue(slate), newTenant.def.label, false);
                     }
                     if (this.addToList.GetValue(slate) != null) {
-                        QuestGenUtility.AddToOrMakeList(QuestGen.slate, this.addToList.GetValue(slate), newTenant);
+                        QuestGenUtility.AddToOrMakeList(QuestGen.slate, addToList.GetValue(slate), newTenant);
                     }
                     if (this.tenantFaction.GetValue(slate) != null) {
-                        QuestGen.slate.Set(this.tenantFaction.GetValue(slate), newTenant.Faction, false);
+                        QuestGen.slate.Set(tenantFaction.GetValue(slate), newTenant.Faction, false);
                     }
                     if (!Settings.Settings.KillPenalty)
                         comp.TenantKills = 0;
-                    if (comp.TenantKills > 0) {
-                        QuestGen.slate.Set(this.rejected.GetValue(slate), true, false);
-                    }
-                }                
+                    QuestGen.slate.Set("rejected", comp.TenantKills > 0, false);
+                }
             }
             catch (Exception ex) {
                 Log.Message("Error at QuestNode_GenerateTenant RunInt: " + ex.Message);

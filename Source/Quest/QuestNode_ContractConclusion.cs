@@ -27,10 +27,8 @@ namespace Tenants.QuestNodes {
             try {
                 Slate slate = QuestGen.slate;
                 Quest quest = QuestGen.quest;
-                string rejectSig = QuestGenUtility.HardcodedSignalWithQuestID(this.rejectSignal.GetValue(slate));
                 quest.DescriptionPart("[questDescriptionBeforeAccepted]", quest.AddedSignal, quest.InitiateSignal, QuestPart.SignalListenMode.Always, null);
-                quest.DescriptionPart("[questDescriptionAfterAccepted]", quest.InitiateSignal, rejectSig, QuestPart.SignalListenMode.OngoingOrNotYetAccepted, null);
-                quest.DescriptionPart("[questDescriptionRejected]", rejectSig, null, QuestPart.SignalListenMode.OngoingOrNotYetAccepted, null);
+                quest.DescriptionPart("[questDescriptionAfterAccepted]", quest.InitiateSignal, null, QuestPart.SignalListenMode.OngoingOrNotYetAccepted, null);
                 map.TryGetValue(slate, out Map colonyMap);
                 contract.TryGetValue(slate, out Models.Contract cont);
                 QuestPart_ContractConclusion payment = new QuestPart_ContractConclusion {
@@ -40,7 +38,8 @@ namespace Tenants.QuestNodes {
                     badSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.badSignal.GetValue(slate)),
                     joinSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.joinSignal.GetValue(slate)),
                     recruitSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.recruitSignal.GetValue(slate)),
-                    rejectSignal = rejectSig,
+                    rejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.rejectSignal.GetValue(slate)),
+                    initiateSignal = quest.InitiateSignal,
                     signalListenMode = (this.signalListenMode.GetValue(slate) ?? QuestPart.SignalListenMode.OngoingOnly),
                     contract = cont,
                     map = colonyMap

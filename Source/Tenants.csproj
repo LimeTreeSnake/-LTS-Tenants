@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alerts\Alert_TenancyBedroom.cs" />
     <Compile Include="Components\NoticeBoard_Component.cs" />
     <Compile Include="Components\Tenants_MapComponent.cs" />
     <Compile Include="DefModExtensions\CoureierExtension.cs" />
@@ -93,17 +94,14 @@
     <Compile Include="Quest\QuestNode_GenerateTenant.cs" />
     <Compile Include="Quest\QuestNode_ContractConclusion.cs" />
     <Compile Include="Quest\QuestNode_TenancyMood.cs" />
-    <Compile Include="Quest\QuestNode_TenancyRoom.cs" />
     <Compile Include="Quest\QuestNode_TenancyContract.cs" />
     <Compile Include="Quest\QuestPart_TenancyMood.cs" />
     <Compile Include="Quest\QuestPart_TenancyRoom.cs" />
     <Compile Include="Quest\QuestPart_ContractConclusion.cs" />
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="ThoughtWorkers\ThoughtWorker_JoinRejection.cs" />
+    <Compile Include="ThoughtWorkers\ThoughtWorker_RoomRequirement.cs" />
     <Compile Include="Toils\NoticeBoardToils.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Alerts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

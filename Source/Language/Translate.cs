@@ -25,7 +25,9 @@ namespace Tenants.Language {
         public static string ContractAgree => "ContractAgree".Translate();
         public static string ContractReject => "ContractReject".Translate();
         public static string MoodBelowThreshold => "MoodBelowThreshold".Translate();
-        public static string MoodBelowThresholdDesc(Pawn pawn) => "MoodBelowThresholdDesc".Translate(pawn.Named("PAWN"));
+        public static string MoodBelowThresholdDesc(Pawn pawn) => "MoodBelowThresholdDesc".Translate(pawn.Named("PAWN")); 
+        public static string TenancyRoomRequired => "TenancyRoomRequired".Translate();
+        public static string TenancyRoomRequiredDesc => "TenancyRoomRequiredDesc".Translate();
 
         //Settings
         public static string Races => "Races".Translate();

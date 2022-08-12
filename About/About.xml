@@ -16,4 +16,7 @@
             <steamWorkshopUrl>steam://url/CommunityFilePage/2812826451</steamWorkshopUrl>
         </li>
     </modDependencies>
+    <loadAfter>
+        <li>LimeTreeSnake.Systems</li>
+    </loadAfter>
 </ModMetaData>

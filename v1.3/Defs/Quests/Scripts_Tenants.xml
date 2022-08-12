@@ -54,10 +54,15 @@
                     <tenantFaction>tenantFaction</tenantFaction>
                     <race>tenantRace</race>
                     <gender>tenantGender</gender>
-                    <rejected>isRejected</rejected>
+                    <rejected>rejected</rejected>
+                </li>
+                <li Class="QuestNode_Set">
+                    <name>tenancyRejected</name>
+                    <value>$rejected</value>
                 </li>
                 <li Class="QuestNode_IsNull">
                     <value>$tenant</value>
+                    <!--If tenancy generation fails-->
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
@@ -79,9 +84,15 @@
                                 <days>days</days>
                                 <rent>rent</rent>
                                 <ticks>ticks</ticks>
+                                <roomRequired>roomRequired</roomRequired>
+                            </li>
+                            <li Class="QuestNode_Set">
+                                <name>singleRoomRequired</name>
+                                <value>$roomRequired</value>
                             </li>
                             <li Class="QuestNode_IsTrue">
-                                <value>$isRejected</value>
+                                <value>$rejected</value>
+                                <!--Rejected tenancy-->
                                 <node Class="QuestNode_Sequence">
                                     <nodes>
                                         <li Class="QuestNode_SendSignals">
@@ -97,6 +108,7 @@
                                         <li Class="QuestNode_End" />
                                     </nodes>
                                 </node>
+                                <!--Accepted tenancy-->
                                 <elseNode Class="QuestNode_Sequence">
                                     <nodes>
                                         <li Class="QuestNode_SetAllApparelLocked">
@@ -330,9 +342,14 @@
         </questDescriptionRules>
         <questContentRules>
             <rulesStrings>
-                <li>questDescriptionBeforeAccepted->A [tenant_age]-year-old [tenantRace] [tenantGender] named [tenant_nameDef] hail from nearby. \n[tenant_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenant_nameDef] wont do any work! However, [tenant_pronoun] can be drafted and fight if necessary. \nMistreating and keeping unhappy tenants will give you a bad reputation.</li>
-                <li>questDescriptionAfterAccepted->[tenant_nameDef] is a tenant of your colony. \n\n[tenant_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one.</li>
-                <li>questDescriptionRejected->[tenant_nameDef] decided against coming to your colony.</li>
+                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenant_age]-year-old [tenantRace] [tenantGender] named [tenant_nameDef] hail from nearby. \n[tenant_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenant_nameDef] wont do any work! However, [tenant_pronoun] can be drafted and fight if necessary. \nMistreating and keeping unhappy tenants will earn you a bad reputation. \n\n[questDescriptionRoomRequired]</li>
+                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenant_nameDef] is a tenant of your colony. \n\n[tenant_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one. \n\n[questDescriptionRoomRequired]</li>
+
+                <li>questDescriptionRejected(tenancyRejected==true)->[tenant_nameDef] decided against coming to your colony.\n\n</li>
+                <li>questDescriptionRejected(tenancyRejected==false)-></li>
+
+                <li>questDescriptionRoomRequired(singleRoomRequired==true)->[tenant_nameDef] wants a single room and offers to pay extra for it.</li>
+                <li>questDescriptionRoomRequired(singleRoomRequired==false)->Have no special requirements.</li>
             </rulesStrings>
         </questContentRules>
         <root Class="QuestNode_Sequence">

@@ -10,7 +10,7 @@ using Verse;
 namespace Tenants.Settings {
     public class TenantsSettings : Mod {
         private readonly Settings settings;
-
+        //IDEA: Add to logic, min/max days until courier.
         public TenantsSettings(ModContentPack content) : base(content) {
             settings = GetSettings<Settings>();
             settings.Initialize();
