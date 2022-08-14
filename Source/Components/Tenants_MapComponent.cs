@@ -36,7 +36,12 @@ namespace Tenants.Components {
             set => courierKills = value;
         }
         public List<Models.Contract> ActiveContracts {
-            get => activeContracts;
+            get {
+                if (activeContracts == null) {
+                    activeContracts = new List<Models.Contract>();
+                }
+                return activeContracts;
+            }
         }
 
         public Tenants_MapComponent(Map map)
@@ -52,11 +57,16 @@ namespace Tenants.Components {
         }
         public bool IsContractedTenant(Pawn p, out Models.Contract cont) {
             cont = null;
-            if (tenantsPool.Contains(p)) {
-                for (int i = 0; i < activeContracts.Count; i++) {
-                    if (activeContracts[i].tenant == p) {
-                        cont = activeContracts[i];
-                        return true;
+            if (IsTenant(p)) {
+                if (!p.HasExtraHomeFaction() && p.IsFreeNonSlaveColonist) {
+                    tenantsPool.Remove(p);
+                }
+                else {
+                    for (int i = 0; i < activeContracts.Count; i++) {
+                        if (activeContracts[i].tenant == p) {
+                            cont = activeContracts[i];
+                            return true;
+                        }
                     }
                 }
             }
@@ -156,14 +166,17 @@ namespace Tenants.Components {
                     Find.FactionManager.Add(faction);
                 }
                 tenantAddUpp = false;
-                if (tenantsPool == null) {
-                    tenantsPool = new List<Pawn>();
+                if (activeContracts == null) {
+                    activeContracts = new List<Models.Contract>();
                 }
                 for (int i = 0; i < activeContracts.Count; i++) {
                     if (activeContracts[i].tenant == null || !activeContracts[i].tenant.Spawned) {
                         activeContracts.RemoveAt(i);
                         i--;
                     }
+                }
+                if (tenantsPool == null) {
+                    tenantsPool = new List<Pawn>();
                 }
                 for (int i = 0; i < tenantsPool.Count; i++) {
                     if (tenantsPool[i].DestroyedOrNull() || tenantsPool[i].Dead) {
@@ -207,8 +220,6 @@ namespace Tenants.Components {
                 return null;
             }
         }
-
-
         public void EmptyBoard(Pawn courier) {
             try {
                 if (noticeBoard == null) {

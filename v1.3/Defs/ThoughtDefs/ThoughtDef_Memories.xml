@@ -30,7 +30,7 @@
         <stages>
             <li>
                 <label>no personal bedroom</label>
-                <description>I pay for a personal bedroom!</description>
+                <description>I'm paying for a personal bedroom!</description>
                 <baseMoodEffect>-15</baseMoodEffect>
             </li>
         </stages>

@@ -14,6 +14,7 @@ namespace Tenants.QuestNodes {
         public string recruitSignal;        //When tenant is recruited
         public string rejectSignal;         //When tenant decides against coming
         public string initiateSignal;       //When quest is accepted
+        public bool isEnded = false;        //Makes sure the kill penalty is not applied many times.
         public Map map;
         public Models.Contract contract;
 
@@ -70,10 +71,11 @@ namespace Tenants.QuestNodes {
                 diaNode.options.Add(reject);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
             }
-            else if (signal.tag == this.badSignal && contract.tenant.Spawned) {
+            else if (signal.tag == this.badSignal && contract.tenant.Spawned && !isEnded) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                 comp.ActiveContracts.Remove(contract);
                 comp.TenantKills++;
+                isEnded = true;
             }
             else if (signal.tag == this.rejectSignal) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
@@ -89,6 +91,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
             Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
             Scribe_Values.Look(ref rejectSignal, "RejectSignal", null, false);
+            Scribe_Values.Look(ref isEnded, "IsEnded", false, false);
             Scribe_Deep.Look(ref contract, "Contract");
             Scribe_References.Look(ref map, "Map");
         }

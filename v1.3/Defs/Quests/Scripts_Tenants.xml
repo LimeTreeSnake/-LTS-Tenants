@@ -342,7 +342,7 @@
         </questDescriptionRules>
         <questContentRules>
             <rulesStrings>
-                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenant_age]-year-old [tenantRace] [tenantGender] named [tenant_nameDef] hail from nearby. \n[tenant_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenant_nameDef] wont do any work! However, [tenant_pronoun] can be drafted and fight if necessary. \nMistreating and keeping unhappy tenants will earn you a bad reputation. \n\n[questDescriptionRoomRequired]</li>
+                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenant_age]-year-old [tenantRace] [tenantGender] named [tenant_nameDef] hail from nearby. \n[tenant_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenant_nameDef] won't do any work! However, [tenant_pronoun] can be drafted and fight if necessary. \nMistreating and keeping unhappy tenants will earn you a bad reputation. \n\n[questDescriptionRoomRequired]</li>
                 <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenant_nameDef] is a tenant of your colony. \n\n[tenant_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one. \n\n[questDescriptionRoomRequired]</li>
 
                 <li>questDescriptionRejected(tenancyRejected==true)->[tenant_nameDef] decided against coming to your colony.\n\n</li>
