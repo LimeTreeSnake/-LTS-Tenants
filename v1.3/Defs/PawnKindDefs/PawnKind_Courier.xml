@@ -1,48 +1,46 @@
-<?xml version="1.0" encoding="utf-8" ?>
-    <Defs>
-        <PawnKindDef Name="CourierDef">
-            <defName>LTS_Courier</defName>
-            <race>Human</race>
-            <defaultFactionType>LTS_Courier</defaultFactionType>
-            <biocodeWeaponChance>0.33</biocodeWeaponChance>
-            <label>courier</label>
-            <combatPower>75</combatPower>
-            <isFighter>true</isFighter>
-            <gearHealthRange>1~2</gearHealthRange>
-            <invNutrition>5</invNutrition>
-            <apparelTags>
-                <li>CourierWear</li>
-                <li>BeltDefensePop</li>
-            </apparelTags>
-            <itemQuality>Good</itemQuality>
-            <apparelRequired>
-                <li>LTS_CourierCoat</li>
-                <li>LTS_CourierHat</li>
-            </apparelRequired>
-            <weaponTags>
-                <li>LTS_CourierRanged</li>
-                <li>LTS_CourierMelee</li>
-            </weaponTags>
-            <techHediffsRequired>
-                <li>DeathAcidifier</li>
-            </techHediffsRequired>
-            <maxGenerationAge>50</maxGenerationAge>
-            <apparelMoney>1250~2000</apparelMoney>
-            <apparelAllowHeadgearChance>1</apparelAllowHeadgearChance>
-            <weaponMoney>400~1000</weaponMoney>
-            <techHediffsChance>0.1</techHediffsChance>
-            <techHediffsMoney>200~700</techHediffsMoney>
-            <techHediffsTags>
-                <li>Simple</li>
-                <li>Advanced</li>
-                <li>ImplantEmpireCommon</li>
-            </techHediffsTags>
-            <initialWillRange>4~8</initialWillRange>
-            <initialResistanceRange>20~40</initialResistanceRange>
-            <modExtensions>
-                <li Class="Tenants.DefModExtensions.CoureierExtension">
-                    <ChoiceWeight>10</ChoiceWeight>
-                </li>
-            </modExtensions>
-        </PawnKindDef>
-    </Defs>
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <PawnKindDef Name="CourierDef">
+        <defName>LTS_Courier</defName>
+        <race>Human</race>
+        <defaultFactionType>LTS_Courier</defaultFactionType>
+        <biocodeWeaponChance>0.33</biocodeWeaponChance>
+        <label>courier</label>
+        <combatPower>75</combatPower>
+        <isFighter>true</isFighter>
+        <gearHealthRange>1~2</gearHealthRange>
+        <invNutrition>5</invNutrition>
+        <apparelTags>
+            <li>CourierWear</li>
+            <li>BeltDefensePop</li>
+        </apparelTags>
+        <itemQuality>Good</itemQuality>
+        <apparelRequired>
+            <li>LTS_CourierCoat</li>
+            <li>LTS_CourierHat</li>
+        </apparelRequired>
+        <weaponTags>
+            <li>LTS_CourierRanged</li>
+            <li>LTS_CourierMelee</li>
+        </weaponTags>
+        <techHediffsRequired>
+            <li>DeathAcidifier</li>
+        </techHediffsRequired>
+        <maxGenerationAge>50</maxGenerationAge>
+        <apparelMoney>1250~2000</apparelMoney>
+        <apparelAllowHeadgearChance>1</apparelAllowHeadgearChance>
+        <weaponMoney>400~1000</weaponMoney>
+        <techHediffsChance>0.1</techHediffsChance>
+        <techHediffsMoney>200~700</techHediffsMoney>
+        <techHediffsTags>
+            <li>Simple</li>
+            <li>Advanced</li>
+            <li>ImplantEmpireCommon</li>
+        </techHediffsTags>
+        <initialWillRange>4~8</initialWillRange>
+        <initialResistanceRange>20~40</initialResistanceRange>
+        <modExtensions>
+            <li Class="Tenants.DefModExtensions.CoureierExtension" />
+        </modExtensions>
+    </PawnKindDef>
+</Defs>

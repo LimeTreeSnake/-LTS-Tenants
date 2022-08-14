@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <RecipeDef MayRequire="LimeTreeSnake.Ammo">
+        <defName>LTS_Make_MusketAmmo</defName>
+        <label>make musket ammo</label>
+        <description>A courier secret for making musket ammo with more oomph.</description>
+        <jobString>Making muskets.</jobString>
+        <workAmount>2000</workAmount>
+        <workSkill>Crafting</workSkill>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <recipeUsers>
+            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
+            <li>LTS_AmmunitionBench</li>
+        </recipeUsers>
+        <allowMixingIngredients>true</allowMixingIngredients>
+        <skillRequirements>
+            <Crafting>5</Crafting>
+        </skillRequirements>
+        <ingredients>
+            <li>
+                <filter>
+                    <categories>
+                        <li>Chunks</li>
+                    </categories>
+                </filter>
+                <count>1</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>Chemfuel</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <categories>
+                <li>Chunks</li>
+            </categories>
+        </fixedIngredientFilter>
+        <products>
+            <LTS_Musket>75</LTS_Musket>
+        </products>
+    </RecipeDef>
+    <RecipeDef MayRequire="LimeTreeSnake.Ammo">
+        <defName>LTS_Make_SilverMusketAmmo</defName>
+        <label>make silver musket ammo</label>
+        <description>A courier secret for making musket ammo with more oomph.</description>
+        <jobString>Making muskets.</jobString>
+        <workAmount>2000</workAmount>
+        <workSkill>Crafting</workSkill>
+        <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+        <effectWorking>Smith</effectWorking>
+        <soundWorking>Recipe_Smith</soundWorking>
+        <recipeUsers>
+            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
+            <li>LTS_AmmunitionBench</li>
+        </recipeUsers>
+        <allowMixingIngredients>true</allowMixingIngredients>
+        <skillRequirements>
+            <Crafting>5</Crafting>
+        </skillRequirements>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>Silver</li>
+                    </thingDefs>
+                </filter>
+                <count>50</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>Chemfuel</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+        <products>
+            <LTS_SilverMusket>75</LTS_SilverMusket>
+        </products>
+    </RecipeDef>
+</Defs>
