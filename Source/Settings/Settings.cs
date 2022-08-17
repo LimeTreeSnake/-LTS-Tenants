@@ -133,7 +133,7 @@ namespace Tenants.Settings {
                 Filter = Widgets.TextField(rect6.RightHalf(), Filter);
                 list.Gap(6f);
 
-                Rect optionsRect = list.GetRect(lineHeight * 12f);
+                Rect optionsRect = list.GetRect(lineHeight * 10f);
                 Widgets.DrawMenuSection(optionsRect);
 
                 Rect tenantsRect = optionsRect.ContractedBy(margin * 2);

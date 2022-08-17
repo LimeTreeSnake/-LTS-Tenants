@@ -12,17 +12,20 @@ namespace Tenants.Alerts {
         public Alert_TenancyBedroom() {
             defaultLabel = Language.Translate.TenancyRoomRequired.Translate();
             defaultExplanation = Language.Translate.TenancyRoomRequiredDesc.Translate();
-            ;
         }
-        public List<Pawn> Culprits {
+        private List<Pawn> Culprits {
             get {
                 culpritsResult.Clear();
                 List<Map> maps = Find.Maps;
-                for (int i = 0; i < maps.Count; i++) {
-                    Components.Tenants_MapComponent comp = maps[i].GetComponent<Components.Tenants_MapComponent>();
-                    for (int y = 0; y < comp.ActiveContracts.Count; y++) {
-                        if (comp.ActiveContracts[i].singleRoomRequirement && !comp.ActiveContracts[i].tenant.royalty.HasPersonalBedroom()) {
-                            culpritsResult.Add(comp.ActiveContracts[i].tenant);
+                if (maps.Any()) {
+                    for (int i = 0; i < maps.Count; i++) {
+                        Components.Tenants_MapComponent comp = maps[i].GetComponent<Components.Tenants_MapComponent>();
+                        if (comp.ActiveContracts.Any()) {
+                            for (int y = 0; y < comp.ActiveContracts.Count; y++) {
+                                if (comp.ActiveContracts[i].singleRoomRequirement && !comp.ActiveContracts[i].tenant.royalty.HasPersonalBedroom()) {
+                                    culpritsResult.Add(comp.ActiveContracts[i].tenant);
+                                }
+                            }
                         }
                     }
                 }
