@@ -116,7 +116,7 @@
         <label>quad musket</label>
         <description>An ancient pattern quad barreled revolver but fires a lot of bullets in short succession at the detriment of a longer reload time. It may seem inferior to their industrial equivalent but due to some hidden techniques of the Courier association, this arm packs quite the punch.</description>
         <graphicData>
-            <texPath>Weapons/RevolverMusket</texPath>
+            <texPath>Weapons/QuadMusket</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.4</uiIconScale>
@@ -227,7 +227,7 @@
         <label>Pressure gun</label>
         <description>A pressurised gun with chambered primers ready to be fired in relatively quick succession. Using hidden techniques that is practically impossible to replicate without the insider know how.</description>
         <graphicData>
-            <texPath>Weapons/MusketRifle</texPath>
+            <texPath>Weapons/PressureGun</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>Interact_Rifle</soundInteract>
@@ -386,7 +386,7 @@
         <label>machete</label>
         <description>A practical machete, heavy and strong. Perfect for proving a point but somewhat scary. "That's not a knife… THAT's a knife."</description>
         <graphicData>
-            <texPath>Weapons/Sword</texPath>
+            <texPath>Weapons/Mechete</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.2</uiIconScale>
@@ -435,7 +435,7 @@
         <label>cutlass</label>
         <description>A fancy cutlass, seems more fancy that practical but hey, better look good than die looking bad.</description>
         <graphicData>
-            <texPath>Weapons/Sword</texPath>
+            <texPath>Weapons/Cutlass</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.2</uiIconScale>

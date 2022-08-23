@@ -96,7 +96,6 @@
     <Compile Include="Quest\QuestNode_TenancyMood.cs" />
     <Compile Include="Quest\QuestNode_TenancyContract.cs" />
     <Compile Include="Quest\QuestPart_TenancyMood.cs" />
-    <Compile Include="Quest\QuestPart_TenancyRoom.cs" />
     <Compile Include="Quest\QuestPart_ContractConclusion.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="ThoughtWorkers\ThoughtWorker_RoomRequirement.cs" />

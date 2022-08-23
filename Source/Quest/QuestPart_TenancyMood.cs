@@ -5,20 +5,20 @@ using System.Linq;
 
 namespace Tenants.QuestNodes {
     public class QuestPart_TenancyMood : QuestPartActivable {
+
         public Models.Contract contract;
-        public float thresholdLow;
-        public float thresholdHigh;
-
-        public int minTicksBelowThreshold;
-        public int minTicksAboveThreshold;
-
-        public bool showAlert = true;
-        public bool offeredJoin = false;
+        private readonly List<Pawn> culpritsResult = new List<Pawn>();
+        public string inSignalPostpone;             //If pawn join offer is postponed
         private int moodBelowThresholdTicks;
         private int moodAboveThresholdTicks;
+        public int minTicksBelowThreshold;
+        public int minTicksAboveThreshold;
+        public bool offeredJoin = false;        
         public string OutSignalFailed => "Quest" + quest.id + ".Part" + base.Index + ".Failed";
         public List<string> outSignalsFailed = new List<string>();
-        private readonly List<Pawn> culpritsResult = new List<Pawn>();
+        public bool showAlert = true; 
+        public float thresholdLow;
+        public float thresholdHigh;
         public override AlertReport AlertReport {
             get {
                 if (!showAlert || minTicksBelowThreshold < 60) {
@@ -29,6 +29,12 @@ namespace Tenants.QuestNodes {
                     culpritsResult.Add(contract.tenant);
                 }
                 return AlertReport.CulpritsAre(culpritsResult);
+            }
+        }
+        public override void Notify_QuestSignalReceived(Signal signal) {
+            base.Notify_QuestSignalReceived(signal);
+            if (signal.tag == this.inSignalPostpone) {
+                offeredJoin = false;
             }
         }
 
@@ -73,16 +79,17 @@ namespace Tenants.QuestNodes {
         }
         public override void ExposeData() {
             base.ExposeData();
-            Scribe_Values.Look(ref thresholdLow, "ThresholdLow", 0f);
-            Scribe_Values.Look(ref thresholdHigh, "ThresholdHigh", 0f);
-            Scribe_Values.Look(ref minTicksBelowThreshold, "MinTicksBelowThreshold", 0);
-            Scribe_Values.Look(ref minTicksAboveThreshold, "MinTicksAboveThreshold", 0);
-            Scribe_Values.Look(ref showAlert, "ShowAlert", defaultValue: true);
-            Scribe_Values.Look(ref offeredJoin, "OfferedJoin", defaultValue: false);
+            Scribe_Deep.Look(ref contract, "Contract");
+            Scribe_Values.Look(ref inSignalPostpone, "InSignalPostpone", null, false);
             Scribe_Values.Look(ref moodBelowThresholdTicks, "MoodBelowThresholdTicks", 0);
             Scribe_Values.Look(ref moodAboveThresholdTicks, "MoodAboveThresholdTicks", 0);
+            Scribe_Values.Look(ref minTicksBelowThreshold, "MinTicksBelowThreshold", 0);
+            Scribe_Values.Look(ref minTicksAboveThreshold, "MinTicksAboveThreshold", 0);
+            Scribe_Values.Look(ref offeredJoin, "OfferedJoin", defaultValue: false);
             Scribe_Collections.Look(ref outSignalsFailed, "OutSignalsFailed");
-            Scribe_Deep.Look(ref contract, "Contract");
+            Scribe_Values.Look(ref showAlert, "ShowAlert", defaultValue: true);
+            Scribe_Values.Look(ref thresholdLow, "ThresholdLow", 0f);
+            Scribe_Values.Look(ref thresholdHigh, "ThresholdHigh", 0f);
         }
 
         public override void AssignDebugData() {

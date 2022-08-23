@@ -24,8 +24,11 @@ namespace Tenants.Language {
         public static string ContractTitle => "ContractTitle".Translate();
         public static string ContractAgree => "ContractAgree".Translate();
         public static string ContractReject => "ContractReject".Translate();
+        public static string ContractPostpone => "ContractPostpone".Translate();
         public static string MoodBelowThreshold => "MoodBelowThreshold".Translate();
-        public static string MoodBelowThresholdDesc(Pawn pawn) => "MoodBelowThresholdDesc".Translate(pawn.Named("PAWN")); 
+        public static string MoodBelowThresholdDesc(Pawn pawn) => "MoodBelowThresholdDesc".Translate(pawn.Named("PAWN"));
+        public static string TenantPassionMinor => "TenantPassionMinor".Translate();
+        public static string TenantPassionMajor => "TenantPassionMajor".Translate();
         public static string TenancyRoomRequired => "TenancyRoomRequired".Translate();
         public static string TenancyRoomRequiredDesc => "TenancyRoomRequiredDesc".Translate();
 

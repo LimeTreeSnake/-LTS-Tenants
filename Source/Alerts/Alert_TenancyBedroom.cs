@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Verse;
 using RimWorld;
+using System.Diagnostics.Contracts;
 
 namespace Tenants.Alerts {
     public class Alert_TenancyBedroom : Alert {
@@ -22,8 +23,14 @@ namespace Tenants.Alerts {
                         Components.Tenants_MapComponent comp = maps[i].GetComponent<Components.Tenants_MapComponent>();
                         if (comp.ActiveContracts.Any()) {
                             for (int y = 0; y < comp.ActiveContracts.Count; y++) {
-                                if (comp.ActiveContracts[i].singleRoomRequirement && !comp.ActiveContracts[i].tenant.royalty.HasPersonalBedroom()) {
-                                    culpritsResult.Add(comp.ActiveContracts[i].tenant);
+                                Models.Contract contract = comp.ActiveContracts[i];
+                                if (contract.tenant != null && contract.tenant.HasExtraHomeFaction()) {
+                                    if (contract.singleRoomRequirement && !contract.tenant.royalty.HasPersonalBedroom()) {
+                                        culpritsResult.Add(contract.tenant);
+                                    }
+                                }
+                                else {
+                                    comp.ActiveContracts.Remove(contract);
                                 }
                             }
                         }

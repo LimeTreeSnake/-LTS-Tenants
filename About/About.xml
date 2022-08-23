@@ -7,7 +7,7 @@
     </supportedVersions>
     <packageId>LimeTreeSnake.Tenants</packageId>
     <description>
-            -License- Code by LTS, art by ELIF and Goob and everything owned by LTS. Contact LTS for any inquiries.
+        -License- Contact LTS for any inquiries.
         </description>
     <modDependencies>
         <li>
@@ -18,5 +18,6 @@
     </modDependencies>
     <loadAfter>
         <li>LimeTreeSnake.Systems</li>
+        <li>LimeTreeSnake.Ammunition</li>
     </loadAfter>
 </ModMetaData>

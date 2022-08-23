@@ -10,6 +10,8 @@ namespace Tenants.QuestNodes {
         public SlateRef<string> inSignalEnable;
         [NoTranslate]
         public SlateRef<string> outSignal;
+        [NoTranslate]
+        public SlateRef<string> inSignalPostpone;
         public SlateRef<Models.Contract> contract;
         public SlateRef<float> thresholdLow;
         public SlateRef<float> thresholdHigh;
@@ -25,6 +27,7 @@ namespace Tenants.QuestNodes {
                         thresholdHigh = thresholdHigh.GetValue(slate),
                         minTicksBelowThreshold = Settings.Settings.MoodTicks,
                         minTicksAboveThreshold = Settings.Settings.MoodTicks,
+                        inSignalPostpone = inSignalPostpone.GetValue(slate),
                         inSignalEnable = (QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal"))
                     };
                     if (!outSignal.GetValue(slate).NullOrEmpty()) {

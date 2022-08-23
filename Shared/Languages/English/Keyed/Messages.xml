@@ -22,8 +22,11 @@
     <ContractTitle>Tenancy</ContractTitle>
     <ContractAgree>Accept tenant</ContractAgree>
     <ContractReject>Reject tenant</ContractReject>
+    <ContractPostpone>Ask me later</ContractPostpone>
     <MoodBelowThreshold>Tenants unhappy</MoodBelowThreshold>
     <MoodBelowThresholdDesc>Your tenant {PAWN_nameDef} is unhappy. Try to make {PAWN_objective} feel better or {PAWN_pronoun}'ll leave.</MoodBelowThresholdDesc>
+    <TenantPassionMinor>Is interested in</TenantPassionMinor>
+    <TenantPassionMajor>Loves</TenantPassionMajor>
     <TenancyRoomRequired>Rooms</TenancyRoomRequired>
     <TenancyRoomRequiredDesc>A tenant pays for a single room but does not have one! You might earn their ire should this not be fixed soon.</TenancyRoomRequiredDesc>
 

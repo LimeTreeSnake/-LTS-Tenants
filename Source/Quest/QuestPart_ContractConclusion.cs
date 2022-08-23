@@ -1,8 +1,10 @@
 ﻿using RimWorld;
 using RimWorld.QuestGen;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Verse;
+using static Verse.Dialog_InfoCard;
 
 namespace Tenants.QuestNodes {
     public class QuestPart_ContractConclusion : QuestPart {
@@ -14,6 +16,7 @@ namespace Tenants.QuestNodes {
         public string recruitSignal;        //When tenant is recruited
         public string rejectSignal;         //When tenant decides against coming
         public string initiateSignal;       //When quest is accepted
+        public string postponeSignal;       //If pawn join offer is postponed
         public bool isEnded = false;        //Makes sure the kill penalty is not applied many times.
         public Map map;
         public Models.Contract contract;
@@ -46,7 +49,86 @@ namespace Tenants.QuestNodes {
                 comp.ActiveContracts.Add(contract);
             }
             else if (signal.tag == this.joinSignal) {
-                DiaNode diaNode = new DiaNode(Language.Translate.ContractJoin(contract.tenant));
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(Language.Translate.ContractJoin(contract.tenant));
+                List<SkillRecord> minorPassion = new List<SkillRecord>();
+                List<SkillRecord> majorPassion = new List<SkillRecord>();
+                WorkTags tag = contract.tenant.story.DisabledWorkTagsBackstoryAndTraits;
+                for (int i = 0; i < contract.tenant.skills.skills.Count; i++) {
+                    switch (contract.tenant.skills.skills[i].passion) {
+                        case Passion.None:
+                            break;
+                        case Passion.Minor:
+                            minorPassion.Add(contract.tenant.skills.skills[i]);
+                            break;
+                        case Passion.Major:
+                            majorPassion.Add(contract.tenant.skills.skills[i]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                stringBuilder.AppendLine();
+                stringBuilder.AppendLine();
+                stringBuilder.AppendInNewLine("IncapableOfTooltipWorkTypes".Translate().Colorize(ColoredText.NameColor));
+                stringBuilder.AppendLine();
+                if (tag > WorkTags.None) {
+                    foreach (WorkTypeDef allDef in DefDatabase<WorkTypeDef>.AllDefs) {
+                        if ((allDef.workTags & tag) > WorkTags.None) {
+                            stringBuilder.Append(" - ");
+                            stringBuilder.Append(allDef.pawnLabel);
+                        }
+                    }
+                }
+                else {
+                    stringBuilder.Append(" - ");
+                }
+                stringBuilder.AppendInNewLine(("Traits".Translate()).Colorize(ColoredText.NameColor));
+                stringBuilder.AppendLine();
+                if (contract.tenant.story.traits.allTraits.Any()) {
+                    for (int i = 0; i < contract.tenant.story.traits.allTraits.Count; i++) {
+                        if (i >= (contract.tenant.story.traits.allTraits.Count - 1)) {
+                            stringBuilder.Append(contract.tenant.story.traits.allTraits[i].LabelCap);
+                        }
+                        else {
+                            stringBuilder.Append(contract.tenant.story.traits.allTraits[i].LabelCap + " - ");
+                        }
+                    }
+                }
+                else {
+                    stringBuilder.Append(" - ");
+                }
+                stringBuilder.AppendInNewLine((Language.Translate.TenantPassionMinor).Colorize(ColoredText.NameColor));
+                stringBuilder.AppendLine();
+                if (minorPassion.Any()) {
+                    for (int i = 0; i < minorPassion.Count; i++) {
+                        if (i >= (minorPassion.Count - 1)) {
+                            stringBuilder.Append(minorPassion[i].def.skillLabel.CapitalizeFirst());
+                        }
+                        else {
+                            stringBuilder.Append(minorPassion[i].def.skillLabel.CapitalizeFirst() + " - ");
+                        }
+                    }
+                }
+                else {
+                    stringBuilder.Append(" - ");
+                }
+                stringBuilder.AppendInNewLine((Language.Translate.TenantPassionMajor).Colorize(ColoredText.NameColor));
+                stringBuilder.AppendLine();
+                if (majorPassion.Any()) {
+                    for (int i = 0; i < majorPassion.Count; i++) {
+                        if (i >= (majorPassion.Count - 1)) {
+                            stringBuilder.Append(majorPassion[i].def.skillLabel.CapitalizeFirst());
+                        }
+                        else {
+                            stringBuilder.Append(majorPassion[i].def.skillLabel.CapitalizeFirst() + " - ");
+                        }
+                    }
+                }
+                else {
+                    stringBuilder.Append(" - ");
+                }
+                DiaNode diaNode = new DiaNode(stringBuilder.ToString());
                 DiaOption agree = new DiaOption(Language.Translate.ContractAgree) {
                     action = delegate {
                         Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
@@ -67,8 +149,15 @@ namespace Tenants.QuestNodes {
                     },
                     resolveTree = true
                 };
+                DiaOption postpone = new DiaOption(Language.Translate.ContractPostpone) {
+                    action = delegate {
+                        Find.SignalManager.SendSignal(new Signal(this.postponeSignal));
+                    },
+                    resolveTree = true
+                };
                 diaNode.options.Add(agree);
                 diaNode.options.Add(reject);
+                diaNode.options.Add(postpone);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
             }
             else if (signal.tag == this.badSignal && contract.tenant.Spawned && !isEnded) {
@@ -91,6 +180,8 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
             Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
             Scribe_Values.Look(ref rejectSignal, "RejectSignal", null, false);
+            Scribe_Values.Look(ref initiateSignal, "InitiateSignal", null, false);
+            Scribe_Values.Look(ref postponeSignal, "PostponeSignal", null, false);
             Scribe_Values.Look(ref isEnded, "IsEnded", false, false);
             Scribe_Deep.Look(ref contract, "Contract");
             Scribe_References.Look(ref map, "Map");

@@ -14,6 +14,7 @@
                     <terminateSignal>tenants.ContractTerminated</terminateSignal>
                     <badSignal>tenants.BadEnding</badSignal>
                     <rejectSignal>tenants.Rejected</rejectSignal>
+                    <postponeSignal>tenants.Postponed</postponeSignal>
                     <map>$map</map>
                     <contract>$contract</contract>
                 </li>
@@ -124,6 +125,7 @@
                                             <contract>$contract</contract>
                                             <thresholdLow>0.25</thresholdLow>
                                             <thresholdHigh>0.75</thresholdHigh>
+                                            <inSignalPostpone>tenants.Postponed</inSignalPostpone>
                                             <node Class="QuestNode_Sequence">
                                                 <nodes>
                                                     <li Class="QuestNode_Letter">

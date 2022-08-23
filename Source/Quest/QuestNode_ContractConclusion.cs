@@ -22,6 +22,8 @@ namespace Tenants.QuestNodes {
         public SlateRef<string> recruitSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> rejectSignal;
+        [NoTranslate, TranslationHandle(Priority = 100)]
+        public SlateRef<string> postponeSignal;
         public SlateRef<QuestPart.SignalListenMode?> signalListenMode;
         protected override void RunInt() {
             try {
@@ -39,6 +41,7 @@ namespace Tenants.QuestNodes {
                     joinSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.joinSignal.GetValue(slate)),
                     recruitSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.recruitSignal.GetValue(slate)),
                     rejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.rejectSignal.GetValue(slate)),
+                    postponeSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.postponeSignal.GetValue(slate)),
                     initiateSignal = quest.InitiateSignal,
                     signalListenMode = (this.signalListenMode.GetValue(slate) ?? QuestPart.SignalListenMode.OngoingOnly),
                     contract = cont,
