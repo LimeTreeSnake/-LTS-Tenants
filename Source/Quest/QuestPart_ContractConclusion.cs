@@ -72,6 +72,7 @@ namespace Tenants.QuestNodes {
                 stringBuilder.AppendLine();
                 stringBuilder.AppendInNewLine("IncapableOfTooltipWorkTypes".Translate().Colorize(ColoredText.NameColor));
                 stringBuilder.AppendLine();
+                stringBuilder.Append("   ");
                 if (tag > WorkTags.None) {
                     foreach (WorkTypeDef allDef in DefDatabase<WorkTypeDef>.AllDefs) {
                         if ((allDef.workTags & tag) > WorkTags.None) {
@@ -85,6 +86,7 @@ namespace Tenants.QuestNodes {
                 }
                 stringBuilder.AppendInNewLine(("Traits".Translate()).Colorize(ColoredText.NameColor));
                 stringBuilder.AppendLine();
+                stringBuilder.Append("   ");
                 if (contract.tenant.story.traits.allTraits.Any()) {
                     for (int i = 0; i < contract.tenant.story.traits.allTraits.Count; i++) {
                         if (i >= (contract.tenant.story.traits.allTraits.Count - 1)) {
@@ -100,6 +102,7 @@ namespace Tenants.QuestNodes {
                 }
                 stringBuilder.AppendInNewLine((Language.Translate.TenantPassionMinor).Colorize(ColoredText.NameColor));
                 stringBuilder.AppendLine();
+                stringBuilder.Append("   ");
                 if (minorPassion.Any()) {
                     for (int i = 0; i < minorPassion.Count; i++) {
                         if (i >= (minorPassion.Count - 1)) {
@@ -115,6 +118,7 @@ namespace Tenants.QuestNodes {
                 }
                 stringBuilder.AppendInNewLine((Language.Translate.TenantPassionMajor).Colorize(ColoredText.NameColor));
                 stringBuilder.AppendLine();
+                stringBuilder.Append("   ");
                 if (majorPassion.Any()) {
                     for (int i = 0; i < majorPassion.Count; i++) {
                         if (i >= (majorPassion.Count - 1)) {

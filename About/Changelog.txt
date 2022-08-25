@@ -1,4 +1,4 @@
-2022-08
+2022-08-25
 	- Fixed compatibility issue with Ammunition, made the def only load if said mod is loaded. (Might require redownload of mod as some files are moved)
     - Alert for bedrooms should no longer show if not applicable.
     - Fixed weapons using wrong textures
