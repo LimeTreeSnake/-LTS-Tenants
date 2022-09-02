@@ -3,6 +3,7 @@
     <!-- Base -->
     <ThingDef Name="LTS_CourierArms" ParentName="BaseWeapon" Abstract="True">
         <techLevel>Medieval</techLevel>
+        <smeltable>true</smeltable>
         <relicChance>1</relicChance>
         <inspectorTabs>
             <li>ITab_Art</li>
@@ -20,6 +21,7 @@
             </li>
         </comps>
     </ThingDef>
+
     <ThingDef Name="LTS_CourierRangedArms" ParentName="LTS_CourierArms" Abstract="True">
         <thingCategories>
             <li>WeaponsRanged</li>
@@ -37,6 +39,21 @@
                 <minQualityForArtistic>Excellent</minQualityForArtistic>
             </li>
         </comps>
+        <recipeMaker>
+            <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+            <workSkill>Crafting</workSkill>
+            <effectWorking>Smith</effectWorking>
+            <soundWorking>Recipe_Smith</soundWorking>
+            <skillRequirements>
+                <Crafting>7</Crafting>
+            </skillRequirements>
+            <recipeUsers>
+                <li>ElectricSmithy</li>
+                <li>FueledSmithy</li>
+            </recipeUsers>
+            <unfinishedThingDef>UnfinishedGun</unfinishedThingDef>
+            <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
+        </recipeMaker>
     </ThingDef>
     <ThingDef Name="LTS_CourierMeleeArms" ParentName="LTS_CourierArms" Abstract="True">
         <thingCategories>
@@ -55,6 +72,21 @@
                 <minQualityForArtistic>Excellent</minQualityForArtistic>
             </li>
         </comps>
+        <recipeMaker>
+            <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+            <workSkill>Crafting</workSkill>
+            <effectWorking>Smith</effectWorking>
+            <soundWorking>Recipe_Smith</soundWorking>
+            <skillRequirements>
+                <Crafting>6</Crafting>
+            </skillRequirements>
+            <recipeUsers>
+                <li>ElectricSmithy</li>
+                <li>FueledSmithy</li>
+            </recipeUsers>
+            <unfinishedThingDef>UnfinishedGun</unfinishedThingDef>
+            <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
+        </recipeMaker>
     </ThingDef>
     <!-- Firearms -->
     <ThingDef ParentName="LTS_CourierRangedArms">
@@ -68,7 +100,7 @@
         <uiIconScale>1.4</uiIconScale>
         <soundInteract>Interact_Revolver</soundInteract>
         <statBases>
-            <MarketValue>400</MarketValue>
+            <WorkToMake>4000</WorkToMake>
             <Mass>2</Mass>
             <AccuracyTouch>0.80</AccuracyTouch>
             <AccuracyShort>0.80</AccuracyShort>
@@ -79,6 +111,11 @@
         <weaponClasses>
             <li>RangedLight</li>
         </weaponClasses>
+        <costList>
+            <Steel>30</Steel>
+            <Silver>10</Silver>
+            <Gold>1</Gold>
+        </costList>
         <verbs>
             <li>
                 <verbClass>Verb_Shoot</verbClass>
@@ -122,7 +159,7 @@
         <uiIconScale>1.4</uiIconScale>
         <soundInteract>Interact_Revolver</soundInteract>
         <statBases>
-            <MarketValue>400</MarketValue>
+            <WorkToMake>4500</WorkToMake>
             <Mass>2</Mass>
             <AccuracyTouch>0.85</AccuracyTouch>
             <AccuracyShort>0.75</AccuracyShort>
@@ -133,6 +170,11 @@
         <weaponClasses>
             <li>RangedLight</li>
         </weaponClasses>
+        <costList>
+            <Steel>40</Steel>
+            <Silver>10</Silver>
+            <Gold>1</Gold>
+        </costList>
         <verbs>
             <li>
                 <verbClass>Verb_Shoot</verbClass>
@@ -170,31 +212,36 @@
     <ThingDef ParentName="LTS_CourierRangedArms">
         <defName>LTS_MusketRifle</defName>
         <label>musket rifle</label>
-        <description>An ancient pattern rifle with chambered musket balls ready to be fired in relatively quick succession. This specialized arm is the hallmark arm of the Courier Association. Using hidden techniques that is practically impossible to replicate without the insider know how. The drawback is the loading time in between shots but it makes it up by firing rounds in quick succession.</description>
+        <description>An ancient pattern rifle with chambered musket balls ready to be fired in quick succession. This specialized arm is the hallmark arm of the Courier Association. Using hidden techniques that is practically impossible to replicate without the insider know how. The drawback is the loading time in between shots.</description>
         <graphicData>
             <texPath>Weapons/MusketRifle</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>Interact_Rifle</soundInteract>
         <statBases>
-            <MarketValue>750</MarketValue>
+            <WorkToMake>20000</WorkToMake>
             <Mass>5</Mass>
             <AccuracyTouch>0.6</AccuracyTouch>
             <AccuracyShort>0.8</AccuracyShort>
             <AccuracyMedium>0.9</AccuracyMedium>
             <AccuracyLong>0.8</AccuracyLong>
-            <RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
+            <RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
             <li>LongShots</li>
         </weaponClasses>
+        <costList>
+            <Steel>70</Steel>
+            <Silver>30</Silver>
+            <Gold>5</Gold>
+        </costList>
         <verbs>
             <li>
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>LTS_MusketProjectile</defaultProjectile>
                 <warmupTime>1.5</warmupTime>
-                <range>33.9</range>
+                <range>29.9</range>
                 <soundCast>LTS_MusketFire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
                 <muzzleFlashScale>12</muzzleFlashScale>
@@ -232,27 +279,32 @@
         </graphicData>
         <soundInteract>Interact_Rifle</soundInteract>
         <statBases>
-            <MarketValue>750</MarketValue>
+            <WorkToMake>16000</WorkToMake>
             <Mass>5</Mass>
             <AccuracyTouch>0.6</AccuracyTouch>
-            <AccuracyShort>0.8</AccuracyShort>
-            <AccuracyMedium>0.8</AccuracyMedium>
-            <AccuracyLong>0.8</AccuracyLong>
-            <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+            <AccuracyShort>0.75</AccuracyShort>
+            <AccuracyMedium>0.75</AccuracyMedium>
+            <AccuracyLong>0.7</AccuracyLong>
+            <RangedWeapon_Cooldown>0.75</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
             <li>LongShots</li>
         </weaponClasses>
+        <costList>
+            <Steel>60</Steel>
+            <Silver>20</Silver>
+            <Gold>5</Gold>
+        </costList>
         <verbs>
             <li>
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>LTS_PressurizedProjectile</defaultProjectile>
-                <warmupTime>1.0</warmupTime>
-                <range>33.9</range>
+                <warmupTime>0.75</warmupTime>
+                <range>25.9</range>
                 <soundCast>LTS_PressureFire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
-                <muzzleFlashScale>6</muzzleFlashScale>
+                <muzzleFlashScale>3</muzzleFlashScale>
             </li>
         </verbs>
         <tools>
@@ -289,7 +341,7 @@
         </graphicData>
         <soundInteract>Interact_MolotovCocktail</soundInteract>
         <statBases>
-            <MarketValue>200</MarketValue>
+            <WorkToMake>3000</WorkToMake>
             <Mass>2</Mass>
             <AccuracyTouch>0.7</AccuracyTouch>
             <AccuracyShort>0.6</AccuracyShort>
@@ -311,6 +363,10 @@
                 <soundCast>ThrowMolotovCocktail</soundCast>
             </li>
         </verbs>
+        <costList>
+            <Steel>10</Steel>
+            <Silver>5</Silver>
+        </costList>
         <tools>
             <li>
                 <label>handle</label>
@@ -345,13 +401,18 @@
         </graphicData>
         <uiIconScale>1.2</uiIconScale>
         <statBases>
-            <MarketValue>750</MarketValue>
+            <WorkToMake>5000</WorkToMake>
             <Mass>2.5</Mass>
         </statBases>
         <equippedAngleOffset>-65</equippedAngleOffset>
         <weaponClasses>
             <li>MeleePiercer</li>
         </weaponClasses>
+        <costList>
+            <Steel>75</Steel>
+            <Silver>25</Silver>
+            <Gold>2</Gold>
+        </costList>
         <tools>
             <li>
                 <label>handle</label>
@@ -391,13 +452,18 @@
         </graphicData>
         <uiIconScale>1.2</uiIconScale>
         <statBases>
-            <MarketValue>750</MarketValue>
+            <WorkToMake>4000</WorkToMake>
             <Mass>4</Mass>
         </statBases>
         <equippedAngleOffset>-65</equippedAngleOffset>
         <weaponClasses>
             <li>MeleePiercer</li>
         </weaponClasses>
+        <costList>
+            <Steel>90</Steel>
+            <Silver>20</Silver>
+            <Gold>1</Gold>
+        </costList>
         <tools>
             <li>
                 <label>handle</label>
@@ -412,8 +478,8 @@
                 <capacities>
                     <li>Stab</li>
                 </capacities>
-                <power>24</power>
-                <cooldownTime>2.25</cooldownTime>
+                <power>26</power>
+                <cooldownTime>2.6</cooldownTime>
                 <armorPenetration>0.25</armorPenetration>
             </li>
             <li>
@@ -421,8 +487,8 @@
                 <capacities>
                     <li>Cut</li>
                 </capacities>
-                <power>24</power>
-                <cooldownTime>2.25</cooldownTime>
+                <power>26</power>
+                <cooldownTime>2.6</cooldownTime>
                 <armorPenetration>0.25</armorPenetration>
             </li>
         </tools>
@@ -440,13 +506,18 @@
         </graphicData>
         <uiIconScale>1.2</uiIconScale>
         <statBases>
+            <WorkToMake>4500</WorkToMake>
             <Mass>2.5</Mass>
-            <MarketValue>400</MarketValue>
         </statBases>
         <equippedAngleOffset>-65</equippedAngleOffset>
         <weaponClasses>
             <li>MeleePiercer</li>
         </weaponClasses>
+        <costList>
+            <Steel>50</Steel>
+            <Silver>20</Silver>
+            <Gold>2</Gold>
+        </costList>
         <tools>
             <li>
                 <label>handle</label>

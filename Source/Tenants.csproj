@@ -42,6 +42,9 @@
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="LTS_Systems">
+      <HintPath>..\..\-LTS-Systems\v1.3\Assemblies\LTS_Systems.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,6 +83,7 @@
     <Compile Include="Defs\IncidentDefs.cs" />
     <Compile Include="Defs\JobDefs.cs" />
     <Compile Include="Defs\QuestDefs.cs" />
+    <Compile Include="Defs\ResearchDefs.cs" />
     <Compile Include="Defs\ThingDefs.cs" />
     <Compile Include="Defs\ThoughtDefs.cs" />
     <Compile Include="Harmony\Harmony.cs" />
@@ -99,7 +103,6 @@
     <Compile Include="Quest\QuestPart_ContractConclusion.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="ThoughtWorkers\ThoughtWorker_RoomRequirement.cs" />
-    <Compile Include="Toils\NoticeBoardToils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

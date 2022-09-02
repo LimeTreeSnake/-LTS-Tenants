@@ -29,13 +29,13 @@ namespace Tenants.Settings {
         #region Fields
         private static int minDays, maxDays;
         private static IntRange days;
-        private static int rent;
-        private static string rentBuffer;
+        private static int rent, worldTenants;
+        private static string rentBuffer, worldTenantsBuffer;
         private static int moodTicks;
         private static string moodTicksBuffer;
         private static int noticeCourierCost;
         private static string noticeCourierCostBuffer;
-        private static bool killPenalty = true;
+        private static bool killPenalty = true, paymentGold = false;
 
         public static IEnumerable<ThingDef> Races = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race != null && x.RaceProps.Humanlike).Select(s => s.race).Distinct();
         public static IEnumerable<PawnKindDef> CourierDefs = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.HasModExtension<DefModExtensions.CoureierExtension>());
@@ -58,17 +58,21 @@ namespace Tenants.Settings {
         public static int MoodTicks => moodTicks;
         public static int NoticeCourierCost => noticeCourierCost;
         public static int Rent => rent;
+        public static int WorldTenants => worldTenants;
         public static IntRange Days => days;
         public static List<string> AvailableRaces => availableRaces;
         public static bool KillPenalty => killPenalty;
+        public static bool PaymentGold => paymentGold;
 
         public override void ExposeData() {
             Scribe_Values.Look(ref rent, "Rent", 60, false);
+            Scribe_Values.Look(ref worldTenants, "WorldTenants", 5, false);
             Scribe_Values.Look(ref minDays, "MinDays", 3, false);
             Scribe_Values.Look(ref maxDays, "MaxDays", 7, false);
             Scribe_Values.Look(ref days, "Days", new IntRange(3, 7));
             Scribe_Values.Look(ref moodTicks, "MoodTicks", 30000, false);
             Scribe_Values.Look(ref killPenalty, "KillPenalty", true);
+            Scribe_Values.Look(ref paymentGold, "PaymentGold", false);
             Scribe_Values.Look(ref noticeCourierCost, "NoticeCourierCost", 100, false);
             Scribe_Collections.Look(ref availableRaces, "AvailableRaces", LookMode.Value);
             base.ExposeData();
@@ -84,11 +88,14 @@ namespace Tenants.Settings {
             maxDays = 30;
             rentBuffer = "60";
             rent = 60;
+            worldTenants = 5;
+            worldTenantsBuffer = "5";
             noticeCourierCostBuffer = "100";
             noticeCourierCost = 100;
             moodTicksBuffer = "30000";
             moodTicks = 30000;
             killPenalty = true;
+            paymentGold = false;
             rent = 50;
             days = new IntRange(3, 7);
         }
@@ -112,28 +119,45 @@ namespace Tenants.Settings {
                 Rect rect4 = list.GetRect(lineHeight);
                 list.Gap(margin);
                 Rect rect5 = list.GetRect(lineHeight);
+                Rect rect6 = list.GetRect(lineHeight);
+                list.Gap(margin);
+                Rect rect7 = list.GetRect(lineHeight);
+                Rect rect8 = list.GetRect(lineHeight);
+                //Left Side
+                //Days
                 Widgets.Label(rect1.LeftHalf(), Language.Translate.TenancyDaysContract(days.min, days.max));
                 Widgets.IntRange(rect2.LeftHalf(), (int)list.CurHeight, ref days, minDays, maxDays);
+                //Rent
                 Widgets.Label(rect3.LeftHalf(), Language.Translate.TenancyRentContract(rent));
                 Widgets.IntEntry(rect4.LeftHalf(), ref rent, ref rentBuffer);
+                //Mood
+                Widgets.Label(rect5.LeftHalf(), Language.Translate.MoodTicks(moodTicks));
+                TooltipHandler.TipRegion(rect5.LeftHalf(), Language.Translate.MoodTicksDesc);
+                Widgets.IntEntry(rect6.LeftHalf(), ref moodTicks, ref moodTicksBuffer);
+                //Kill Penalty
+                Widgets.CheckboxLabeled(rect7.LeftHalf(), Language.Translate.KillPenalty, ref killPenalty);
+                TooltipHandler.TipRegion(rect7.LeftHalf(), Language.Translate.KillPenaltyDesc);
 
+                //Right Side
+                //Advertisement Cost
                 Widgets.Label(rect1.RightHalf(), Language.Translate.AdvertisementCost(noticeCourierCost));
                 Widgets.IntEntry(rect2.RightHalf(), ref noticeCourierCost, ref noticeCourierCostBuffer);
-                Widgets.Label(rect3.RightHalf(), Language.Translate.MoodTicks(moodTicks));
-                TooltipHandler.TipRegion(rect3.RightHalf(), Language.Translate.MoodTicksDesc);
-                Widgets.IntEntry(rect4.RightHalf(), ref moodTicks, ref moodTicksBuffer);
-
-                Widgets.CheckboxLabeled(rect5.LeftHalf(), Language.Translate.KillPenalty, ref killPenalty);
-                TooltipHandler.TipRegion(rect5.LeftHalf(), Language.Translate.KillPenaltyDesc);
+                //Stored Tenants
+                Widgets.Label(rect5.RightHalf(), Language.Translate.TenantsStored);
+                TooltipHandler.TipRegion(rect5.RightHalf(), Language.Translate.TenantsStoredDesc);
+                Widgets.IntEntry(rect6.RightHalf(), ref worldTenants, ref worldTenantsBuffer);
+                //Kill Penalty
+                Widgets.CheckboxLabeled(rect7.RightHalf(), Language.Translate.GoldPayment, ref paymentGold);
+                TooltipHandler.TipRegion(rect7.RightHalf(), Language.Translate.GoldPaymentDesc);
 
                 // Race Settings
                 list.GapLine(12f);
-                Rect rect6 = list.GetRect(lineHeight);
-                Widgets.Label(rect6.LeftHalf(), Language.Translate.Races);
-                Filter = Widgets.TextField(rect6.RightHalf(), Filter);
+                Rect rectRaces = list.GetRect(lineHeight);
+                Widgets.Label(rectRaces.LeftHalf(), Language.Translate.Races);
+                Filter = Widgets.TextField(rectRaces.RightHalf(), Filter);
                 list.Gap(6f);
 
-                Rect optionsRect = list.GetRect(lineHeight * 10f);
+                Rect optionsRect = list.GetRect(lineHeight * 11f);
                 Widgets.DrawMenuSection(optionsRect);
 
                 Rect tenantsRect = optionsRect.ContractedBy(margin * 2);
@@ -145,7 +169,7 @@ namespace Tenants.Settings {
                 TenantsViewRect.height = num2;
                 Widgets.BeginScrollView(tenantsRect, ref scrollPos, TenantsViewRect, true);
                 Listing_Standard tenantsList = new Listing_Standard(tenantsRect, () => scrollPos) {
-                    ColumnWidth = ((TenantsViewRect.width / 3) - margin * 5)
+                    ColumnWidth = ((TenantsViewRect.width / 3) - margin * 6)
                 };
                 tenantsList.Begin(TenantsViewRect);
                 foreach (ThingDef def in Races) {

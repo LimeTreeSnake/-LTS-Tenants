@@ -24,6 +24,9 @@ namespace Tenants.Logic {
                         component.CourierKills--;
                     }
                     else {
+                        for (int i = 0; i < courier.needs.AllNeeds.Count; i++) {
+                            courier.needs.AllNeeds[i].CurLevelPercentage = 0.8f;
+                        }
                         GenSpawn.Spawn(courier, loc, map);
                         courier.relations.everSeenByPlayer = true;
                         Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival, Language.Translate.CourierArrivalMessage(courier), LetterDefOf.PositiveEvent, courier);

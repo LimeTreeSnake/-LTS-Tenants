@@ -8,10 +8,16 @@
     <CourierArrivalMessage>A courier named {PAWN_nameDef} have arrived. {PAWN_pronoun} will deliver rent and perhaps other things too! Do try to keep {PAWN_objective} safe.</CourierArrivalMessage>
     <CourierDelivered>{PAWN_nameDef} have concluded {PAWN_possessive} delivery and will soon leave.</CourierDelivered>
     <CourierDeliveredRent>{PAWN_nameDef} delivered a grand total of {0} silver from tenants.</CourierDeliveredRent>
+    <CourierDeliveredRentGold>{PAWN_nameDef} delivered a grand total of {0} silver and {1} gold from tenants.</CourierDeliveredRentGold>
+    <CourierDeliveredGift>{PAWN_nameDef} delivered a gift from a previous happy tenant! How nice!</CourierDeliveredGift>
+    <CourierDeliveredTech>The Courier Association seem pleased with your work and decided to gift you a hint of their tech.</CourierDeliveredTech>
     <CourierTenancyNotice>{PAWN_nameDef} noticed your note for tenancy and will bring it with {PAWN_objective}. Do know that this not guarantee that anyone will come...</CourierTenancyNotice>
     <CourierTenancyNoticeFail>{PAWN_nameDef} noticed your note for tenancy but it seems your previous one is still in circulation. {PAWN_pronoun} decides to leave it for now</CourierTenancyNoticeFail>
     <AddNoticeForTenancy>Add notice for tenancy: cost {0} </AddNoticeForTenancy>
     <AdvertisementPlaced>Advertisement is put up, let's wait for a courier to pick it up.</AdvertisementPlaced>
+    <AdvertisementFailed>{PAWN_nameDef} somehow failed {PAWN_possessive} task of placing an advertisement. Could not find enough silver.</AdvertisementFailed>
+
+
     <!-- Tenancy -->
     <TenancyDenied>No tenant!</TenancyDenied>
     <TenancyDeniedMessage>{PAWN_nameDef} have heard of your negligence towards tenants thus decided against living in your colony.</TenancyDeniedMessage>
@@ -42,4 +48,8 @@
     <TenancyRentContract>Base rent of {0} silver per day</TenancyRentContract>
     <KillPenalty>Kill penalty</KillPenalty>
     <KillPenaltyDesc>Whether killing tenants and couriers have other consequenses</KillPenaltyDesc>
+    <GoldPayment>Allow partial payment in gold?</GoldPayment>
+    <GoldPaymentDesc>Couriers deliver mix of silver and gold (0-20%) when delivering rent. 1 gold = 10 silver</GoldPaymentDesc>
+    <TenantsStored>World tenants stored: {0}.</TenantsStored>
+    <TenantsStoredDesc>Amount of tenants stored in the background for use in tenancy related quests. Higher number affects performance. Note: Currently contracted tenants are not accounted for and dead ones pruned.</TenantsStoredDesc>
 </LanguageData>

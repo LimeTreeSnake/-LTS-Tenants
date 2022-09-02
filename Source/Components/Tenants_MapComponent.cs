@@ -15,7 +15,7 @@ namespace Tenants.Components {
         private List<Pawn> tenantsPool = new List<Pawn>();
         private List<Pawn> courierPool = new List<Pawn>();
         private List<Models.Contract> activeContracts = new List<Models.Contract>();
-        private bool tenantAddUpp = false, courierIsFiring = false;
+        private bool tenantAddUpp = false, courierIsFiring = false, deliverGift = false;
         #endregion Fields
 
         public Thing NoticeBoard => noticeBoard;
@@ -86,7 +86,6 @@ namespace Tenants.Components {
             Scribe_Values.Look(ref tenantAddUpp, "TenantAddUpp", false);
             Scribe_Values.Look(ref courierIsFiring, "CourierIsFiring", false);
         }
-        #endregion Methods
         public override void MapComponentTick() {
             base.MapComponentTick();
             if (noticeBoard != null) {
@@ -185,13 +184,13 @@ namespace Tenants.Components {
                     }
                 }
                 tenantFireTick = 0;
-                while (tenantsPool.Where(x => x.Spawned == false && x.Faction != Faction.OfPlayer).Count() < 6) {
+                while (tenantsPool.Where(x => x.Spawned == false && x.Faction != Faction.OfPlayer).Count() < Settings.Settings.WorldTenants) {
                     if (Settings.Settings.AvailableRaces.Count > 0) {
                         string race;
                         PawnKindDef random = null;
                         race = Settings.Settings.AvailableRaces?.RandomElement();
                         if (race != null) {
-                            random = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race.defName == race && x.combatPower < 50)?.RandomElement();
+                            random = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race.defName == race && x.combatPower < 50 && !x.factionLeader)?.RandomElement();
                             if (random != null) {
                                 Pawn newTenant = PawnGenerator.GeneratePawn(random, faction);
                                 if (newTenant != null && !newTenant.AnimalOrWildMan()) {
@@ -213,6 +212,9 @@ namespace Tenants.Components {
                 if (tenantsPool.Count > 0) {
                     tenant = tenantsPool.Where(x => x.Spawned == false && x.Faction != Faction.OfPlayer)?.RandomElement();
                 }
+                for (int i = 0; i < tenant.needs.AllNeeds.Count; i++) {
+                    tenant.needs.AllNeeds[i].CurLevelPercentage = 0.6f;
+                }
                 return tenant;
             }
             catch (Exception ex) {
@@ -226,8 +228,22 @@ namespace Tenants.Components {
                     return;
                 }
                 if (silver > 0) {
-                    Messages.Message(Language.Translate.CourierDeliveredRent(courier, silver), noticeBoard, MessageTypeDefOf.NeutralEvent);
-                    DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Silver, noticeBoard.Position, silver);
+                    if (ModLister.RoyaltyInstalled && silver > 1000 && !Defs.ResearchDefOf.LTS_CourierTech.IsFinished && Defs.ResearchDefOf.LTS_CourierTech.TechprintsApplied < Defs.ResearchDefOf.LTS_CourierTech.TechprintCount) {
+                        Messages.Message(Language.Translate.CourierDeliveredTech, noticeBoard, MessageTypeDefOf.PositiveEvent);
+                        Find.ResearchManager.ApplyTechprint(Defs.ResearchDefOf.LTS_CourierTech, null);
+                    }
+                    if (Settings.Settings.PaymentGold && silver > 500) {
+                        float percentage = Rand.Range(0.00f, 0.20f);
+                        int gold = (int)((silver / 10) * percentage);
+                        silver = (int)(silver * percentage);
+                        DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Silver, noticeBoard.Position, silver);
+                        DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Gold, noticeBoard.Position, (int)gold);
+                        Messages.Message(Language.Translate.CourierDeliveredRentGold(courier, silver, gold), noticeBoard, MessageTypeDefOf.NeutralEvent);
+                    }
+                    else {
+                        DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Silver, noticeBoard.Position, silver);
+                        Messages.Message(Language.Translate.CourierDeliveredRent(courier, silver), noticeBoard, MessageTypeDefOf.NeutralEvent);
+                    }
                     silver = 0;
                 }
                 if (noticeBoardComp != null) {
@@ -275,6 +291,6 @@ namespace Tenants.Components {
             }
             return noticeBoard != null;
         }
-
+        #endregion Methods
     }
 }

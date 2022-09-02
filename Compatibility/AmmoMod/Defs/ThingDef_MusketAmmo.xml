@@ -19,7 +19,7 @@
         <excludeWeaponDefs></excludeWeaponDefs>
     </Ammunition.Defs.AmmoCategoryDef>
     <!--Musket-->
-    <ThingDef Name="LTS_Musket" ParentName="AmmunitionBase">
+    <ThingDef ParentName="AmmunitionBase">
         <defName>LTS_Musket</defName>
         <label>musket ammo</label>
         <description>Early firearms and cannons use black powder to propel projectiles.</description>
@@ -47,13 +47,15 @@
                     <max>60</max>
                 </wickTicks>
             </li>
-            <li Class="Ammunition.Components.CompProps_Ammunition">
+        </comps>
+        <modExtensions>
+            <li MayRequire="LimeTreeSnake.Ammunition" Class="Ammunition.DefModExtensions.AmmunitionExtension">
                 <bulletDef>LTS_MusketProjectile</bulletDef>
             </li>
-        </comps>
+        </modExtensions>
     </ThingDef>
     <!--Silver Musket-->
-    <ThingDef Name="LTS_SilverMusket" ParentName="AmmunitionBase">
+    <ThingDef ParentName="AmmunitionBase">
         <defName>LTS_SilverMusket</defName>
         <label>silver musket ammo</label>
         <description>Early firearms and cannons use black powder to propel projectiles.</description>
@@ -81,9 +83,11 @@
                     <max>60</max>
                 </wickTicks>
             </li>
-            <li Class="Ammunition.Components.CompProps_Ammunition">
+        </comps>
+        <modExtensions>
+            <li MayRequire="LimeTreeSnake.Ammunition" Class="Ammunition.DefModExtensions.AmmunitionExtension">
                 <bulletDef>LTS_SilverMusketProjectile</bulletDef>
             </li>
-        </comps>
+        </modExtensions>
     </ThingDef>
 </Defs>

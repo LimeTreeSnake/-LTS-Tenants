@@ -1,3 +1,19 @@
+2022-09-02
+    - Updated to use new DefModExtension for Ammunition.
+
+2022-09-01
+    - Tenant/Courier Factions should now be added mid save upon need.
+    - Couriers upon spawn set their needs to 80%.
+    - Tenants upon spawn set their needs to 60%.
+    - Courier Weapons Craftable after researching Courier Tech
+    - Courier Apparel Craftable after researching Courier Tech
+    - If royalty installed, Courier Tech requires techprint which couriers delivers upon receiving a large amount(1000+ silver) of rent.
+    - Musket Ammo for [LTS]Ammunition can also be made using grease instead of chemfuel from [LTS]Maintenance if both mods used. 
+        (Silver Musketballs deal slightly more damage than Musketballs utilizing the bullet replace def integrated in [LTS]Ammunition)
+    - Added mod setting to allow payment in gold, 0-20% of the rent if above 500 total will be converted to gold at a ratio of 10 silver -> 1 gold.
+    - Increased sound of courier weapons.
+    - Pawns searches for more stacks of silver if they need it, fixes cases where you have stacks with not enough silver in it.
+
 2022-08-25
 	- Fixed compatibility issue with Ammunition, made the def only load if said mod is loaded. (Might require redownload of mod as some files are moved)
     - Alert for bedrooms should no longer show if not applicable.

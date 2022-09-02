@@ -9,10 +9,13 @@ namespace Tenants.Language {
         public static string CourierArrivalMessage(Pawn pawn) => "CourierArrivalMessage".Translate(pawn.Named("PAWN"));
         public static string CourierDelivered(Pawn pawn) => "CourierDelivered".Translate(pawn.Named("PAWN"));
         public static string CourierDeliveredRent(Pawn pawn, int rent) => "CourierDeliveredRent".Translate(rent, pawn.Named("PAWN"));
+        public static string CourierDeliveredRentGold(Pawn pawn, int rent, int gold) => "CourierDeliveredRentGold".Translate(rent, gold, pawn.Named("PAWN"));
+        public static string CourierDeliveredTech => "CourierDeliveredTech".Translate();
         public static string CourierTenancyNotice(Pawn pawn) => "CourierTenancyNotice".Translate(pawn.Named("PAWN"));
         public static string CourierTenancyNoticeFail(Pawn pawn) => "CourierTenancyNoticeFail".Translate(pawn.Named("PAWN"));
         public static string AddNoticeForTenancy(int cost) => "AddNoticeForTenancy".Translate(cost);
         public static string AdvertisementPlaced => "AdvertisementPlaced".Translate();
+        public static string AdvertisementFailed(Pawn pawn) => "AdvertisementFailed".Translate(pawn.Named("PAWN"));
 
 
         public static string TenancyDenied => "TenancyDenied".Translate();
@@ -44,6 +47,10 @@ namespace Tenants.Language {
         public static string MoodTicksDesc => "MoodTicksDesc".Translate();
         public static string KillPenalty => "KillPenalty".Translate();
         public static string KillPenaltyDesc => "KillPenaltyDesc".Translate();
+        public static string GoldPayment => "GoldPayment".Translate();
+        public static string GoldPaymentDesc => "GoldPaymentDesc".Translate();
+        public static string TenantsStored => "TenantsStored".Translate();
+        public static string TenantsStoredDesc => "TenantsStoredDesc".Translate();
 
 
     }
