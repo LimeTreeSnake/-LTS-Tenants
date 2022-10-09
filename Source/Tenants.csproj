@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\v1.3\Assemblies\</OutputPath>
+    <OutputPath>..\v1.4\Assemblies\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>none</ErrorReport>
@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="LTS_Systems">
       <HintPath>..\..\-LTS-Systems\v1.3\Assemblies\LTS_Systems.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

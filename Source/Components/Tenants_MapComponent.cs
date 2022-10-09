@@ -52,6 +52,9 @@ namespace Tenants.Components {
         public bool IsTenant(Pawn pawn) {
             return tenantsPool.Contains(pawn);
         }
+        public bool RemoveTenant(Pawn pawn) {
+            return tenantsPool.Remove(pawn);
+        }
         public bool IsCourier(Pawn pawn) {
             return courierPool.Contains(pawn);
         }
@@ -101,7 +104,7 @@ namespace Tenants.Components {
                 if (noticeBoard != null && !courierIsFiring) {
                     courierFireTick--;
                     if (courierFireTick <= 0) {
-                        Find.Storyteller.incidentQueue.Add(Defs.IncidentDefOf.CourierArrival, Find.TickManager.TicksGame + Rand.Range(15000, 120000), StorytellerUtility.DefaultParmsNow(Defs.IncidentDefOf.CourierArrival.category, this.map), 240000);
+                        Find.Storyteller.incidentQueue.Add(Defs.IncidentDefOf.CourierArrival, Find.TickManager.TicksGame + 10000, StorytellerUtility.DefaultParmsNow(Defs.IncidentDefOf.CourierArrival.category, this.map), 240000);
                         courierIsFiring = true;
                     }
                 }
@@ -133,7 +136,11 @@ namespace Tenants.Components {
                         }
                     }
                 }
-                courierFireTick = Rand.RangeInclusive(500000, 1500000);
+                if (Settings.Settings.CourierDays.min == 0) {
+                    Settings.Settings.Reset();
+                    Log.Warning("Tenany settings had no min/max courier spawn days set, mod settings got reset!");
+                }
+                courierFireTick = Rand.RangeInclusive(Settings.Settings.CourierDays.min * 60000, Settings.Settings.CourierDays.max * 60000);
                 courierIsFiring = false;
                 while (courierPool.Count < 6) {
                     PawnKindDef courierDef = Settings.Settings.GetCourierByWeight;
@@ -190,7 +197,7 @@ namespace Tenants.Components {
                         PawnKindDef random = null;
                         race = Settings.Settings.AvailableRaces?.RandomElement();
                         if (race != null) {
-                            random = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race.defName == race && x.combatPower < 50 && !x.factionLeader)?.RandomElement();
+                            random = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race.defName.Contains(race) && x.combatPower < 50 && !x.factionLeader)?.RandomElement();
                             if (random != null) {
                                 Pawn newTenant = PawnGenerator.GeneratePawn(random, faction);
                                 if (newTenant != null && !newTenant.AnimalOrWildMan()) {
@@ -235,7 +242,7 @@ namespace Tenants.Components {
                     if (Settings.Settings.PaymentGold && silver > 500) {
                         float percentage = Rand.Range(0.00f, 0.20f);
                         int gold = (int)((silver / 10) * percentage);
-                        silver = (int)(silver * percentage);
+                        silver = silver - (int)(silver * percentage);
                         DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Silver, noticeBoard.Position, silver);
                         DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Gold, noticeBoard.Position, (int)gold);
                         Messages.Message(Language.Translate.CourierDeliveredRentGold(courier, silver, gold), noticeBoard, MessageTypeDefOf.NeutralEvent);

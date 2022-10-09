@@ -2,6 +2,12 @@
 
 namespace Tenants.Language {
     public static class Translate {
+        //LTSSystem
+        public static string ChangePage => "LTSChangePage".Translate();
+        public static string DefaultSettings => "LTSDefaultSettings".Translate();
+        public static string Filter => "LTSFilter".Translate();
+
+        //Messages
         public static string MultipleNoticeBoards => "MultipleNoticeBoards".Translate();
         public static string CourierDenied => "CourierDenied".Translate();
         public static string CourierDeniedMessage(Pawn pawn) => "CourierDeniedMessage".Translate(pawn.Named("PAWN"));
@@ -36,20 +42,21 @@ namespace Tenants.Language {
         public static string TenancyRoomRequiredDesc => "TenancyRoomRequiredDesc".Translate();
 
         //Settings
+        public static string AllowXenos => "AllowXenos".Translate();
         public static string Races => "Races".Translate();
-        public static string Filter => "Filter".Translate();
-        public static string DefaultSettings => "DefaultSettings".Translate();
+        public static string CourierDaysSpawn(int min, int max) => "CourierDaysSpawn".Translate(min, max);
+        public static string CourierDaysSpawnDesc => "CourierDaysSpawnDesc".Translate();
         public static string TenancyDaysContract(int min, int max) => "TenancyDaysContract".Translate(min, max);
         public static string TenancyRentContract(int rent) => "TenancyRentContract".Translate(rent);
         public static string AdvertisementCost(int value) => "AdvertisementCost".Translate(value);
-        public static string AdvertisementCostDesc() => "AdvertisementCostDesc".Translate();
+        public static string AdvertisementCostDesc => "AdvertisementCostDesc".Translate();
         public static string MoodTicks(int value) => "MoodTicks".Translate(value);
         public static string MoodTicksDesc => "MoodTicksDesc".Translate();
         public static string KillPenalty => "KillPenalty".Translate();
         public static string KillPenaltyDesc => "KillPenaltyDesc".Translate();
         public static string GoldPayment => "GoldPayment".Translate();
         public static string GoldPaymentDesc => "GoldPaymentDesc".Translate();
-        public static string TenantsStored => "TenantsStored".Translate();
+        public static string TenantsStored(int value) => "TenantsStored".Translate(value);
         public static string TenantsStoredDesc => "TenantsStoredDesc".Translate();
 
 

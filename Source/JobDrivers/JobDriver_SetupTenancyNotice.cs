@@ -39,8 +39,7 @@ namespace Tenants.JobDrivers {
                     }
                     else {
                         comp.noticeForTenancy = true;
-                        if (pawn.carryTracker.CarriedThing != null && !pawn.carryTracker.innerContainer.TryTransferToContainer(pawn.carryTracker.CarriedThing, pawn.inventory.innerContainer, true)) {
-                            pawn.carryTracker.TryDropCarriedThing(pawn.Position, pawn.carryTracker.CarriedThing.stackCount, ThingPlaceMode.Near, out Thing thing, null);
+                        if (pawn.carryTracker.CarriedThing != null && pawn.carryTracker.TryDropCarriedThing(pawn.Position, pawn.carryTracker.CarriedThing.stackCount, ThingPlaceMode.Near, out Thing thing, null)) {
                             thing?.Destroy();
                         }
                         Messages.Message(Language.Translate.AdvertisementPlaced, NoticeBoard, MessageTypeDefOf.NeutralEvent);

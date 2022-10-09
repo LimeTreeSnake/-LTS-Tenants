@@ -21,6 +21,14 @@ namespace Tenants.QuestNodes {
         public Map map;
         public Models.Contract contract;
 
+        public override void Notify_PreCleanup() {
+            base.Notify_PreCleanup();
+            if (this.quest.State == QuestState.EndedOfferExpired) {
+                Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+                comp.RemoveTenant(contract.tenant);
+            }
+        }
+
         public override void Notify_QuestSignalReceived(Signal signal) {
             base.Notify_QuestSignalReceived(signal);
             if (signal.tag == this.inSignal) {

@@ -17,7 +17,6 @@
     <AdvertisementPlaced>Advertisement is put up, let's wait for a courier to pick it up.</AdvertisementPlaced>
     <AdvertisementFailed>{PAWN_nameDef} somehow failed {PAWN_possessive} task of placing an advertisement. Could not find enough silver.</AdvertisementFailed>
 
-
     <!-- Tenancy -->
     <TenancyDenied>No tenant!</TenancyDenied>
     <TenancyDeniedMessage>{PAWN_nameDef} have heard of your negligence towards tenants thus decided against living in your colony.</TenancyDeniedMessage>
@@ -37,8 +36,10 @@
     <TenancyRoomRequiredDesc>A tenant pays for a single room but does not have one! You might earn their ire should this not be fixed soon.</TenancyRoomRequiredDesc>
 
     <!-- Settings -->
-    <Races>Races</Races>
+    <Races>Allowed tenant races</Races>
     <Filter>Race filter:</Filter>
+    <CourierDaysSpawn>{0} - {1} days between forced courier event.</CourierDaysSpawn>
+    <CourierDaysSpawnDesc>The min time between courier events are random between these two values. Note that you do still require a noticeboard.</CourierDaysSpawnDesc>
     <DefaultSettings>Default Settings</DefaultSettings>
     <MoodTicks>Mood ticks: {0}</MoodTicks>
     <MoodTicksDesc>Amount of ticks until a tenant mood event may start.</MoodTicksDesc>

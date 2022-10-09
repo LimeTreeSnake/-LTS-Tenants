@@ -13,6 +13,8 @@ namespace Tenants.QuestNodes {
         [NoTranslate]
         public SlateRef<string> gender;
         [NoTranslate]
+        public SlateRef<string> genes;
+        [NoTranslate]
         public SlateRef<string> addToList;
         [NoTranslate]
         public SlateRef<string> tenantFaction;
@@ -37,10 +39,18 @@ namespace Tenants.QuestNodes {
                         QuestGen.slate.Set(tenant.GetValue(slate), newTenant, false);
                     }
                     if (this.race.GetValue(slate) != null) {
-                        QuestGen.slate.Set(race.GetValue(slate), newTenant.gender.GetLabel(), false);
+                        QuestGen.slate.Set(race.GetValue(slate), newTenant.def.label, false);
                     }
                     if (this.gender.GetValue(slate) != null) {
-                        QuestGen.slate.Set(gender.GetValue(slate), newTenant.def.label, false);
+                        QuestGen.slate.Set(gender.GetValue(slate), newTenant.gender.GetLabel(), false);
+                    }
+                    if (this.genes.GetValue(slate) != null) {
+                        if (ModLister.BiotechInstalled) {
+                            QuestGen.slate.Set(genes.GetValue(slate), newTenant.genes.XenotypeLabel, false);
+                        }
+                        else {
+                            QuestGen.slate.Set(genes.GetValue(slate), "", false);
+                        }
                     }
                     if (this.addToList.GetValue(slate) != null) {
                         QuestGenUtility.AddToOrMakeList(QuestGen.slate, addToList.GetValue(slate), newTenant);

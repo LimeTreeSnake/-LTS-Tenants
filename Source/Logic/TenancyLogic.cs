@@ -10,6 +10,7 @@ namespace Tenants.Logic {
         public static Models.Contract GenerateBasicTenancyContract(Pawn tenant) {
             if (Settings.Settings.Days.min == 0) {
                 Settings.Settings.Reset();
+                Log.Warning("Tenany settings had no min/max days set, mod settings got reset!");
             }
             Models.Contract contract = new Models.Contract {
                 tenant = tenant,

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <Defs>
+        <!--Courier-->
+        <IncidentDef>
+            <defName>CourierArrival</defName>
+            <label>courier arrival</label>
+            <targetTags>
+                <li>Map_PlayerHome</li>
+            </targetTags>
+            <workerClass>Tenants.IncidentWorkers.CourierArrival_IncidentWorker</workerClass>
+            <category>Misc</category>
+            <baseChance>2.2</baseChance>
+            <pointsScaleable>true</pointsScaleable>
+            <minRefireDays>4</minRefireDays>
+        </IncidentDef>
+    </Defs>
