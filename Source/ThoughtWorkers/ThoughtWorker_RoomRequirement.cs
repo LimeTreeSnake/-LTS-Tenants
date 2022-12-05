@@ -12,7 +12,7 @@ namespace Tenants.ThoughtWorkers {
                 return false;
             }
             Tenants_MapComponent comp = p.Map.GetComponent<Tenants_MapComponent>();
-            if (comp.IsContractedTenant(p, out Models.Contract cont)) {
+            if (comp != null && comp.IsContractedTenant(p, out Models.Contract cont)) {
                 if (cont.singleRoomRequirement) {
                     return !p.royalty.HasPersonalBedroom();
                 }

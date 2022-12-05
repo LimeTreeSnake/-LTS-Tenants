@@ -7,22 +7,22 @@ using UnityEngine;
 using System;
 using Verse.Sound;
 using System.Net.NetworkInformation;
+using Tenants.Things;
 
 namespace Tenants.JobDrivers {
     internal class JobDriver_SetupTenancyNotice : JobDriver {
-        private ThingWithComps NoticeBoard => (ThingWithComps)job.GetTarget(TargetIndex.A).Thing;
+        private NoticeBoard noticeBoard => (ThingWithComps)job.GetTarget(TargetIndex.A).Thing as NoticeBoard;
         private int paid = 0;
 
         public const TargetIndex IngredientInd = TargetIndex.B;
         public const TargetIndex CarriedThing = TargetIndex.C;
-        private Components.NoticeBoard_Component comp => NoticeBoard.TryGetComp<Components.NoticeBoard_Component>();
         public override bool TryMakePreToilReservations(bool errorOnFailed) {
             pawn.ReserveAsManyAsPossible(job.GetTargetQueue(TargetIndex.B), job);
-            pawn.Reserve(NoticeBoard, job, 1, -1, null, errorOnFailed);
+            pawn.Reserve(noticeBoard, job, 1, -1, null, errorOnFailed);
             return true;
         }
         protected override IEnumerable<Toil> MakeNewToils() {
-            AddFailCondition(() => !this.job.playerForced && comp.noticeForTenancy);
+            AddFailCondition(() => !this.job.playerForced);
             Toil rest = CheckForRest(TargetIndex.B);
             yield return rest;
             Toil go = Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch);
@@ -34,15 +34,17 @@ namespace Tenants.JobDrivers {
             yield return new Toil {
                 initAction = delegate {
                     if (job.GetTarget(TargetIndex.B).Thing.stackCount < Settings.Settings.NoticeCourierCost) {
-                        Messages.Message(Language.Translate.AdvertisementFailed(pawn), NoticeBoard, MessageTypeDefOf.NeutralEvent);
+                        Messages.Message(Language.Translate.AdvertisementFailed(pawn), noticeBoard, MessageTypeDefOf.NeutralEvent);
                         pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out _);
                     }
                     else {
-                        comp.noticeForTenancy = true;
+                        noticeBoard.noticeUp = true;
                         if (pawn.carryTracker.CarriedThing != null && pawn.carryTracker.TryDropCarriedThing(pawn.Position, pawn.carryTracker.CarriedThing.stackCount, ThingPlaceMode.Near, out Thing thing, null)) {
                             thing?.Destroy();
                         }
-                        Messages.Message(Language.Translate.AdvertisementPlaced, NoticeBoard, MessageTypeDefOf.NeutralEvent);
+                        if (Settings.Settings.AdvertNoticeSound) {
+                            Messages.Message(Language.Translate.AdvertisementPlaced, noticeBoard, MessageTypeDefOf.NeutralEvent);
+                        }
                     }
                 },
             };

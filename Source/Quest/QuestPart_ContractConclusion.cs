@@ -15,6 +15,7 @@ namespace Tenants.QuestNodes {
         public string joinSignal;           //When tenant joins
         public string recruitSignal;        //When tenant is recruited
         public string rejectSignal;         //When tenant decides against coming
+        public string leaveSignal;         //When tenant decides against coming
         public string initiateSignal;       //When quest is accepted
         public string postponeSignal;       //If pawn join offer is postponed
         public bool isEnded = false;        //Makes sure the kill penalty is not applied many times.
@@ -151,6 +152,7 @@ namespace Tenants.QuestNodes {
                         contract.tenant.SetFaction(Faction.OfPlayerSilentFail);
                         contract.tenant.apparel.UnlockAll();
                         comp.ActiveContracts.Remove(contract);
+                        Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyJoin, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
                     },
                     resolveTree = true
                 };
@@ -176,11 +178,15 @@ namespace Tenants.QuestNodes {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                 comp.ActiveContracts.Remove(contract);
                 comp.TenantKills++;
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyDeath, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
                 isEnded = true;
             }
             else if (signal.tag == this.rejectSignal) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                 comp.TenantKills--;
+            }
+            else if (signal.tag == this.leaveSignal) {
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyLeave, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
             }
         }
         public override void ExposeData() {
@@ -192,6 +198,7 @@ namespace Tenants.QuestNodes {
             Scribe_Values.Look(ref joinSignal, "JoinSignal", null, false);
             Scribe_Values.Look(ref recruitSignal, "RecruitSignal", null, false);
             Scribe_Values.Look(ref rejectSignal, "RejectSignal", null, false);
+            Scribe_Values.Look(ref leaveSignal, "LeaveSignal", null, false);
             Scribe_Values.Look(ref initiateSignal, "InitiateSignal", null, false);
             Scribe_Values.Look(ref postponeSignal, "PostponeSignal", null, false);
             Scribe_Values.Look(ref isEnded, "IsEnded", false, false);

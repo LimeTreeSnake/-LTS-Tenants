@@ -9,12 +9,13 @@
                 <li Class="Tenants.QuestNodes.QuestNode_ContractConclusion">
                     <inSignal>tenants.ContractFinished</inSignal>
                     <outSignal>tenants.ContractReboot</outSignal>
-                    <joinSignal>tenants.WannaJoin</joinSignal>
-                    <recruitSignal>tenants.TenantRecruited</recruitSignal>
-                    <terminateSignal>tenants.ContractTerminated</terminateSignal>
                     <badSignal>tenants.BadEnding</badSignal>
-                    <rejectSignal>tenants.Rejected</rejectSignal>
+                    <joinSignal>tenants.WannaJoin</joinSignal>
+                    <leaveSignal>tenants.leaveSignal</leaveSignal>
                     <postponeSignal>tenants.Postponed</postponeSignal>
+                    <recruitSignal>tenants.TenantRecruited</recruitSignal>
+                    <rejectSignal>tenants.Rejected</rejectSignal>
+                    <terminateSignal>tenants.ContractTerminated</terminateSignal>
                     <map>$map</map>
                     <contract>$contract</contract>
                 </li>
@@ -138,6 +139,7 @@
                                                         <outSignals>
                                                             <li>tenants.ExtraFaction</li>
                                                             <li>tenants.LeaveOnCleanup</li>
+                                                            <li>tenants.leaveSignal</li>
                                                             <li>tenants.ContractTerminated</li>
                                                         </outSignals>
                                                     </li>

@@ -1,4 +1,15 @@
 [LTS]Tenants
+2022-12-05
+    - Notice Board now under LTS structure tab.
+    - Fixed some messages and phrasings.  Mucho BeTTeRuuu InGuriSH, sorry not native speaker
+    - Fixed mod settings for races, somehow made one per pawnkinddef and fixed the label.
+    - Fixed issue where Tenancy payment in gold came to 0 gold became full stack of gold. Now it'll be set to 1 instead.
+    - Setting up notices are now a work type and task. No longer a need for manual setup up notices.
+    - Noticeboard have a gizmo to allow auto setup notices.
+    - Toggleable message and sound for when pawn sets up notice.
+    - Courier&Tenant faction no longer hostile to the Empire.
+    - Added tenancy precept for ideology and associated thoughts and event triggers for this.
+
 2022-10-09
     - Updated for 1.4, 1.3 stays as is and wont be updated.
     - Spawnrate for courier event settable in mod settings.

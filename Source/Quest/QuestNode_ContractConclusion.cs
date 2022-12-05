@@ -13,17 +13,19 @@ namespace Tenants.QuestNodes {
         [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> outSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
-        public SlateRef<string> terminateSignal;
-        [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> badSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> joinSignal;
+        [NoTranslate, TranslationHandle(Priority = 100)]
+        public SlateRef<string> leaveSignal;
+        [NoTranslate, TranslationHandle(Priority = 100)]
+        public SlateRef<string> postponeSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> recruitSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
         public SlateRef<string> rejectSignal;
         [NoTranslate, TranslationHandle(Priority = 100)]
-        public SlateRef<string> postponeSignal;
+        public SlateRef<string> terminateSignal;
         public SlateRef<QuestPart.SignalListenMode?> signalListenMode;
         protected override void RunInt() {
             try {
@@ -36,12 +38,13 @@ namespace Tenants.QuestNodes {
                 QuestPart_ContractConclusion payment = new QuestPart_ContractConclusion {
                     inSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.inSignal.GetValue(slate)),
                     outSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.outSignal.GetValue(slate)),
-                    terminateSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.terminateSignal.GetValue(slate)),
                     badSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.badSignal.GetValue(slate)),
                     joinSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.joinSignal.GetValue(slate)),
+                    leaveSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.leaveSignal.GetValue(slate)),
+                    postponeSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.postponeSignal.GetValue(slate)),
                     recruitSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.recruitSignal.GetValue(slate)),
                     rejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.rejectSignal.GetValue(slate)),
-                    postponeSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.postponeSignal.GetValue(slate)),
+                    terminateSignal = QuestGenUtility.HardcodedSignalWithQuestID(this.terminateSignal.GetValue(slate)),
                     initiateSignal = quest.InitiateSignal,
                     signalListenMode = (this.signalListenMode.GetValue(slate) ?? QuestPart.SignalListenMode.OngoingOnly),
                     contract = cont,

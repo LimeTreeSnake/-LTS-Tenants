@@ -4,12 +4,12 @@ using Verse;
 using System;
 using System.Linq;
 using RimWorld.QuestGen;
+using Tenants.Things;
 
 namespace Tenants.Components {
     public class Tenants_MapComponent : MapComponent {
         #region Fields
-        private Thing noticeBoard;
-        private NoticeBoard_Component noticeBoardComp;
+        private NoticeBoard noticeBoard;
         private int courierFireTick = 0, tenantFireTick = 0;
         private int tenantKills = 0, courierKills = 0, silver = 0;
         private List<Pawn> tenantsPool = new List<Pawn>();
@@ -18,7 +18,7 @@ namespace Tenants.Components {
         private bool tenantAddUpp = false, courierIsFiring = false, deliverGift = false;
         #endregion Fields
 
-        public Thing NoticeBoard => noticeBoard;
+        public NoticeBoard NoticeBoard => noticeBoard;
         public int TenantFireTick {
             get => tenantFireTick;
             set => tenantFireTick = value;
@@ -240,11 +240,14 @@ namespace Tenants.Components {
                         Find.ResearchManager.ApplyTechprint(Defs.ResearchDefOf.LTS_CourierTech, null);
                     }
                     if (Settings.Settings.PaymentGold && silver > 500) {
-                        float percentage = Rand.Range(0.00f, 0.20f);
-                        int gold = (int)((silver / 10) * percentage);
+                        float percentage = Rand.Range(0.1f, 0.20f);
+                        int gold = (int)((float)(silver / 10) * percentage);
                         silver = silver - (int)(silver * percentage);
+                        if(gold < 1) {
+                            gold = 1;
+                        }
                         DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Silver, noticeBoard.Position, silver);
-                        DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Gold, noticeBoard.Position, (int)gold);
+                        DebugThingPlaceHelper.DebugSpawn(ThingDefOf.Gold, noticeBoard.Position, gold);
                         Messages.Message(Language.Translate.CourierDeliveredRentGold(courier, silver, gold), noticeBoard, MessageTypeDefOf.NeutralEvent);
                     }
                     else {
@@ -253,10 +256,10 @@ namespace Tenants.Components {
                     }
                     silver = 0;
                 }
-                if (noticeBoardComp != null) {
-                    if (noticeBoardComp.noticeForTenancy && tenantAddUpp != true) {
+                if (NoticeBoard != null) {
+                    if (NoticeBoard.noticeUp && tenantAddUpp != true) {
                         Messages.Message(Language.Translate.CourierTenancyNotice(courier), MessageTypeDefOf.PositiveEvent);
-                        noticeBoardComp.noticeForTenancy = false;
+                        NoticeBoard.noticeUp = false;
                         tenantAddUpp = true;
                         tenantFireTick = Rand.RangeInclusive(60000, 300000);
                     }
@@ -281,17 +284,15 @@ namespace Tenants.Components {
             int count = 0;
             noticeBoard = null;
             foreach (Building current in this.map.listerBuildings.allBuildingsColonist) {
-                if (current.def == Defs.ThingDefOf.LTS_NoticeBoard) {
+                if (current is NoticeBoard) {
                     if (count > 1) {
                         noticeBoard.Destroy();
-                        noticeBoard = current;
-                        noticeBoardComp = current.TryGetComp<NoticeBoard_Component>();
+                        noticeBoard = current as NoticeBoard;
                         Messages.Message(Language.Translate.MultipleNoticeBoards, MessageTypeDefOf.NeutralEvent);
                         continue;
                     }
                     else {
-                        noticeBoard = current;
-                        noticeBoardComp = current.TryGetComp<NoticeBoard_Component>();
+                        noticeBoard = current as NoticeBoard;
                         count++;
                     }
                 }

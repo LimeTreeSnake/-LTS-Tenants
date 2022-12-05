@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
     <!-- Courier -->
     <MultipleNoticeBoards>You may only have one notice board!</MultipleNoticeBoards>
     <CourierDenied>No courier!</CourierDenied>
     <CourierDeniedMessage>You have been denied a courier due to previous unfortunate incidents.</CourierDeniedMessage>
     <CourierArrival>Courier</CourierArrival>
-    <CourierArrivalMessage>A courier named {PAWN_nameDef} have arrived. {PAWN_pronoun} will deliver rent and perhaps other things too! Do try to keep {PAWN_objective} safe.</CourierArrivalMessage>
-    <CourierDelivered>{PAWN_nameDef} have concluded {PAWN_possessive} delivery and will soon leave.</CourierDelivered>
+    <CourierArrivalMessage>A courier named {PAWN_nameDef} has arrived. {PAWN_pronoun} will deliver rent and perhaps other things too! Do try to keep {PAWN_objective} alive.</CourierArrivalMessage>
+    <CourierDelivered>{PAWN_nameDef} has concluded {PAWN_possessive} delivery and will soon leave.</CourierDelivered>
     <CourierDeliveredRent>{PAWN_nameDef} delivered a grand total of {0} silver from tenants.</CourierDeliveredRent>
     <CourierDeliveredRentGold>{PAWN_nameDef} delivered a grand total of {0} silver and {1} gold from tenants.</CourierDeliveredRentGold>
     <CourierDeliveredGift>{PAWN_nameDef} delivered a gift from a previous happy tenant! How nice!</CourierDeliveredGift>
-    <CourierDeliveredTech>The Courier Association seem pleased with your work and decided to gift you a hint of their tech.</CourierDeliveredTech>
-    <CourierTenancyNotice>{PAWN_nameDef} noticed your note for tenancy and will bring it with {PAWN_objective}. Do know that this not guarantee that anyone will come...</CourierTenancyNotice>
+    <CourierDeliveredTech>The Courier Association is pleased with your work and decided to gift you a hint of their technology.</CourierDeliveredTech>
+    <CourierTenancyNotice>{PAWN_nameDef} noticed your note for tenancy and will bring it with {PAWN_objective}. Do know that this does not guarantee that anyone will come...</CourierTenancyNotice>
     <CourierTenancyNoticeFail>{PAWN_nameDef} noticed your note for tenancy but it seems your previous one is still in circulation. {PAWN_pronoun} decides to leave it for now</CourierTenancyNoticeFail>
     <AddNoticeForTenancy>Add notice for tenancy: cost {0} </AddNoticeForTenancy>
-    <AdvertisementPlaced>Advertisement is put up, let's wait for a courier to pick it up.</AdvertisementPlaced>
-    <AdvertisementFailed>{PAWN_nameDef} somehow failed {PAWN_possessive} task of placing an advertisement. Could not find enough silver.</AdvertisementFailed>
-
+    <AdvertisementPlaced>Advertisement is put up, now to wait for a courier to pick it up.</AdvertisementPlaced>
+    <AdvertisementFailed>{PAWN_nameDef} somehow failed {PAWN_possessive} task of placing an advertisement. not enough silver.</AdvertisementFailed>
+    <AdvertisementGizmo>Place Advert</AdvertisementGizmo>
+    <AdvertisementGizmoDesc>If toggled on, a pawn will make sure you have an advert up at all times as long as you can afford it.</AdvertisementGizmoDesc>
     <!-- Tenancy -->
     <TenancyDenied>No tenant!</TenancyDenied>
-    <TenancyDeniedMessage>{PAWN_nameDef} have heard of your negligence towards tenants thus decided against living in your colony.</TenancyDeniedMessage>
+    <TenancyDeniedMessage>{PAWN_nameDef} has heard of your negligence towards tenants thus decided against living in your colony.</TenancyDeniedMessage>
     <ContractText>{PAWN_nameDef} would love to prolong {PAWN_possessive} stay. Would you accept the same contract of {0} silver per day for {1} days?</ContractText>
     <ContractJoin>{PAWN_nameDef} seems to love {PAWN_possessive} stay and wishes to become a full fledged member of your colony. Do you accept? \n\nReject now and {PAWN_pronoun} wont ask again!</ContractJoin>
-    <ContractJoinReject>{PAWN_nameDef} is saddened but does not pry further on your reasoning.</ContractJoinReject>
-    <ContractJoinAccept>{PAWN_nameDef} is very happy and vows {PAWN_possessive} will not make you regret your decision.</ContractJoinAccept>
+    <ContractJoinReject>{PAWN_nameDef} is saddened but does not pry further.</ContractJoinReject>
+    <ContractJoinAccept>{PAWN_nameDef} is very happy and vows that {PAWN_pronoun} will not make you regret your decision.</ContractJoinAccept>
     <ContractTitle>Tenancy</ContractTitle>
     <ContractAgree>Accept tenant</ContractAgree>
     <ContractReject>Reject tenant</ContractReject>
@@ -34,12 +34,11 @@
     <TenantPassionMajor>Loves</TenantPassionMajor>
     <TenancyRoomRequired>Rooms</TenancyRoomRequired>
     <TenancyRoomRequiredDesc>A tenant pays for a single room but does not have one! You might earn their ire should this not be fixed soon.</TenancyRoomRequiredDesc>
-
     <!-- Settings -->
     <Races>Allowed tenant races</Races>
     <Filter>Race filter:</Filter>
     <CourierDaysSpawn>{0} - {1} days between forced courier event.</CourierDaysSpawn>
-    <CourierDaysSpawnDesc>The min time between courier events are random between these two values. Note that you do still require a noticeboard.</CourierDaysSpawnDesc>
+    <CourierDaysSpawnDesc>The minimum time between courier events are random between these two values. Note that you do still require a noticeboard.</CourierDaysSpawnDesc>
     <DefaultSettings>Default Settings</DefaultSettings>
     <MoodTicks>Mood ticks: {0}</MoodTicks>
     <MoodTicksDesc>Amount of ticks until a tenant mood event may start.</MoodTicksDesc>
@@ -53,4 +52,6 @@
     <GoldPaymentDesc>Couriers deliver mix of silver and gold (0-20%) when delivering rent. 1 gold = 10 silver</GoldPaymentDesc>
     <TenantsStored>World tenants stored: {0}.</TenantsStored>
     <TenantsStoredDesc>Amount of tenants stored in the background for use in tenancy related quests. Higher number affects performance. Note: Currently contracted tenants are not accounted for and dead ones pruned.</TenantsStoredDesc>
+    <AdvertNoticeSound>Advert message</AdvertNoticeSound>
+    <AdvertNoticeSoundDesc>Whether a beep and a message should be played whenever a pawn set ups a notice.</AdvertNoticeSoundDesc>
 </LanguageData>

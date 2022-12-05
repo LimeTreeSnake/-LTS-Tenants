@@ -22,6 +22,7 @@ namespace Tenants.Language {
         public static string AddNoticeForTenancy(int cost) => "AddNoticeForTenancy".Translate(cost);
         public static string AdvertisementPlaced => "AdvertisementPlaced".Translate();
         public static string AdvertisementFailed(Pawn pawn) => "AdvertisementFailed".Translate(pawn.Named("PAWN"));
+        public static string AdvertisementGizmo() => "AdvertisementGizmo".Translate();
 
 
         public static string TenancyDenied => "TenancyDenied".Translate();
@@ -58,6 +59,8 @@ namespace Tenants.Language {
         public static string GoldPaymentDesc => "GoldPaymentDesc".Translate();
         public static string TenantsStored(int value) => "TenantsStored".Translate(value);
         public static string TenantsStoredDesc => "TenantsStoredDesc".Translate();
+        public static string AdvertNoticeSound => "AdvertNoticeSound".Translate();
+        public static string AdvertNoticeSoundDesc => "AdvertNoticeSoundDesc".Translate();
 
 
     }

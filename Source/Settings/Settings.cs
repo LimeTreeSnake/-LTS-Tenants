@@ -35,12 +35,13 @@ namespace Tenants.Settings {
         private static int noticeCourierCost;
         private static string noticeCourierCostBuffer;
         private static bool killPenalty = true, paymentGold = false;
+        private static bool advertNoticeSound = false;
 
         private static bool firstPage = true;
         private static readonly float lineHeight = Text.LineHeight;
         private static readonly float margin = 4f;
 
-        public static IEnumerable<ThingDef> Races = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race != null && x.RaceProps.Humanlike).Select(s => s.race);
+        public static IEnumerable<ThingDef> Races = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.race != null && x.RaceProps.Humanlike).Select(s => s.race).Distinct();
         public static IEnumerable<PawnKindDef> CourierDefs = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x => x.HasModExtension<DefModExtensions.CoureierExtension>());
         public static PawnKindDef GetCourierByWeight => GenCollection.RandomElementByWeight(CourierDefs,
             delegate (PawnKindDef x) {
@@ -65,6 +66,7 @@ namespace Tenants.Settings {
         public static List<string> AvailableRaces => availableRaces;
         public static bool KillPenalty => killPenalty;
         public static bool PaymentGold => paymentGold;
+        public static bool AdvertNoticeSound => advertNoticeSound;
 
         public override void ExposeData() {
             Scribe_Values.Look(ref rent, "Rent", 60, false);
@@ -74,6 +76,7 @@ namespace Tenants.Settings {
             Scribe_Values.Look(ref moodTicks, "MoodTicks", 30000, false);
             Scribe_Values.Look(ref killPenalty, "KillPenalty", true);
             Scribe_Values.Look(ref paymentGold, "PaymentGold", false);
+            Scribe_Values.Look(ref advertNoticeSound, "AdvertNoticeSound", false);
             Scribe_Values.Look(ref noticeCourierCost, "NoticeCourierCost", 100, false);
             Scribe_Collections.Look(ref availableRaces, "AvailableRaces", LookMode.Value);
             base.ExposeData();
@@ -151,6 +154,11 @@ namespace Tenants.Settings {
                     Widgets.CheckboxLabeled(rectKill, Translate.KillPenalty, ref killPenalty);
                     TooltipHandler.TipRegion(rectKill, Translate.KillPenaltyDesc);
                     list.GapLine(2);
+                    //Kill Penalty
+                    Rect rectAdvertSound = list.GetRect(lineHeight);
+                    Widgets.CheckboxLabeled(rectAdvertSound, Translate.AdvertNoticeSound, ref advertNoticeSound);
+                    TooltipHandler.TipRegion(rectAdvertSound, Translate.AdvertNoticeSoundDesc);
+                    list.GapLine(2);
                 }
                 else{
                     // Race Settings
@@ -179,7 +187,7 @@ namespace Tenants.Settings {
                         if (def.defName.ToLower().Contains(Filter.ToLower())) {
                             bool contains = AvailableRaces.Contains(def.defName);
                             Rect raceRect = tenantsList.GetRect(lineHeight);
-                            Widgets.CheckboxLabeled(raceRect, def.defName, ref contains, false);
+                            Widgets.CheckboxLabeled(raceRect, def.LabelCap, ref contains, false);
                             if (contains == false && AvailableRaces.Contains(def.defName)) {
                                 AvailableRaces.Remove(def.defName);
                             }

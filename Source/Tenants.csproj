@@ -77,10 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alerts\Alert_TenancyBedroom.cs" />
-    <Compile Include="Components\NoticeBoard_Component.cs" />
     <Compile Include="Components\Tenants_MapComponent.cs" />
     <Compile Include="DefModExtensions\CoureierExtension.cs" />
     <Compile Include="Defs\FactionDefs.cs" />
+    <Compile Include="Defs\HistoryEventDef.cs" />
     <Compile Include="Defs\IncidentDefs.cs" />
     <Compile Include="Defs\JobDefs.cs" />
     <Compile Include="Defs\QuestDefs.cs" />
@@ -103,7 +103,10 @@
     <Compile Include="Quest\QuestPart_TenancyMood.cs" />
     <Compile Include="Quest\QuestPart_ContractConclusion.cs" />
     <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Things\NoticeBoard.cs" />
+    <Compile Include="ThoughtWorkers\ThoughtWorker_PreceptTenancy.cs" />
     <Compile Include="ThoughtWorkers\ThoughtWorker_RoomRequirement.cs" />
+    <Compile Include="WorkGivers\WorkGiver_SetupTenancyAdvert.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

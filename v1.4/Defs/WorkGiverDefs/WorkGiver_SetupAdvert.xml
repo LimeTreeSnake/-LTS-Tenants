@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <WorkGiverDef>
+    <defName>LTS_SetupAdvert</defName>
+    <label>setup advertisement</label>
+    <giverClass>Tenants.WorkGivers.WorkGiver_SetupTenancyAdvert</giverClass>
+    <workType>LTS_Tasks</workType>
+    <verb>get bed rest in</verb>
+    <gerund>getting bed rest in</gerund>
+    <tagToGive>RestingForMedicalReasons</tagToGive>
+  </WorkGiverDef>
+</Defs>

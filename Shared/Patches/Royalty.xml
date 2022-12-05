@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+    <Operation Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationAdd" MayRequire="Ludeon.RimWorld.Royalty">
+                <xpath>Defs/FactionDef[defName = "Empire"]/permanentEnemyToEveryoneExcept</xpath>
+                <value>
+                    <li>LTS_Courier</li>
+                    <li>LTS_Tenant</li>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+</Patch>
