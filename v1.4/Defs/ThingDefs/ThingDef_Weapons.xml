@@ -84,9 +84,8 @@
             <recipeUsers>
                 <li>ElectricSmithy</li>
                 <li>FueledSmithy</li>
-                <li>FabricationBench</li>
             </recipeUsers>
-            <unfinishedThingDef>UnfinishedGun</unfinishedThingDef>
+            <unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
             <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
         </recipeMaker>
     </ThingDef>

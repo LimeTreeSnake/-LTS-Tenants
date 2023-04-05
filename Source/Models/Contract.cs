@@ -4,22 +4,22 @@ using Verse;
 
 namespace Tenants.Models {
     public class Contract : IExposable {
-        public Pawn tenant;
-        public int length;
-        public int startdate;
-        public int endDate;
-        public int rent;
-        public bool singleRoomRequirement;
+        public Pawn _tenant;
+        public int _length;
+        public int _startdate;
+        public int _endDate;
+        public int _rent;
+        public bool _singleRoomRequirement;
         //public RoomRequirement roomRequirement;
-        public int LengthDays { get { return length / 60000; } }
+        public int LengthDays { get { return _length / 60000; } }
 
         public void ExposeData() {
-            Scribe_Values.Look(ref length, "length");
-            Scribe_Values.Look(ref startdate, "startdate");
-            Scribe_Values.Look(ref endDate, "endDate");
-            Scribe_Values.Look(ref rent, "rent");
-            Scribe_Values.Look(ref singleRoomRequirement, "SingleRoomRequirement");
-            Scribe_References.Look(ref tenant, "tenant");
+            Scribe_Values.Look(ref _length, "length");
+            Scribe_Values.Look(ref _startdate, "startdate");
+            Scribe_Values.Look(ref _endDate, "endDate");
+            Scribe_Values.Look(ref _rent, "rent");
+            Scribe_Values.Look(ref _singleRoomRequirement, "SingleRoomRequirement");
+            Scribe_References.Look(ref _tenant, "tenant");
         }
     }
 }

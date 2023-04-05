@@ -5,6 +5,8 @@ using Verse;
 
 namespace Tenants.QuestNodes {
     public class QuestNode_TenancyContract : QuestNode {
+	    // ReSharper disable MemberCanBePrivate.Global
+	    // ReSharper disable InconsistentNaming
 		[NoTranslate]
 		public SlateRef<string> contract;
 		[NoTranslate]
@@ -23,34 +25,39 @@ namespace Tenants.QuestNodes {
 		public SlateRef<bool> roomRequired;
 		public SlateRef<Pawn> tenant;
 		public SlateRef<Map> map;
+		// ReSharper restore MemberCanBePrivate.Global
+		// ReSharper restore InconsistentNaming
 
 		protected override void RunInt() {
             try {
 				Slate slate = QuestGen.slate;
-				if (this.tenant.GetValue(slate) == null || this.map.GetValue(slate) == null) {
+				if (tenant.GetValue(slate) == null || map.GetValue(slate) == null) {
 					return;
 				}
 				map.TryGetValue(slate, out Map mapStuff);
 				tenant.TryGetValue(slate, out Pawn tenantTemp);
 				Components.Tenants_MapComponent comp = mapStuff.GetComponent<Components.Tenants_MapComponent>();
-				Models.Contract contract = Logic.TenancyLogic.GenerateBasicTenancyContract(tenantTemp);
-				if (this.contract.GetValue(slate) != null) {
-					QuestGen.slate.Set(this.contract.GetValue(slate), contract, false);
-					QuestGen.slate.Set("days", contract.LengthDays, false);
-					QuestGen.slate.Set("rent", contract.rent, false);
-					QuestGen.slate.Set("rentSum", contract.rent * contract.LengthDays, false);
-					QuestGen.slate.Set("ticks", contract.length, false);
-					QuestGen.slate.Set("startdate", contract.startdate, false);
-					QuestGen.slate.Set("endDate", contract.endDate, false);
-					QuestGen.slate.Set("roomRequired", contract.singleRoomRequirement, false);
-				}				
-			} catch (Exception ex) {
+				Models.Contract contracts = Logic.TenancyLogic.GenerateBasicTenancyContract(tenantTemp);
+				if (contract.GetValue(slate) == null)
+				{
+					return;
+				}
+
+				QuestGen.slate.Set(contract.GetValue(slate), contracts);
+				QuestGen.slate.Set("days", contracts.LengthDays);
+				QuestGen.slate.Set("rent", contracts._rent);
+				QuestGen.slate.Set("rentSum", contracts._rent * contracts.LengthDays);
+				QuestGen.slate.Set("ticks", contracts._length);
+				QuestGen.slate.Set("startdate", contracts._startdate);
+				QuestGen.slate.Set("endDate", contracts._endDate);
+				QuestGen.slate.Set("roomRequired", contracts._singleRoomRequirement);
+            } catch (Exception ex) {
 				Log.Message("Error at QuestNode_Tenancy RunInt: " + ex.Message);
 			}
 		}
 
         protected override bool TestRunInt(Slate slate) {
-            return slate.Exists("map", false);
+            return slate.Exists("map");
         }
     }
 }

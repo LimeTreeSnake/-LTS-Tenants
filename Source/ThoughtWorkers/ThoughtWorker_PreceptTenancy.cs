@@ -10,10 +10,7 @@ namespace Tenants.ThoughtWorkers {
                 return ThoughtState.Inactive;
             }
             Tenants_MapComponent comp = p.Map.GetComponent<Tenants_MapComponent>();
-            if (comp != null) {
-                return ThoughtState.ActiveAtStage(comp.ActiveContracts.Count - 1);
-            }
-            return false;
+            return comp != null ? ThoughtState.ActiveAtStage(comp.ActiveContracts.Count) : false;
         }
 
     }

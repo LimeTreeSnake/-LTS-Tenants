@@ -26,7 +26,7 @@ namespace Tenants.QuestNodes {
             base.Notify_PreCleanup();
             if (this.quest.State == QuestState.EndedOfferExpired) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
-                comp.RemoveTenant(contract.tenant);
+                comp.RemoveTenant(contract._tenant);
             }
         }
 
@@ -35,14 +35,14 @@ namespace Tenants.QuestNodes {
             if (signal.tag == this.inSignal) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                 comp.Payday(contract);
-                DiaNode diaNode = new DiaNode(Language.Translate.ContractText(contract.tenant, contract.rent, contract.LengthDays));
-                DiaOption agree = new DiaOption(Language.Translate.ContractAgree) {
+                var diaNode = new DiaNode(Language.Translate.ContractText(contract._tenant, contract._rent, contract.LengthDays));
+                var agree = new DiaOption(Language.Translate.ContractAgree) {
                     action = delegate {
                         Find.SignalManager.SendSignal(new Signal(this.outSignal));
                     },
                     resolveTree = true
                 };
-                DiaOption reject = new DiaOption(Language.Translate.ContractReject) {
+                var reject = new DiaOption(Language.Translate.ContractReject) {
                     action = delegate {
                         comp.ActiveContracts.Remove(contract);
                         Find.SignalManager.SendSignal(new Signal(this.terminateSignal));
@@ -58,20 +58,20 @@ namespace Tenants.QuestNodes {
                 comp.ActiveContracts.Add(contract);
             }
             else if (signal.tag == this.joinSignal) {
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine(Language.Translate.ContractJoin(contract.tenant));
-                List<SkillRecord> minorPassion = new List<SkillRecord>();
-                List<SkillRecord> majorPassion = new List<SkillRecord>();
-                WorkTags tag = contract.tenant.story.DisabledWorkTagsBackstoryAndTraits;
-                for (int i = 0; i < contract.tenant.skills.skills.Count; i++) {
-                    switch (contract.tenant.skills.skills[i].passion) {
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(Language.Translate.ContractJoin(contract._tenant));
+                var minorPassion = new List<SkillRecord>();
+                var majorPassion = new List<SkillRecord>();
+                WorkTags tag = contract._tenant.story.DisabledWorkTagsBackstoryAndTraits;
+                for (int i = 0; i < contract._tenant.skills.skills.Count; i++) {
+                    switch (contract._tenant.skills.skills[i].passion) {
                         case Passion.None:
                             break;
                         case Passion.Minor:
-                            minorPassion.Add(contract.tenant.skills.skills[i]);
+                            minorPassion.Add(contract._tenant.skills.skills[i]);
                             break;
                         case Passion.Major:
-                            majorPassion.Add(contract.tenant.skills.skills[i]);
+                            majorPassion.Add(contract._tenant.skills.skills[i]);
                             break;
                         default:
                             break;
@@ -96,13 +96,13 @@ namespace Tenants.QuestNodes {
                 stringBuilder.AppendInNewLine(("Traits".Translate()).Colorize(ColoredText.NameColor));
                 stringBuilder.AppendLine();
                 stringBuilder.Append("   ");
-                if (contract.tenant.story.traits.allTraits.Any()) {
-                    for (int i = 0; i < contract.tenant.story.traits.allTraits.Count; i++) {
-                        if (i >= (contract.tenant.story.traits.allTraits.Count - 1)) {
-                            stringBuilder.Append(contract.tenant.story.traits.allTraits[i].LabelCap);
+                if (contract._tenant.story.traits.allTraits.Any()) {
+                    for (int i = 0; i < contract._tenant.story.traits.allTraits.Count; i++) {
+                        if (i >= (contract._tenant.story.traits.allTraits.Count - 1)) {
+                            stringBuilder.Append(contract._tenant.story.traits.allTraits[i].LabelCap);
                         }
                         else {
-                            stringBuilder.Append(contract.tenant.story.traits.allTraits[i].LabelCap + " - ");
+                            stringBuilder.Append(contract._tenant.story.traits.allTraits[i].LabelCap + " - ");
                         }
                     }
                 }
@@ -141,29 +141,29 @@ namespace Tenants.QuestNodes {
                 else {
                     stringBuilder.Append(" - ");
                 }
-                DiaNode diaNode = new DiaNode(stringBuilder.ToString());
-                DiaOption agree = new DiaOption(Language.Translate.ContractAgree) {
+                var diaNode = new DiaNode(stringBuilder.ToString());
+                var agree = new DiaOption(Language.Translate.ContractAgree) {
                     action = delegate {
                         Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                         comp.Payday(contract);
-                        Messages.Message(Language.Translate.ContractJoinAccept(contract.tenant), MessageTypeDefOf.PositiveEvent);
-                        contract.tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinAccept, null, null);
+                        Messages.Message(Language.Translate.ContractJoinAccept(contract._tenant), MessageTypeDefOf.PositiveEvent);
+                        contract._tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinAccept, null, null);
                         Find.SignalManager.SendSignal(new Signal(this.recruitSignal));
-                        contract.tenant.SetFaction(Faction.OfPlayerSilentFail);
-                        contract.tenant.apparel.UnlockAll();
+                        contract._tenant.SetFaction(Faction.OfPlayerSilentFail);
+                        contract._tenant.apparel.UnlockAll();
                         comp.ActiveContracts.Remove(contract);
-                        Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyJoin, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
+                        Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyJoin, contract._tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
                     },
                     resolveTree = true
                 };
-                DiaOption reject = new DiaOption(Language.Translate.ContractReject) {
+                var reject = new DiaOption(Language.Translate.ContractReject) {
                     action = delegate {
-                        Messages.Message(Language.Translate.ContractJoinReject(contract.tenant), MessageTypeDefOf.NeutralEvent);
-                        contract.tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinRejection, null, null);
+                        Messages.Message(Language.Translate.ContractJoinReject(contract._tenant), MessageTypeDefOf.NeutralEvent);
+                        contract._tenant.needs.mood.thoughts.memories.TryGainMemory(Defs.ThoughtDefOf.LTS_JoinRejection, null, null);
                     },
                     resolveTree = true
                 };
-                DiaOption postpone = new DiaOption(Language.Translate.ContractPostpone) {
+                var postpone = new DiaOption(Language.Translate.ContractPostpone) {
                     action = delegate {
                         Find.SignalManager.SendSignal(new Signal(this.postponeSignal));
                     },
@@ -174,11 +174,11 @@ namespace Tenants.QuestNodes {
                 diaNode.options.Add(postpone);
                 Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true, Language.Translate.ContractTitle));
             }
-            else if (signal.tag == this.badSignal && contract.tenant.Spawned && !isEnded) {
+            else if (signal.tag == this.badSignal && contract._tenant.Spawned && !isEnded) {
                 Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
                 comp.ActiveContracts.Remove(contract);
                 comp.TenantKills++;
-                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyDeath, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyDeath, contract._tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
                 isEnded = true;
             }
             else if (signal.tag == this.rejectSignal) {
@@ -186,7 +186,7 @@ namespace Tenants.QuestNodes {
                 comp.TenantKills--;
             }
             else if (signal.tag == this.leaveSignal) {
-                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyLeave, contract.tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
+                Find.HistoryEventsManager.RecordEvent(new HistoryEvent(Defs.HistoryEventDefOf.TenancyLeave, contract._tenant.Named(HistoryEventArgsNames.Quest)), canApplySelfTookThoughts: false);
             }
         }
         public override void ExposeData() {

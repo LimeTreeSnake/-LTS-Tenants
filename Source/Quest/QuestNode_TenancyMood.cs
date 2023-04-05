@@ -6,6 +6,8 @@ using Verse;
 
 namespace Tenants.QuestNodes {
     public class QuestNode_TenancyMood : QuestNode {
+	    // ReSharper disable MemberCanBePrivate.Global
+	    // ReSharper disable InconsistentNaming
         [NoTranslate]
         public SlateRef<string> inSignalEnable;
         [NoTranslate]
@@ -17,11 +19,13 @@ namespace Tenants.QuestNodes {
         public SlateRef<float> thresholdHigh;
         public QuestNode node;
         public QuestNode elsenode;
+        // ReSharper restore MemberCanBePrivate.Global
+        // ReSharper restore InconsistentNaming
         protected override void RunInt() {
             try {
                 Slate slate = QuestGen.slate;
                 if (contract.GetValue(slate) != null) {
-                    QuestPart_TenancyMood questPart_TenancyMoodAbove = new QuestPart_TenancyMood {
+                    var questPartTenancyMoodAbove = new QuestPart_TenancyMood {
                         contract = contract.GetValue(slate),
                         thresholdLow = thresholdLow.GetValue(slate),
                         thresholdHigh = thresholdHigh.GetValue(slate),
@@ -31,20 +35,20 @@ namespace Tenants.QuestNodes {
                         inSignalEnable = (QuestGenUtility.HardcodedSignalWithQuestID(inSignalEnable.GetValue(slate)) ?? QuestGen.slate.Get<string>("inSignal"))
                     };
                     if (!outSignal.GetValue(slate).NullOrEmpty()) {
-                        questPart_TenancyMoodAbove.outSignalsFailed.Add(outSignal.GetValue(slate));
-                        questPart_TenancyMoodAbove.outSignalsCompleted.Add(outSignal.GetValue(slate));
+                        questPartTenancyMoodAbove.outSignalsFailed.Add(outSignal.GetValue(slate));
+                        questPartTenancyMoodAbove.outSignalsCompleted.Add(outSignal.GetValue(slate));
                     }
                     if (node != null) {
                         string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
-                        questPart_TenancyMoodAbove.outSignalsFailed.Add(text);
+                        questPartTenancyMoodAbove.outSignalsFailed.Add(text);
                         QuestGenUtility.RunInnerNode(node, text);
                     }
                     if (elsenode != null) {
                         string text = QuestGen.GenerateNewSignal("OuterNodeCompleted");
-                        questPart_TenancyMoodAbove.outSignalsCompleted.Add(text);
+                        questPartTenancyMoodAbove.outSignalsCompleted.Add(text);
                         QuestGenUtility.RunInnerNode(elsenode, text);
                     }
-                    QuestGen.quest.AddPart(questPart_TenancyMoodAbove);
+                    QuestGen.quest.AddPart(questPartTenancyMoodAbove);
                 }
             }
             catch (Exception ex) {
@@ -55,7 +59,7 @@ namespace Tenants.QuestNodes {
         protected override bool TestRunInt(Slate slate) {
             bool result = true;
             if (node != null) {
-                result = result && node.TestRun(slate);
+                result = node.TestRun(slate);
             }
             if (elsenode != null) {
                 result = result && elsenode.TestRun(slate);

@@ -1,4 +1,7 @@
 [LTS]Tenants
+2023-04
+    - Fixed notorious freeze issue.
+
 2022-12-05
     - Notice Board now under LTS structure tab.
     - Fixed some messages and phrasings.  Mucho BeTTeRuuu InGuriSH, sorry not native speaker

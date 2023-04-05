@@ -78,7 +78,7 @@
   <ItemGroup>
     <Compile Include="Alerts\Alert_TenancyBedroom.cs" />
     <Compile Include="Components\Tenants_MapComponent.cs" />
-    <Compile Include="DefModExtensions\CoureierExtension.cs" />
+    <Compile Include="DefModExtensions\CourierExtension.cs" />
     <Compile Include="Defs\FactionDefs.cs" />
     <Compile Include="Defs\HistoryEventDef.cs" />
     <Compile Include="Defs\IncidentDefs.cs" />

@@ -25,8 +25,8 @@ namespace Tenants.QuestNodes {
                     return AlertReport.Inactive;
                 }
                 culpritsResult.Clear();
-                if (contract.tenant != null && MoodBelowThreshold(contract.tenant)) {
-                    culpritsResult.Add(contract.tenant);
+                if (contract._tenant != null && MoodBelowThreshold(contract._tenant)) {
+                    culpritsResult.Add(contract._tenant);
                 }
                 return AlertReport.CulpritsAre(culpritsResult);
             }
@@ -42,14 +42,14 @@ namespace Tenants.QuestNodes {
 
         public override string AlertLabel => Language.Translate.MoodBelowThreshold;
 
-        public override string AlertExplanation => Language.Translate.MoodBelowThresholdDesc(contract.tenant);
+        public override string AlertExplanation => Language.Translate.MoodBelowThresholdDesc(contract._tenant);
 
         public override void QuestPartTick() {
             base.QuestPartTick();
-            if (MoodBelowThreshold(contract.tenant)) {
+            if (MoodBelowThreshold(contract._tenant)) {
                 moodBelowThresholdTicks++;
                 if (moodBelowThresholdTicks >= minTicksBelowThreshold) {
-                    SignalArgs signalArgs = new SignalArgs(contract.tenant.Named("SUBJECT"));
+                    var signalArgs = new SignalArgs(contract._tenant.Named("SUBJECT"));
                     Find.SignalManager.SendSignal(new Signal(OutSignalFailed, signalArgs));
                     for (int i = 0; i < outSignalsFailed.Count; i++) {
                         if (!outSignalsFailed[i].NullOrEmpty()) {
@@ -58,12 +58,12 @@ namespace Tenants.QuestNodes {
                     }
                 }
             }
-            else if (!offeredJoin && MoodAboveThreshold(contract.tenant)) {
+            else if (!offeredJoin && MoodAboveThreshold(contract._tenant)) {
                 moodAboveThresholdTicks++;
                 if (moodAboveThresholdTicks >= minTicksAboveThreshold) {
                     moodAboveThresholdTicks = 0;
                     offeredJoin = true;
-                    SignalArgs signalArgs = new SignalArgs(contract.tenant.Named("SUBJECT"));
+                    var signalArgs = new SignalArgs(contract._tenant.Named("SUBJECT"));
                     Find.SignalManager.SendSignal(new Signal(OutSignalCompleted, signalArgs));
                     for (int i = 0; i < outSignalsCompleted.Count; i++) {
                         if (!outSignalsCompleted[i].NullOrEmpty()) {
@@ -96,7 +96,7 @@ namespace Tenants.QuestNodes {
             base.AssignDebugData();
             if (Find.AnyPlayerHomeMap != null) {
                 Map randomPlayerHomeMap = Find.RandomPlayerHomeMap;
-                contract.tenant = randomPlayerHomeMap.mapPawns.FreeColonists.FirstOrDefault();
+                contract._tenant = randomPlayerHomeMap.mapPawns.FreeColonists.FirstOrDefault();
                 thresholdLow = 0.25f;
                 minTicksBelowThreshold = 2500;
             }

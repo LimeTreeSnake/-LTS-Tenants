@@ -40,7 +40,7 @@
         <initialWillRange>4~8</initialWillRange>
         <initialResistanceRange>20~40</initialResistanceRange>
         <modExtensions>
-            <li Class="Tenants.DefModExtensions.CoureierExtension" />
+            <li Class="Tenants.DefModExtensions.CourierExtension" />
         </modExtensions>
     </PawnKindDef>
 </Defs>
