@@ -4,6 +4,10 @@ using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
 using Tenants.Components;
+using Tenants.Language;
+using UnityEngine;
+using FactionDefOf = Tenants.Defs.FactionDefOf;
+
 // ReSharper disable InconsistentNaming
 
 namespace Tenants.Harmony
@@ -14,41 +18,68 @@ namespace Tenants.Harmony
 		static Harmony()
 		{
 			var harmony = new HarmonyLib.Harmony("limetreesnake.tenants");
-			harmony.Patch(AccessTools.Method(typeof(Alert_ColonistsIdle), "get_IdleColonists"), null,
-				new HarmonyMethod(typeof(Harmony).GetMethod("IdleColonists_PostFix")));
 
-			harmony.Patch(AccessTools.Method(typeof(Pawn), "Kill"), null,
-				new HarmonyMethod(typeof(Harmony).GetMethod("Kill_PostFix")));
+			harmony.Patch(AccessTools.Method(typeof(Pawn), "Kill"),
+				new HarmonyMethod(typeof(Harmony).GetMethod("Kill_PreFix")));
+			
+			harmony.Patch(AccessTools.Method(typeof(SignalManager), "SendSignal"),
+				new HarmonyMethod(typeof(Harmony).GetMethod("SendSignal_PreFix")));
 		}
 
-		public static void IdleColonists_PostFix(ref List<Pawn> __result)
+		public static void SendSignal_PreFix(Signal signal)
 		{
-			if (__result.Count <= 0)
+			if(Settings.Settings.DebugLog )
+			{
+				Log.Message(signal);
+			}
+		}
+			
+		public static void Kill_PreFix(Pawn __instance)
+		{
+			if (__instance?.Map == null )
+			{
+				return;
+			}
+			if (!__instance.Map.IsPlayerHome)
+			{
+				return;
+			}
+			if (!__instance.Spawned)
+			{
+				return;
+			}
+			if (__instance.Faction == null)
 			{
 				return;
 			}
 
-			Tenants_MapComponent comp = __result[0].Map.GetComponent<Tenants_MapComponent>();
+			TenantsMapComponent comp = __instance.Map.GetComponent<TenantsMapComponent>();
+
 			if (comp == null)
 			{
 				return;
 			}
 
-			IEnumerable<Pawn> list = __result.Where(x => !comp.IsTenant(x)).ToList();
-			__result = list.ToList();
-		}
+			if (comp.IsCourier(__instance))
+			{
+				comp.CourierKills++;
+				Messages.Message(Translate.LoneCourierDied(__instance), MessageTypeDefOf.NegativeEvent);					
+				if (Settings.Settings.DebugLog)
+				{
+					Log.Message("KillPenalty Courier: " + comp.CourierKills);
+				}
+			}
 
-		public static void Kill_PostFix(ref Pawn __instance)
-		{
-			if (__instance?.Map == null || !__instance.Map.IsPlayerHome || !__instance.Spawned)
+			if (__instance.Faction.def != FactionDefOf.LTS_Tenant)
 			{
 				return;
 			}
-
-			Tenants_MapComponent comp = __instance.Map.GetComponent<Tenants_MapComponent>();
-			if (comp != null && comp.IsCourier(__instance))
+			
+			comp.TenantKills++;
+			Messages.Message(Translate.LoneTenantDied(__instance), MessageTypeDefOf.NegativeEvent);
+			if (Settings.Settings.DebugLog)
 			{
-				comp.CourierKills++;
+				Log.Message("KillPenalty Lone Tenants: " + comp.TenantKills);
 			}
 		}
 	}

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <FactionDef ParentName="FactionBase">
+        <defName>LTS_Courier</defName>
+        <pawnSingular>courier</pawnSingular>
+        <pawnsPlural>couriers</pawnsPlural>
+        <categoryTag>Courier</categoryTag>
+        <requiredCountAtGameStart>1</requiredCountAtGameStart>
+        <fixedName>Courier Assocation</fixedName>
+        <leaderTitle>Official</leaderTitle>
+        <factionIconPath>World/WorldObjects/Expanding/Town</factionIconPath>
+        <techLevel>Industrial</techLevel>
+        <allowedCultures>
+            <li>Rustican</li>
+        </allowedCultures>
+        <disallowedMemes>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Structure_Animist</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Nudism</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Blindsight</li>
+        </disallowedMemes>
+        <structureMemeWeights>
+            <Structure_TheistEmbodied MayRequire="Ludeon.RimWorld.Ideology">1</Structure_TheistEmbodied>
+            <Structure_TheistAbstract MayRequire="Ludeon.RimWorld.Ideology">2</Structure_TheistAbstract>
+            <Structure_Ideological MayRequire="Ludeon.RimWorld.Ideology">1</Structure_Ideological>
+            <Structure_Archist MayRequire="Ludeon.RimWorld.Ideology">1</Structure_Archist>
+            <Structure_OriginChristian MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginChristian>
+            <Structure_OriginIslamic MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginIslamic>
+            <Structure_OriginHindu MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginHindu>
+            <Structure_OriginBuddhist MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginBuddhist>
+        </structureMemeWeights>
+        <permanentEnemyToEveryoneExcept>
+            <li>OutlanderCivil</li>
+            <li>TribeCivil</li>
+            <li>PlayerTribe</li>
+            <li>PlayerColony</li>
+            <li>Ancients</li>
+            <li MayRequire="Ludeon.RimWorld.Royalty">Empire</li>
+            <li MayRequire="Ludeon.RimWorld.Royalty">OutlanderRefugee</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Beggars</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Pilgrims</li>
+            <li MayRequire="Ludeon.RimWorld.Anomaly">ResearchExpedition</li>
+        </permanentEnemyToEveryoneExcept>
+        <backstoryFilters>
+            <li>
+                <categories>
+                    <li>Outlander</li>
+                </categories>
+                <commonality>0.95</commonality>
+            </li>
+            <li>
+                <categories>
+                    <li>Offworld</li>
+                </categories>
+                <commonality>0.05</commonality>
+            </li>
+        </backstoryFilters>
+        <hidden>true</hidden>
+        <rescueesCanJoin>false</rescueesCanJoin>
+        <autoFlee>false</autoFlee>
+
+    </FactionDef>
+
+    <FactionDef ParentName="FactionBase">
+        <defName>LTS_Tenant</defName>
+        <pawnSingular>tenant</pawnSingular>
+        <pawnsPlural>tenants</pawnsPlural>
+        <categoryTag>Tenant</categoryTag>
+        <requiredCountAtGameStart>1</requiredCountAtGameStart>
+        <fixedName>Tenancy Assocation</fixedName>
+        <leaderTitle>Official</leaderTitle>
+        <factionIconPath>World/WorldObjects/Expanding/Town</factionIconPath>
+        <techLevel>Industrial</techLevel>
+        <backstoryFilters>
+            <li>
+                <categories>
+                    <li>Outlander</li>
+                </categories>
+                <commonality>0.95</commonality>
+            </li>
+            <li>
+                <categories>
+                    <li>Offworld</li>
+                </categories>
+                <commonality>0.05</commonality>
+            </li>
+        </backstoryFilters>
+        <permanentEnemyToEveryoneExcept>
+            <li>OutlanderCivil</li>
+            <li>TribeCivil</li>
+            <li>PlayerTribe</li>
+            <li>PlayerColony</li>
+            <li>Ancients</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Beggars</li>
+            <li MayRequire="Ludeon.RimWorld.Anomaly">ResearchExpedition</li>
+        </permanentEnemyToEveryoneExcept>
+        <hidden>true</hidden>
+        <rescueesCanJoin>false</rescueesCanJoin>
+        <autoFlee>false</autoFlee>
+    </FactionDef>
+</Defs>

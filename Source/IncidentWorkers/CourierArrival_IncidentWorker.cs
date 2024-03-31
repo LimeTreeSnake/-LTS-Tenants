@@ -19,17 +19,16 @@ namespace Tenants.IncidentWorkers
 				return false;
 			}
 
-			Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+			Components.TenantsMapComponent comp = map.GetComponent<Components.TenantsMapComponent>();
 			if (comp == null)
 			{
-				map.components.Add(new Components.Tenants_MapComponent(map));
+				map.components.Add(new Components.TenantsMapComponent(map));
 			}
 
 			return comp != null &&
 			       comp.FindNoticeBoardInMap() &&
 			       RCellFinder.TryFindRandomPawnEntryCell(out parms.spawnCenter, map,
 				       CellFinder.EdgeRoadChance_Neutral);
-
 		}
 
 		protected override bool TryExecuteWorker(IncidentParms parms)
@@ -41,18 +40,14 @@ namespace Tenants.IncidentWorkers
 				return false;
 			}
 
-			Components.Tenants_MapComponent comp = map.GetComponent<Components.Tenants_MapComponent>();
+			Components.TenantsMapComponent comp = map.GetComponent<Components.TenantsMapComponent>();
 			if (comp == null)
 			{
-				map.components.Add(new Components.Tenants_MapComponent(map));
+				map.components.Add(new Components.TenantsMapComponent(map));
 			}
 
-			if (comp?.NoticeBoard != null && comp.NoticeBoard.Spawned)
-			{
-				return Logic.CourierLogic.CourierEvent(parms, comp);
-			}
+			return comp?.NoticeBoard()?.Spawned == true && Logic.CourierLogic.CourierEvent(parms, comp);
 
-			return false;
 		}
 	}
 }

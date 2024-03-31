@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <PawnKindDef Name="LTS_CourierBase">
+        <defName>LTS_Courier</defName>
+        <race>Human</race>
+        <defaultFactionType>LTS_Courier</defaultFactionType>
+        <biocodeWeaponChance>0.33</biocodeWeaponChance>
+        <label>courier</label>
+        <combatPower>75</combatPower>
+        <isFighter>true</isFighter>
+        <gearHealthRange>1~2</gearHealthRange>
+        <invNutrition>5</invNutrition>
+        <apparelTags>
+            <li>CourierWear</li>
+            <li>BeltDefensePop</li>
+        </apparelTags>
+        <itemQuality>Good</itemQuality>
+        <apparelRequired>
+            <li>LTS_CourierCoat</li>
+            <li>LTS_CourierHat</li>
+        </apparelRequired>
+        <weaponTags>
+            <li>LTS_CourierRanged</li>
+            <li>LTS_CourierMelee</li>
+        </weaponTags>
+        <techHediffsRequired>
+            <li>DeathAcidifier</li>
+        </techHediffsRequired>
+        <maxGenerationAge>50</maxGenerationAge>
+        <apparelMoney>1250~2000</apparelMoney>
+        <apparelAllowHeadgearChance>1</apparelAllowHeadgearChance>
+        <weaponMoney>400~1000</weaponMoney>
+        <techHediffsChance>0.1</techHediffsChance>
+        <techHediffsMoney>200~700</techHediffsMoney>
+        <techHediffsTags>
+            <li>Simple</li>
+            <li>Advanced</li>
+            <li>ImplantEmpireCommon</li>
+        </techHediffsTags>
+        <initialWillRange>4~8</initialWillRange>
+        <initialResistanceRange>20~40</initialResistanceRange>
+        <modExtensions>
+            <li Class="Tenants.DefModExtensions.CourierExtension">
+                <choiceWeight>1</choiceWeight>
+            </li>
+        </modExtensions>
+        <xenotypeSet>
+            <xenotypeChances>
+                <Hussar MayRequire="Ludeon.RimWorld.Biotech">0.05</Hussar>
+                <LTS_Nyankind MayRequire="LimeTreeSnake.Xenotech">0.05</LTS_Nyankind>
+                <LTS_Growler MayRequire="LimeTreeSnake.Xenotech">0.025</LTS_Growler>
+                <LTS_Ork MayRequire="LimeTreeSnake.Xenotech">0.025</LTS_Ork>
+                <LTS_Lilime MayRequire="LimeTreeSnake.Xenotech">0.005</LTS_Lilime>
+            </xenotypeChances>
+        </xenotypeSet>
+    </PawnKindDef>
+</Defs>

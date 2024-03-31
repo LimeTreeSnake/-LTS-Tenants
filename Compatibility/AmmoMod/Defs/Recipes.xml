@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-    <RecipeDef MayRequire="LimeTreeSnake.Ammo">
+    <RecipeDef>
         <defName>LTS_Make_MusketAmmo</defName>
         <label>make musket ammo</label>
         <description>A courier secret for making musket ammo with more oomph.</description>
@@ -11,8 +11,8 @@
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
         <recipeUsers>
-            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
             <li>LTS_AmmunitionBench</li>
+            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
         </recipeUsers>
         <allowMixingIngredients>true</allowMixingIngredients>
         <skillRequirements>
@@ -51,7 +51,7 @@
         </products>
         <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
     </RecipeDef>
-    <RecipeDef MayRequire="LimeTreeSnake.Ammo">
+    <RecipeDef>
         <defName>LTS_Make_SilverMusketAmmo</defName>
         <label>make silver musket ammo</label>
         <description>A courier secret for making musket ammo with more oomph.</description>
@@ -62,8 +62,8 @@
         <effectWorking>Smith</effectWorking>
         <soundWorking>Recipe_Smith</soundWorking>
         <recipeUsers>
-            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
             <li>LTS_AmmunitionBench</li>
+            <li MayRequire="DankPyon.Medieval.Overhaul">DankPyon_Workbench</li>
         </recipeUsers>
         <allowMixingIngredients>true</allowMixingIngredients>
         <skillRequirements>
@@ -98,6 +98,6 @@
         <products>
             <LTS_SilverMusket>75</LTS_SilverMusket>
         </products>
+        <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
     </RecipeDef>
-    <researchPrerequisite>LTS_CourierTech</researchPrerequisite>
 </Defs>

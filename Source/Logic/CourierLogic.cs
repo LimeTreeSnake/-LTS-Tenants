@@ -1,16 +1,35 @@
 ﻿using Verse;
 using RimWorld;
-using Tenants.Components;
 using System.Collections.Generic;
 using System;
-using Verse.AI.Group;
 using System.Linq;
+using Verse.AI.Group;
 
 namespace Tenants.Logic
 {
 	public static class CourierLogic
 	{
-		public static bool CourierEvent(IncidentParms parms, Components.Tenants_MapComponent component)
+		private static List<PawnKindDef> _availablePawnKinds;
+
+		private static void Initiate()
+		{
+			_availablePawnKinds = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x =>
+					x.HasModExtension<DefModExtensions.CourierExtension>())
+				.ToList();
+		}
+
+		public static PawnKindDef GetRandomPawnKindDef()
+		{
+			if (_availablePawnKinds.NullOrEmpty())
+			{
+				Initiate();
+			}
+
+			return _availablePawnKinds.RandomElementByWeight(x =>
+				x.GetModExtension<DefModExtensions.CourierExtension>().choiceWeight);
+		}
+
+		public static bool CourierEvent(IncidentParms parms, Components.TenantsMapComponent component)
 		{
 			try
 			{
@@ -29,7 +48,7 @@ namespace Tenants.Logic
 
 				if (component.CourierKills > 0)
 				{
-					Find.LetterStack.ReceiveLetter(Language.Translate.CourierDenied,
+					Find.LetterStack.ReceiveLetter(Language.Translate.CourierDenied(),
 						Language.Translate.CourierDeniedMessage(courier), LetterDefOf.NegativeEvent);
 
 					Log.Message(component.CourierKills.ToString());
@@ -44,7 +63,7 @@ namespace Tenants.Logic
 
 					GenSpawn.Spawn(courier, loc, map);
 					courier.relations.everSeenByPlayer = true;
-					Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival,
+					Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival(),
 						Language.Translate.CourierArrivalMessage(courier), LetterDefOf.PositiveEvent, courier);
 
 					LordMaker.MakeNewLord(courier.Faction, new Lords.Courier_LordJob(), map, new List<Pawn>

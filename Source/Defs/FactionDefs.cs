@@ -1,5 +1,5 @@
 ﻿using RimWorld;
-using Verse;
+
 // ReSharper disable UnassignedField.Global
 // ReSharper disable InconsistentNaming
 

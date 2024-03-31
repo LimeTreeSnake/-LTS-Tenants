@@ -1,17 +1,17 @@
-﻿using RimWorld;
+﻿using System;
+using RimWorld;
 using RimWorld.QuestGen;
-using System;
-using System.Collections.Generic;
+using Tenants.Models;
 using Verse;
 
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable InconsistentNaming
 namespace Tenants.QuestNodes
 {
-	class QuestNode_ContractConclusion : QuestNode
+	public class QuestNode_ContractConclusion : QuestNode
 	{
-		// ReSharper disable MemberCanBePrivate.Global
-		// ReSharper disable InconsistentNaming
 		public SlateRef<Map> map;
-		public SlateRef<Models.Contract> contract;
+		public SlateRef<Contract> contract;
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
 		public SlateRef<string> inSignal;
@@ -29,9 +29,6 @@ namespace Tenants.QuestNodes
 		public SlateRef<string> leaveSignal;
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
-		public SlateRef<string> postponeSignal;
-
-		[NoTranslate, TranslationHandle(Priority = 100)]
 		public SlateRef<string> recruitSignal;
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
@@ -40,24 +37,20 @@ namespace Tenants.QuestNodes
 		[NoTranslate, TranslationHandle(Priority = 100)]
 		public SlateRef<string> terminateSignal;
 
-		public SlateRef<QuestPart.SignalListenMode?> signalListenMode;
-		// ReSharper restore MemberCanBePrivate.Global
-		// ReSharper restore InconsistentNaming
-
 		protected override void RunInt()
 		{
 			try
 			{
 				Slate slate = QuestGen.slate;
 				Quest quest = QuestGen.quest;
-				quest.DescriptionPart("[questDescriptionBeforeAccepted]", quest.AddedSignal, quest.InitiateSignal,
+				quest.DescriptionPart("[questDescriptionBeforeAccepted]", quest.AddedSignal, null,
 					QuestPart.SignalListenMode.Always);
 
-				quest.DescriptionPart("[questDescriptionAfterAccepted]", quest.InitiateSignal, null,
-					QuestPart.SignalListenMode.OngoingOrNotYetAccepted);
-
+				quest.DescriptionPart("[questDescriptionAfterAccepted]", null, null,
+					QuestPart.SignalListenMode.Always);
+				
 				map.TryGetValue(slate, out Map colonyMap);
-				contract.TryGetValue(slate, out Models.Contract cont);
+				contract.TryGetValue(slate, out Contract cont);
 				var payment = new QuestPart_ContractConclusion
 				{
 					inSignal = QuestGenUtility.HardcodedSignalWithQuestID(inSignal.GetValue(slate)),
@@ -65,18 +58,15 @@ namespace Tenants.QuestNodes
 					badSignal = QuestGenUtility.HardcodedSignalWithQuestID(badSignal.GetValue(slate)),
 					joinSignal = QuestGenUtility.HardcodedSignalWithQuestID(joinSignal.GetValue(slate)),
 					leaveSignal = QuestGenUtility.HardcodedSignalWithQuestID(leaveSignal.GetValue(slate)),
-					postponeSignal = QuestGenUtility.HardcodedSignalWithQuestID(postponeSignal.GetValue(slate)),
 					recruitSignal = QuestGenUtility.HardcodedSignalWithQuestID(recruitSignal.GetValue(slate)),
 					rejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(rejectSignal.GetValue(slate)),
 					terminateSignal = QuestGenUtility.HardcodedSignalWithQuestID(terminateSignal.GetValue(slate)),
-					initiateSignal = quest.InitiateSignal,
-					signalListenMode =
-						(signalListenMode.GetValue(slate) ?? QuestPart.SignalListenMode.OngoingOnly),
+					signalListenMode = QuestPart.SignalListenMode.Always,
 					contract = cont,
 					map = colonyMap
 				};
 
-				QuestGen.quest.AddPart(payment);
+				quest.AddPart(payment);
 			}
 			catch (Exception ex)
 			{

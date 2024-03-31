@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\v1.3\Assemblies\</OutputPath>
+    <OutputPath>..\v1.5\Assemblies\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>none</ErrorReport>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\v1.4\Assemblies\</OutputPath>
+    <OutputPath>..\v1.5\Assemblies\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>none</ErrorReport>
@@ -43,8 +43,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="LTS_Systems">
-      <HintPath>..\..\-LTS-Systems\v1.3\Assemblies\LTS_Systems.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\-LTS-Systems\v1.5\Assemblies\LTS_Systems.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,9 +75,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alerts\Alert_TenancyBedroom.cs" />
     <Compile Include="Components\Tenants_MapComponent.cs" />
     <Compile Include="DefModExtensions\CourierExtension.cs" />
+    <Compile Include="DefModExtensions\TenancyExtension.cs" />
     <Compile Include="Defs\FactionDefs.cs" />
     <Compile Include="Defs\HistoryEventDef.cs" />
     <Compile Include="Defs\IncidentDefs.cs" />
@@ -96,16 +95,17 @@
     <Compile Include="Lords\Courier_Lord.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quest\QuestNode_GenerateTenant.cs" />
-    <Compile Include="Quest\QuestNode_ContractConclusion.cs" />
-    <Compile Include="Quest\QuestNode_TenancyMood.cs" />
-    <Compile Include="Quest\QuestNode_TenancyContract.cs" />
-    <Compile Include="Quest\QuestPart_TenancyMood.cs" />
-    <Compile Include="Quest\QuestPart_ContractConclusion.cs" />
+    <Compile Include="QuestNodes\QuestNode_GenerateTenant.cs" />
+    <Compile Include="QuestNodes\QuestNode_ContractConclusion.cs" />
+    <Compile Include="QuestNodes\QuestNode_TenancyMood.cs" />
+    <Compile Include="QuestNodes\QuestNode_TenancyRoom.cs" />
+    <Compile Include="QuestNodes\QuestPart_GenerateTenant.cs" />
+    <Compile Include="QuestNodes\QuestPart_TenancyMood.cs" />
+    <Compile Include="QuestNodes\QuestPart_ContractConclusion.cs" />
+    <Compile Include="QuestNodes\QuestPart_TenancyRoom.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Things\NoticeBoard.cs" />
     <Compile Include="ThoughtWorkers\ThoughtWorker_PreceptTenancy.cs" />
-    <Compile Include="ThoughtWorkers\ThoughtWorker_RoomRequirement.cs" />
     <Compile Include="WorkGivers\WorkGiver_SetupTenancyAdvert.cs" />
   </ItemGroup>
   <ItemGroup />

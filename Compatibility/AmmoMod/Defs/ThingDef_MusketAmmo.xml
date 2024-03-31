@@ -22,7 +22,12 @@
     <ThingDef ParentName="AmmunitionBase">
         <defName>LTS_Musket</defName>
         <label>musket ammo</label>
-        <description>Early firearms and cannons use black powder to propel projectiles.</description>
+        <description>Early firearms and cannons use black powder to propel projectiles.
+
+            Base damage: 15
+            Stopping power: 1
+            Armor Penetration: 0.2
+            Speed: 80</description>
         <graphicData>
             <texPath>Ammo/Musket</texPath>
             <graphicClass>Graphic_StackCount</graphicClass>
@@ -58,7 +63,12 @@
     <ThingDef ParentName="AmmunitionBase">
         <defName>LTS_SilverMusket</defName>
         <label>silver musket ammo</label>
-        <description>Early firearms and cannons use black powder to propel projectiles.</description>
+        <description>Early firearms and cannons use black powder to propel projectiles.
+            
+            Base damage: 16
+            Stopping power: 1
+            Armor Penetration: 0.3
+            Speed: 80</description>
         <graphicData>
             <texPath>Ammo/SilverMusket</texPath>
             <graphicClass>Graphic_StackCount</graphicClass>

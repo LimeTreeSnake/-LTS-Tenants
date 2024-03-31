@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <IssueDef>
+        <defName>Tenancy</defName>
+        <label>tenancy</label>
+        <iconPath>Icons/TenancyIcon</iconPath>
+    </IssueDef>
+    
+  <HistoryEventDef>
+    <defName>TenancyLeave</defName>
+    <label>a tenant left</label>
+  </HistoryEventDef>
+  <HistoryEventDef>
+    <defName>TenancyDeath</defName>
+    <label>a tenant died</label>
+  </HistoryEventDef>
+  <HistoryEventDef>
+    <defName>TenancyJoin</defName>
+    <label>a tenant joined</label>
+  </HistoryEventDef>
+
+  <PreceptDef>
+    <defName>Tenancy_Encouraged</defName>
+    <issue>Tenancy</issue>
+    <label>encouraged</label>
+    <description>Hosting a safe haven for tenants is both profitable and humane.</description>
+    <impact>Medium</impact>
+    <comps>
+      <li Class="PreceptComp_SituationalThought">
+        <thought>Tenancy_Encouraged</thought>
+        <description>Hosting tenants makes your pawns happy but failure to have any make them sad</description>
+      </li>
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>TenancyLeave</eventDef>
+        <thought>TenancyLeave</thought>
+      </li>
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>TenancyDeath</eventDef>
+        <thought>TenancyDeath</thought>
+      </li>
+      <li Class="PreceptComp_KnowsMemoryThought">
+        <eventDef>TenancyJoin</eventDef>
+        <thought>TenancyJoin</thought>
+      </li>
+    </comps>
+  </PreceptDef>
+  
+  <ThoughtDef>
+    <defName>Tenancy_Encouraged</defName>
+    <workerClass>Tenants.ThoughtWorkers.ThoughtWorker_PreceptTenancy</workerClass>
+    <developmentalStageFilter>Adult</developmentalStageFilter>
+    <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
+    <stages>
+      <li>
+        <label>lack of tenants</label>
+        <description>We could do more for the world.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+      <li>
+        <label>we got a tenant!</label>
+        <description>It's a start, but we should take in more guests.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>we have tenants!</label>
+        <description>We have some tenants under our protection, this is good.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>tenants!</label>
+        <description>We are doing our part!</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  <ThoughtDef>
+    <defName>TenancyLeave</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <durationDays>7</durationDays>
+    <nullifyingTraits>
+        <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>tenant left</label>
+        <description>A tenant left without as much as a word, what did we do wrong?</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>TenancyDeath</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <durationDays>7</durationDays>
+    <nullifyingTraits>
+        <li>Bloodlust</li>
+        <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>a tenant died</label>
+        <description>How could this happen?!</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  <ThoughtDef>
+    <defName>TenancyJoin</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <durationDays>7</durationDays>
+    <nullifyingTraits>
+        <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>a tenant decided to join us</label>
+        <description>a tenant decided to become a permanent member of our colony. This is a wonderful thing!</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

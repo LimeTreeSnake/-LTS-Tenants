@@ -4,27 +4,31 @@ using Verse;
 using System;
 using System.Linq;
 using RimWorld.QuestGen;
+using Tenants.Logic;
 using Tenants.Models;
 using Tenants.Things;
 
 namespace Tenants.Components
 {
-	public class Tenants_MapComponent : MapComponent
+	public class TenantsMapComponent : MapComponent
 	{
-
 		#region Fields
 
 		private NoticeBoard _noticeBoard;
-		private int _courierFireTick, _tenantFireTick;
+		private int _courierFireTick;
 		private int _tenantKills, _courierKills, _silver;
-		private List<Pawn> _tenantsPool = new List<Pawn>();
 		private List<Pawn> _courierPool = new List<Pawn>();
-		private List<Contract> _activeContracts = new List<Contract>();
-		private bool _tenantAddUpp, _courierIsFiring;
-
+		private bool _courierIsFiring;
 		#endregion Fields
 
-		public NoticeBoard NoticeBoard => _noticeBoard;
+		public NoticeBoard NoticeBoard()
+		{
+			if (_noticeBoard == null)
+			{
+				FindNoticeBoardInMap();
+			}
+			return _noticeBoard;
+		}
 
 		public int TenantKills
 		{
@@ -38,58 +42,21 @@ namespace Tenants.Components
 			set => _courierKills = value;
 		}
 
-		public List<Contract> ActiveContracts
-		{
-			get
-			{
-				return _activeContracts ?? (_activeContracts = new List<Contract>());
-			}
-		}
-
-		public Tenants_MapComponent(Map map)
+		public TenantsMapComponent(Map map)
 			: base(map)
 		{
 		}
 
 		#region Methods
 
-		public bool IsTenant(Pawn pawn)
-		{
-			return _tenantsPool.Contains(pawn);
-		}
-
-		public void RemoveTenant(Pawn pawn)
-		{
-			_tenantsPool.Remove(pawn);
-		}
-
 		public bool IsCourier(Pawn pawn)
 		{
 			return _courierPool.Contains(pawn);
 		}
 
-		public bool IsContractedTenant(Pawn p, out Contract cont)
+		public bool HaveRent()
 		{
-			cont = null;
-			if (!IsTenant(p))
-			{
-				return false;
-			}
-
-			if (!p.HasExtraHomeFaction() && p.IsFreeNonSlaveColonist)
-			{
-				_tenantsPool.Remove(p);
-			}
-			else
-			{
-				foreach (Contract t in _activeContracts.Where(t => t._tenant == p))
-				{
-					cont = t;
-					return true;
-				}
-			}
-
-			return false;
+			return _silver > 0;
 		}
 
 		public override void ExposeData()
@@ -97,14 +64,10 @@ namespace Tenants.Components
 			base.ExposeData();
 			Scribe_References.Look(ref _noticeBoard, "NoticeBoard");
 			Scribe_Values.Look(ref _courierFireTick, "CourierFireTick");
-			Scribe_Values.Look(ref _tenantFireTick, "TenantFireTick");
 			Scribe_Values.Look(ref _courierKills, "CourierKills");
 			Scribe_Values.Look(ref _tenantKills, "TenantKills");
 			Scribe_Values.Look(ref _silver, "Silver");
-			Scribe_Collections.Look(ref _tenantsPool, "TenantsPool", LookMode.Reference);
 			Scribe_Collections.Look(ref _courierPool, "CourierPool", LookMode.Reference);
-			Scribe_Collections.Look(ref _activeContracts, "ActiveContracts", LookMode.Deep);
-			Scribe_Values.Look(ref _tenantAddUpp, "TenantAddUpp");
 			Scribe_Values.Look(ref _courierIsFiring, "CourierIsFiring");
 		}
 
@@ -116,19 +79,12 @@ namespace Tenants.Components
 				return;
 			}
 
-			if (_tenantAddUpp)
+			if (_courierIsFiring)
 			{
-				_tenantFireTick--;
-				if (_tenantFireTick <= 0)
-				{
-					var slate = new Slate();
-					slate.Set<float>("points", Rand.Range(500, 10000));
-					Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(Defs.QuestDefOf.Tenancy, new Slate());
-					QuestUtility.SendLetterQuestAvailable(quest);
-				}
+				return;
 			}
 
-			if (_noticeBoard == null || _courierIsFiring)
+			if (!_noticeBoard._isActive && !HaveRent())
 			{
 				return;
 			}
@@ -185,12 +141,6 @@ namespace Tenants.Components
 					}
 				}
 
-				if (Settings.Settings.CourierDays.min == 0)
-				{
-					Settings.Settings.Reset();
-					Log.Warning("Tenancy settings had no min/max courier spawn days set, mod settings got reset!");
-				}
-
 				_courierFireTick = Rand.RangeInclusive(Settings.Settings.CourierDays.min * 60000,
 					Settings.Settings.CourierDays.max * 60000);
 
@@ -199,7 +149,7 @@ namespace Tenants.Components
 				while (_courierPool.Count(x => x.Spawned == false) < 6 && tries < 100)
 				{
 					tries++;
-					PawnKindDef courierDef = Settings.Settings.GetCourierByWeight;
+					PawnKindDef courierDef = CourierLogic.GetRandomPawnKindDef();
 					Pawn newCourier = PawnGenerator.GeneratePawn(courierDef, faction);
 					if (newCourier == null ||
 					    newCourier.Dead ||
@@ -223,126 +173,17 @@ namespace Tenants.Components
 			}
 		}
 
-		public Pawn GetTenant()
-		{
-			try
-			{
-				Pawn tenant = null;
-				Faction faction = Find.FactionManager.FirstFactionOfDef(Defs.FactionDefOf.LTS_Tenant);
-				if (faction == null)
-				{
-					faction = FactionGenerator.NewGeneratedFaction(
-						new FactionGeneratorParms(Defs.FactionDefOf.LTS_Tenant));
-
-					Find.FactionManager.Add(faction);
-				}
-
-				_tenantAddUpp = false;
-				if (_activeContracts == null)
-				{
-					_activeContracts = new List<Contract>();
-				}
-
-				for (int i = 0; i < _activeContracts.Count; i++)
-				{
-					if (_activeContracts[i]._tenant == null || !_activeContracts[i]._tenant.Spawned)
-					{
-						_activeContracts.RemoveAt(i);
-						i--;
-					}
-				}
-
-				if (_tenantsPool == null)
-				{
-					_tenantsPool = new List<Pawn>();
-				}
-
-				for (int i = 0; i < _tenantsPool.Count; i++)
-				{
-					if (_tenantsPool[i].DestroyedOrNull() || _tenantsPool[i].Dead)
-					{
-						_tenantsPool.RemoveAt(i);
-						i--;
-					}
-				}
-
-				_tenantFireTick = 0;
-				while (_tenantsPool.Count(x => x.Spawned == false && x.Faction != Faction.OfPlayer) <
-				       Settings.Settings.WorldTenants)
-				{
-					if (Settings.Settings.AvailableRaces != null && Settings.Settings.AvailableRaces.Count > 0)
-					{
-						string race = Settings.Settings.AvailableRaces?.RandomElement();
-						if (race == null)
-						{
-							continue;
-						}
-
-						PawnKindDef random = DefDatabase<PawnKindDef>.AllDefsListForReading.Where(x =>
-								x.race.defName.Contains(race) && x.combatPower < 50 && !x.factionLeader)
-							.RandomElement();
-
-						if (random != null)
-						{
-							Pawn newTenant = PawnGenerator.GeneratePawn(random, faction);
-							if (newTenant == null || newTenant.AnimalOrWildMan())
-							{
-								continue;
-							}
-
-							newTenant.DestroyOrPassToWorld();
-							_tenantsPool.Add(newTenant);
-						}
-						else
-						{
-							Settings.Settings.AvailableRaces.Remove(race);
-							Log.Message("Removed (" +
-							            race +
-							            ") as an available race since they don't seem to have any plausible tenants.");
-						}
-					}
-					else
-					{
-						Log.Error("No pawns available for tenancy, check your Tenants settings!");
-						return null;
-					}
-				}
-
-				if (_tenantsPool.Count > 0)
-				{
-					tenant = _tenantsPool.Where(x => x.Spawned == false && x.Faction != Faction.OfPlayer)
-						.RandomElement();
-				}
-
-				if (tenant == null)
-				{
-					return null;
-				}
-
-				foreach (Need t in tenant.needs.AllNeeds)
-				{
-					t.CurLevelPercentage = 0.6f;
-				}
-
-				return tenant;
-			}
-			catch (Exception ex)
-			{
-				Log.Error("Error at GetTenant method: " + ex.Message);
-				return null;
-			}
-		}
-
 		public void EmptyBoard(Pawn courier)
 		{
 			try
 			{
-				if (_noticeBoard == null)
+				if (NoticeBoard() == null)
 				{
 					return;
 				}
 
-				if (_silver > 0)
+				//Payment
+				if (HaveRent())
 				{
 					if (ModLister.RoyaltyInstalled &&
 					    _silver > 1000 &&
@@ -350,7 +191,7 @@ namespace Tenants.Components
 					    Defs.ResearchDefOf.LTS_CourierTech.TechprintsApplied <
 					    Defs.ResearchDefOf.LTS_CourierTech.TechprintCount)
 					{
-						Messages.Message(Language.Translate.CourierDeliveredTech, _noticeBoard,
+						Messages.Message(Language.Translate.CourierDeliveredTech(), _noticeBoard,
 							MessageTypeDefOf.PositiveEvent);
 
 						Find.ResearchManager.ApplyTechprint(Defs.ResearchDefOf.LTS_CourierTech, null);
@@ -358,7 +199,7 @@ namespace Tenants.Components
 
 					if (Settings.Settings.PaymentGold && _silver > 500)
 					{
-						float percentage = Rand.Range(0.1f, 0.20f);
+						float percentage = Rand.Range(0.25f, 0.20f);
 						double gold = (_silver / 10.0) * percentage;
 						_silver -= (int)(_silver * percentage);
 						if (gold < 1)
@@ -381,28 +222,27 @@ namespace Tenants.Components
 					_silver = 0;
 				}
 
-				if (NoticeBoard != null)
+				//Advertisement
+				if (_noticeBoard._noticeUp)
 				{
-					if (NoticeBoard._noticeUp && _tenantAddUpp != true)
+					int amount = _noticeBoard.AdvertisementCost();
+					if (_noticeBoard._silverAmount == amount)
 					{
 						Messages.Message(Language.Translate.CourierTenancyNotice(courier),
 							MessageTypeDefOf.PositiveEvent);
 
-						NoticeBoard._noticeUp = false;
-						_tenantAddUpp = true;
-						_tenantFireTick = Rand.RangeInclusive(60000, 300000);
+						_noticeBoard._noticeUp = false;
+						_noticeBoard._silverAmount = 0;
+						var slate = new Slate();
+						slate.Set<float>("points", Rand.RangeInclusive(60000, 300000));
+						Quest quest = QuestUtility.GenerateQuestAndMakeAvailable(Defs.QuestDefOf.LTS_Tenancy, new Slate());
+						QuestUtility.SendLetterQuestAvailable(quest);
 					}
-					else if (_tenantAddUpp)
+					else
 					{
-						Messages.Message(Language.Translate.CourierTenancyNoticeFail(courier),
+						Messages.Message(Language.Translate.CourierTenancyNoticeFailFunds(courier),
 							MessageTypeDefOf.NeutralEvent);
 					}
-				}
-				else
-				{
-					Log.Error(
-						"Somehow the NoticeBoardComponent does not exist! Contact the author if you think it's something faulty with this code. " +
-						_noticeBoard);
 				}
 
 				Messages.Message(Language.Translate.CourierDelivered(courier), _noticeBoard,
@@ -422,24 +262,16 @@ namespace Tenants.Components
 
 		public bool FindNoticeBoardInMap()
 		{
-			int count = 0;
 			_noticeBoard = null;
-			foreach (NoticeBoard current in this.map.listerBuildings.allBuildingsColonist.OfType<NoticeBoard>())
+			var noticeBoards = this.map.listerBuildings.allBuildingsColonist.OfType<NoticeBoard>().ToList();
+			if (!noticeBoards.Any())
 			{
-				if (count > 1)
-				{
-					_noticeBoard?.Destroy();
-					_noticeBoard = current;
-					Messages.Message(Language.Translate.MultipleNoticeBoards, MessageTypeDefOf.NeutralEvent);
-				}
-				else
-				{
-					_noticeBoard = current;
-					count++;
-				}
+				return false;
 			}
 
-			return _noticeBoard != null;
+			_noticeBoard = noticeBoards.FirstOrDefault();
+			return true;
+
 		}
 
 		#endregion Methods

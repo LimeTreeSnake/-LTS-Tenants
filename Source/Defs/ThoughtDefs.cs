@@ -1,5 +1,4 @@
-﻿using Verse;
-using RimWorld;
+﻿using RimWorld;
 // ReSharper disable UnassignedField.Global
 // ReSharper disable InconsistentNaming
 namespace Tenants.Defs {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-    <v1.3>
-        <li>/</li>
-        <li>v1.3</li>
-        <li>Shared</li>
-        <li IfModActive="LimeTreeSnake.Ammunition">Compatibility/AmmoMod</li>
-    </v1.3>
     <v1.4>
         <li>/</li>
         <li>v1.4</li>
         <li>Shared</li>
         <li IfModActive="LimeTreeSnake.Ammunition">Compatibility/AmmoMod</li>
     </v1.4>
+    <v1.5>
+        <li>/</li>
+        <li>v1.5</li>
+        <li>Shared</li>
+        <li IfModActive="LimeTreeSnake.Ammunition">Compatibility/AmmoMod</li>
+    </v1.5>
 </loadFolders>

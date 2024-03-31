@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <PawnKindDef Name="LTS_TenantBase">
+        <defName>LTS_Tenant</defName>
+        <label>tenant</label>
+        <race>Human</race>
+        <defaultFactionType>LTS_Tenant</defaultFactionType>
+        <combatPower>30</combatPower>
+        <isFighter>false</isFighter>
+        <apparelMoney>100~300</apparelMoney>
+        <gearHealthRange>1~2</gearHealthRange>
+        <invNutrition>5</invNutrition>
+        <maxGenerationAge>50</maxGenerationAge>
+        <initialWillRange>4~8</initialWillRange>
+        <initialResistanceRange>20~40</initialResistanceRange>
+        <apparelIgnoreSeasons>true</apparelIgnoreSeasons>
+        <apparelIgnorePollution MayRequire="Ludeon.RimWorld.Biotech">true</apparelIgnorePollution>
+        <forceNormalGearQuality>true</forceNormalGearQuality>
+        <apparelTags>
+            <li>IndustrialBasic</li>
+        </apparelTags>
+        <xenotypeSet>
+            <xenotypeChances>
+                <Highmate MayRequire="Ludeon.RimWorld.Biotech">0.025</Highmate>
+                <Dirtmole MayRequire="Ludeon.RimWorld.Biotech">0.01</Dirtmole>
+                <Hussar MayRequire="Ludeon.RimWorld.Biotech">0.01</Hussar>
+                <Waster MayRequire="Ludeon.RimWorld.Biotech">0.01</Waster>
+                <Pigskin MayRequire="Ludeon.RimWorld.Biotech">0.01</Pigskin>
+                <Neanderthal MayRequire="Ludeon.RimWorld.Biotech">0.01</Neanderthal>
+                <Impid MayRequire="Ludeon.RimWorld.Biotech">0.01</Impid>
+                <Genie MayRequire="Ludeon.RimWorld.Biotech">0.01</Genie>
+                <Yttakin MayRequire="Ludeon.RimWorld.Biotech">0.01</Yttakin>
+                <LTS_Nyankind MayRequire="LimeTreeSnake.Xenotech">0.01</LTS_Nyankind>
+                <LTS_Growler MayRequire="LimeTreeSnake.Xenotech">0.01</LTS_Growler>
+                <LTS_Elfin MayRequire="LimeTreeSnake.Xenotech">0.025</LTS_Elfin>
+                <LTS_Ork MayRequire="LimeTreeSnake.Xenotech">0.01</LTS_Ork>
+                <LTS_Lilime MayRequire="LimeTreeSnake.Xenotech">0.01</LTS_Lilime>
+            </xenotypeChances>
+        </xenotypeSet>
+        <modExtensions>
+            <li Class="Tenants.DefModExtensions.TenancyExtension">
+                <choiceWeight>1</choiceWeight>
+            </li>
+        </modExtensions>
+    </PawnKindDef>
+</Defs>

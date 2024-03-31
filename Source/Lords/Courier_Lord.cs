@@ -1,10 +1,8 @@
-﻿using RimWorld;
-using System.Collections.Generic;
+﻿using System;
+using RimWorld;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
-using System.Linq;
-using System.Text;
 
 namespace Tenants.Lords
 {
@@ -13,28 +11,37 @@ namespace Tenants.Lords
 		public override StateGraph CreateGraph()
 		{
 			var stateGraph = new StateGraph();
-			LordToil toilTravel =
-				new LordToil_Travel(this.Map.GetComponent<Components.Tenants_MapComponent>().NoticeBoard.InteractionCell)
+			try
+			{
+				LordToil toilTravel =
+					new LordToil_Travel(this.Map.GetComponent<Components.TenantsMapComponent>()
+						.NoticeBoard()
+						.InteractionCell)
+					{
+						useAvoidGrid = true
+					};
+				stateGraph.AddToil(toilTravel);
+				LordToil toilDeliver = new CourierDeliver_LordToil();
+				stateGraph.AddToil(toilDeliver);
+
+				LordToil toilLeave = new LordToil_ExitMap()
 				{
 					useAvoidGrid = true
 				};
 
-			stateGraph.AddToil(toilTravel);
-			LordToil toilDeliver = new CourierDeliver_LordToil();
-			stateGraph.AddToil(toilDeliver);
-
-			LordToil toilLeave = new LordToil_ExitMap()
+				stateGraph.AddToil(toilLeave);
+				var transitionWait = new Transition(toilTravel, toilDeliver);
+				transitionWait.AddTrigger(new Trigger_Memo("TravelArrived"));
+				stateGraph.AddTransition(transitionWait);
+				var transitionLeave = new Transition(toilDeliver, toilLeave);
+				transitionLeave.AddTrigger(new Trigger_TicksPassedAndNoRecentHarm(3000));
+				stateGraph.AddTransition(transitionLeave);
+			}
+			catch (Exception e)
 			{
-				useAvoidGrid = true
-			};
+				Log.Message(e.Message + " Failed to create graph for courier.");
+			}
 
-			stateGraph.AddToil(toilLeave);
-			var transitionWait = new Transition(toilTravel, toilDeliver);
-			transitionWait.AddTrigger(new Trigger_Memo("TravelArrived"));
-			stateGraph.AddTransition(transitionWait);
-			var transitionLeave = new Transition(toilDeliver, toilLeave);
-			transitionLeave.AddTrigger(new Trigger_TicksPassedAndNoRecentHarm(3000));
-			stateGraph.AddTransition(transitionLeave);
 			return stateGraph;
 		}
 	}
@@ -51,7 +58,7 @@ namespace Tenants.Lords
 				t.mindState.duty = new PawnDuty(DutyDefOf.TravelOrWait);
 			}
 
-			this.Map.GetComponent<Components.Tenants_MapComponent>().EmptyBoard(this.lord.ownedPawns[0]);
+			this.Map.GetComponent<Components.TenantsMapComponent>().EmptyBoard(this.lord.ownedPawns[0]);
 		}
 	}
 }

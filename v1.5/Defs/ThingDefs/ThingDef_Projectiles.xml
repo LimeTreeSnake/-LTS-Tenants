@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <!-- Musket Projectile -->
+    <ThingDef ParentName="BaseBullet">
+        <defName>LTS_MusketProjectile</defName>
+        <label>musket projectile</label>
+        <description>A musket projectile
+            Base damage: 15
+            Stopping power: 1
+            Armor Penetration: 0.2
+            Speed: 80</description>
+        <graphicData>
+            <texPath>Projectiles/Musket_Projectile</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <projectile>
+            <damageDef>Bullet</damageDef>
+            <damageAmountBase>15</damageAmountBase>
+            <stoppingPower>1</stoppingPower>
+            <armorPenetrationBase>0.2</armorPenetrationBase>
+            <speed>80</speed>
+        </projectile>
+    </ThingDef>
+    <!-- Silver Musket Projectile -->
+    <ThingDef ParentName="BaseBullet">
+        <defName>LTS_SilverMusketProjectile</defName>
+        <label>silver musket projectile</label>
+        <description>A silvery musket projectile
+            Base damage: 16
+            Stopping power: 1
+            Armor Penetration: 0.3
+            Speed: 80</description>
+        <graphicData>
+            <texPath>Projectiles/SilverMusket_Projectile</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <projectile>
+            <damageDef>Bullet</damageDef>
+            <damageAmountBase>16</damageAmountBase>
+            <stoppingPower>1</stoppingPower>
+            <armorPenetrationBase>0.3</armorPenetrationBase>
+            <speed>80</speed>
+        </projectile>
+    </ThingDef>
+    <!-- Pressure -->
+    <ThingDef ParentName="BaseBullet">
+        <defName>LTS_PressurizedProjectile</defName>
+        <label>pressurized projectile</label>
+        <description>A small ball projectile
+            Base damage: 15
+            Stopping power: 1
+            Armor Penetration: 0.2
+            Speed: 100</description>
+        <graphicData>
+            <texPath>Projectiles/Pressure_Projectile</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <projectile>
+            <damageDef>Bullet</damageDef>
+            <damageAmountBase>15</damageAmountBase>
+            <stoppingPower>1</stoppingPower>
+            <armorPenetrationBase>0.2</armorPenetrationBase>
+            <speed>100</speed>
+        </projectile>
+    </ThingDef>
+    <!-- Throwing Knife -->
+    <ThingDef ParentName="BaseBullet">
+        <defName>LTS_ThrowingKnifeProjectile</defName>
+        <label>throwing knife</label>
+        <description>A knife
+            Base damage: 12
+            Armor Penetration: 0.25
+            Speed: 60</description>
+        <graphicData>
+            <texPath>Projectiles/ThrowingKnife_Projectile</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <projectile>
+            <damageDef>Bullet</damageDef>
+            <damageAmountBase>12</damageAmountBase>
+            <armorPenetrationBase>0.25</armorPenetrationBase>
+            <speed>60</speed>
+        </projectile>
+    </ThingDef>
+</Defs>

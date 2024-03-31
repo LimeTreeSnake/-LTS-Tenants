@@ -1,10 +1,6 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Tenants.Things;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -57,24 +53,31 @@ namespace Tenants.WorkGivers
 				return false;
 			}
 
-			if (t is NoticeBoard buildingNoticeBoard &&
-			    (buildingNoticeBoard._noticeUp || !buildingNoticeBoard._isActive))
+			if (!(t is NoticeBoard buildingNoticeBoard))
 			{
 				return false;
 			}
 
-			var thingDefCountClass =
-				new ThingDefCountClass(ThingDefOf.Silver, Settings.Settings.NoticeCourierCost);
+			if (buildingNoticeBoard._noticeUp || !buildingNoticeBoard._isActive)
+			{
+				return false;
+			}
 
-			return pawn.Map.itemAvailability.ThingsAvailableAnywhere(thingDefCountClass, pawn);
+			return pawn.Map.itemAvailability.ThingsAvailableAnywhere(
+				ThingDefOf.Silver, buildingNoticeBoard.AdvertisementCost(), pawn);
 		}
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
 		{
 			Job job = JobMaker.MakeJob(Defs.JobDefOf.LTS_AddNotice, t);
-			bool needMore = true;
-			job.count = Settings.Settings.NoticeCourierCost;
 			job.GetTargetQueue(TargetIndex.B);
+			bool needMore = true;
+			if (!((ThingWithComps)job.GetTarget(TargetIndex.A).Thing is NoticeBoard noticeBoard))
+			{
+				Log.Message("ERROR TEST TENANTS");
+				return null;
+			}
+			job.count = noticeBoard.AdvertisementCost();
 			int counter = 0;
 			var thingList = new List<Thing>();
 			Thing temp = null;
@@ -96,6 +99,7 @@ namespace Tenants.WorkGivers
 					{
 						return false;
 					}
+
 					return !thingList.Contains(pay);
 				}
 
@@ -107,6 +111,7 @@ namespace Tenants.WorkGivers
 				{
 					break;
 				}
+
 				job.targetQueueB.Add(thing);
 				thingList.Add(thing);
 				counter += thing.stackCount;

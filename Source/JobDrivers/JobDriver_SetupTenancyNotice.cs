@@ -2,11 +2,6 @@
 using RimWorld;
 using Verse;
 using Verse.AI;
-using System.Linq;
-using UnityEngine;
-using System;
-using Verse.Sound;
-using System.Net.NetworkInformation;
 using Tenants.Things;
 
 namespace Tenants.JobDrivers
@@ -40,9 +35,9 @@ namespace Tenants.JobDrivers
 			{
 				initAction = delegate
 				{
+					int amount = NoticeBoard.AdvertisementCost();
 					if (this.pawn.carryTracker.CarriedThing == null ||
-					    this.pawn.carryTracker.CarriedThing.stackCount <
-					    Settings.Settings.NoticeCourierCost)
+					    amount < this.pawn.carryTracker.CarriedThing.stackCount)
 					{
 						Messages.Message(Language.Translate.AdvertisementFailed(this.pawn), NoticeBoard,
 							MessageTypeDefOf.NeutralEvent);
@@ -52,10 +47,11 @@ namespace Tenants.JobDrivers
 					else
 					{
 						NoticeBoard._noticeUp = true;
-						this.pawn.carryTracker.CarriedThing.SplitOff(Settings.Settings.NoticeCourierCost).Destroy();
+						NoticeBoard._silverAmount += amount;
+						this.pawn.carryTracker.CarriedThing.SplitOff(amount).Destroy();
 						if (Settings.Settings.AdvertNoticeSound)
 						{
-							Messages.Message(Language.Translate.AdvertisementPlaced, NoticeBoard,
+							Messages.Message(Language.Translate.AdvertisementPlaced(), NoticeBoard,
 								MessageTypeDefOf.NeutralEvent);
 						}
 					}

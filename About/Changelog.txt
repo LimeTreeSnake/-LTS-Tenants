@@ -1,5 +1,33 @@
 [LTS]Tenants
-2023-04
+2024-03-29
+    - Kept 1.4 as is, updated to 1.5.
+    - Messages have a prefix of LTS to avoid message conflicts. Sorry translators for the extra job. :(
+    - Remade mod settings and removed race selection page.
+    - Tenants now using a weighted Tenant PawnKindDef selection extension instead of any random pawnkind.
+        NOTE: This effectively removes the usage of all Humanoid Alien Races mods unless patched their pawnkinds to use my new ModExtension.
+        This also means all tenants will be of PawnKindType Tenant.
+    - You can through the notice board force criteria for tenancy applicants. Example, gender, age if they must fight or even a specific xenotype.
+        NOTE: This lowers the expected rent and increases advertisement costs since you target a specific type.
+    - Single room requirement is a toggleable offer at the noticeboard now. This increases the base rent you can get and lowers advert cost.
+    - Fighting duty is a toggleable offer at the noticeboard now. This increases the base rent you can get and lowers advert cost.
+    - Notice boards show more info in their inspect string. Expected rent and advertisement costs is visible.
+    - Base Tenant PawnKind have a small chance to be of all vanilla xenotypes and LTS_Xenotech types.
+    - Base Courier PawnKind have a small chance to be of some vanilla xenotypes and some LTS_Xenotech types.
+    - Altering notice board criteria for tenancy or toggling the advert off cancels any if placed adverts returning/dropping any silver spent.
+    - No longer destroys extra noticeboards, simply picks first one found found and use that. Having more boards thus is a bad idea.
+    - Destroyed noticeboards returns silver spent on advertisement.
+    - Couriers deliver tenancy quest immediately upon delivery as if "posting the application". No arbitrarily waiting for the event to spawn.
+    - Forced courier event wont start if there is no active advertisement up and there is no delivery to be made.
+    - Remade check if tenant asked to join and was declined issues thus not asking again. The flag will also be reset upon loading a save.
+    - Tenancy precept calculating number of guests now includes other quest guests like royalty hospitality quests as well.
+    - Fixed severe broken stats of Courier weapons. They were severely broken...
+    - Killing or otherwise mistreating tenants now have consequences.
+    - Killing or otherwise mistreating couriers now have consequences.
+    - Tradetag ExoticMisc added to Courier Weapons
+    - Tenancy joining message altered to include more information.
+    - Couriers are not enemies with the empire anymore and some other factions.
+
+2023-04-08
     - Fixed notorious freeze issue.
 
 2022-12-05

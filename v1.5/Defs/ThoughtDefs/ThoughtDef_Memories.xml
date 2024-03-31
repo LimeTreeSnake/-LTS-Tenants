@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <ThoughtDef>
+        <defName>LTS_JoinRejection</defName>
+        <durationDays>10</durationDays>
+        <stackLimit>5</stackLimit>
+        <stages>
+            <li>
+                <label>Join rejection</label>
+                <description>Am I not good enough to join?</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+    <ThoughtDef>
+        <defName>LTS_JoinAccept</defName>
+        <durationDays>10</durationDays>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>Accepted resident</label>
+                <description>I am now a permanent member of this colony!</description>
+                <baseMoodEffect>5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+</Defs>
