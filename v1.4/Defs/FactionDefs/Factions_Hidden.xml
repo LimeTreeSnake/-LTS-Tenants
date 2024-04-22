@@ -28,6 +28,18 @@
             <Structure_OriginHindu MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginHindu>
             <Structure_OriginBuddhist MayRequire="Ludeon.RimWorld.Ideology">1</Structure_OriginBuddhist>
         </structureMemeWeights>
+        <permanentEnemyToEveryoneExcept>
+            <li>OutlanderCivil</li>
+            <li>TribeCivil</li>
+            <li>PlayerTribe</li>
+            <li>PlayerColony</li>
+            <li>Ancients</li>
+            <li MayRequire="Ludeon.RimWorld.Royalty">Empire</li>
+            <li MayRequire="Ludeon.RimWorld.Royalty">OutlanderRefugee</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Beggars</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Pilgrims</li>
+            <li MayRequire="Ludeon.RimWorld.Anomaly">ResearchExpedition</li>
+        </permanentEnemyToEveryoneExcept>
         <backstoryFilters>
             <li>
                 <categories>
@@ -45,7 +57,6 @@
         <hidden>true</hidden>
         <rescueesCanJoin>false</rescueesCanJoin>
         <autoFlee>false</autoFlee>
-
     </FactionDef>
 
     <FactionDef ParentName="FactionBase">
@@ -72,6 +83,15 @@
                 <commonality>0.05</commonality>
             </li>
         </backstoryFilters>
+        <permanentEnemyToEveryoneExcept>
+            <li>OutlanderCivil</li>
+            <li>TribeCivil</li>
+            <li>PlayerTribe</li>
+            <li>PlayerColony</li>
+            <li>Ancients</li>
+            <li MayRequire="Ludeon.RimWorld.Ideology">Beggars</li>
+            <li MayRequire="Ludeon.RimWorld.Anomaly">ResearchExpedition</li>
+        </permanentEnemyToEveryoneExcept>
         <hidden>true</hidden>
         <rescueesCanJoin>false</rescueesCanJoin>
         <autoFlee>false</autoFlee>

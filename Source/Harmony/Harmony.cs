@@ -30,7 +30,7 @@ namespace Tenants.Harmony
 		{
 			if(Settings.Settings.DebugLog )
 			{
-				Log.Message(signal);
+				Log.Message(signal.ToString());
 			}
 		}
 			

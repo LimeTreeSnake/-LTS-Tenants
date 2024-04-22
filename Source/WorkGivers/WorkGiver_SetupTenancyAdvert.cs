@@ -63,8 +63,9 @@ namespace Tenants.WorkGivers
 				return false;
 			}
 
-			return pawn.Map.itemAvailability.ThingsAvailableAnywhere(
-				ThingDefOf.Silver, buildingNoticeBoard.AdvertisementCost(), pawn);
+			var thingDefCountClass =
+				new ThingDefCountClass(ThingDefOf.Silver, buildingNoticeBoard.AdvertisementCost());
+			return pawn.Map.itemAvailability.ThingsAvailableAnywhere(thingDefCountClass, pawn);
 		}
 
 		public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)

@@ -144,7 +144,7 @@ namespace Tenants.QuestNodes
 				
 				if (Settings.Settings.DebugLog)
 				{
-					Log.Message(comp.TenantKills);
+					Log.Message(comp.TenantKills.ToString());
 				}
 
 				slate.Set("rejected", comp.TenantKills > 0);

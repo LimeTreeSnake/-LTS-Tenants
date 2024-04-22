@@ -124,9 +124,9 @@ namespace Tenants.Things
 						? Translate.AdvertisementMaleGizmo()
 						: Translate.AdvertisementGenderGizmo(),
 				icon = _femaleOnly
-					? LTS_Systems.GUI.Icons.Female
+					? Gender.Female.GetIcon()
 					: _maleOnly
-						? LTS_Systems.GUI.Icons.Male
+						? Gender.Male.GetIcon()
 						: LTS_Systems.GUI.Icons.Info,
 				action = delegate
 				{

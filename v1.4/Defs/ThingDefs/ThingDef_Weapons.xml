@@ -20,6 +20,9 @@
                 <compClass>CompQuality</compClass>
             </li>
         </comps>
+        <tradeTags>
+            <li>ExoticMisc</li>
+        </tradeTags>
     </ThingDef>
 
     <ThingDef Name="LTS_CourierRangedArms" ParentName="LTS_CourierArms" Abstract="True">
@@ -107,7 +110,7 @@
             <AccuracyShort>0.80</AccuracyShort>
             <AccuracyMedium>0.45</AccuracyMedium>
             <AccuracyLong>0.35</AccuracyLong>
-            <RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+            <RangedWeapon_Cooldown>1.7</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
             <li>RangedLight</li>
@@ -162,11 +165,11 @@
         <statBases>
             <WorkToMake>4500</WorkToMake>
             <Mass>2</Mass>
-            <AccuracyTouch>0.85</AccuracyTouch>
-            <AccuracyShort>0.75</AccuracyShort>
-            <AccuracyMedium>0.40</AccuracyMedium>
-            <AccuracyLong>0.30</AccuracyLong>
-            <RangedWeapon_Cooldown>2.6</RangedWeapon_Cooldown>
+            <AccuracyTouch>0.6</AccuracyTouch>
+            <AccuracyShort>0.6</AccuracyShort>
+            <AccuracyMedium>0.2</AccuracyMedium>
+            <AccuracyLong>0.2</AccuracyLong>
+            <RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
             <li>RangedLight</li>
@@ -181,13 +184,13 @@
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>LTS_MusketProjectile</defaultProjectile>
-                <warmupTime>0.35</warmupTime>
+                <warmupTime>1</warmupTime>
                 <range>19.9</range>
                 <soundCast>LTS_MusketFire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
                 <muzzleFlashScale>12</muzzleFlashScale>
                 <burstShotCount>4</burstShotCount>
-                <ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+                <ticksBetweenBurstShots>1</ticksBetweenBurstShots>
             </li>
         </verbs>
         <tools>
@@ -222,10 +225,10 @@
         <statBases>
             <WorkToMake>20000</WorkToMake>
             <Mass>5</Mass>
-            <AccuracyTouch>0.6</AccuracyTouch>
-            <AccuracyShort>0.8</AccuracyShort>
-            <AccuracyMedium>0.9</AccuracyMedium>
-            <AccuracyLong>0.8</AccuracyLong>
+            <AccuracyTouch>0.5</AccuracyTouch>
+            <AccuracyShort>0.5</AccuracyShort>
+            <AccuracyMedium>0.5</AccuracyMedium>
+            <AccuracyLong>0.5</AccuracyLong>
             <RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
@@ -241,12 +244,12 @@
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>LTS_MusketProjectile</defaultProjectile>
-                <warmupTime>1.5</warmupTime>
+                <warmupTime>2</warmupTime>
                 <range>29.9</range>
                 <soundCast>LTS_MusketFire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
                 <muzzleFlashScale>12</muzzleFlashScale>
-                <burstShotCount>4</burstShotCount>
+                <burstShotCount>5</burstShotCount>
                 <ticksBetweenBurstShots>10</ticksBetweenBurstShots>
             </li>
         </verbs>
@@ -282,11 +285,11 @@
         <statBases>
             <WorkToMake>16000</WorkToMake>
             <Mass>5</Mass>
-            <AccuracyTouch>0.6</AccuracyTouch>
-            <AccuracyShort>0.75</AccuracyShort>
-            <AccuracyMedium>0.75</AccuracyMedium>
-            <AccuracyLong>0.7</AccuracyLong>
-            <RangedWeapon_Cooldown>0.75</RangedWeapon_Cooldown>
+            <AccuracyTouch>0.45</AccuracyTouch>
+            <AccuracyShort>0.5</AccuracyShort>
+            <AccuracyMedium>0.55</AccuracyMedium>
+            <AccuracyLong>0.5</AccuracyLong>
+            <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
         </statBases>
         <weaponClasses>
             <li>LongShots</li>
@@ -301,7 +304,7 @@
                 <verbClass>Verb_Shoot</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>LTS_PressurizedProjectile</defaultProjectile>
-                <warmupTime>0.75</warmupTime>
+                <warmupTime>0.5</warmupTime>
                 <range>25.9</range>
                 <soundCast>LTS_PressureFire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
