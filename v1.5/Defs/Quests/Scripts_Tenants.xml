@@ -63,6 +63,7 @@
                     <rent>rent</rent>
                     <ticks>ticks</ticks>
                     <roomRequired>roomRequired</roomRequired>
+                    <mayJoin>mayJoin</mayJoin>
                     <violenceEnabled>violenceEnabled</violenceEnabled>
                     <destroyedSignal>tenantPawn.Destroyed</destroyedSignal>
                     <killedSignal>tenantPawn.Killed</killedSignal>
@@ -372,8 +373,8 @@
         </questDescriptionRules>
         <questContentRules>
             <rulesStrings>
-                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenantPawn_age]-year-old [tenantGenes] named [tenantPawn_nameDef] hail from nearby. \n[tenantPawn_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenantPawn_nameDef] won't do any work! [questDescriptionViolenceEnabled] \nMistreating tenants and keeping them unhappay will make them leave and give you a bad reputation. A reputation that may have unforeseen effects... \n\n[questDescriptionRoomRequired]</li>
-                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenantPawn_nameDef] is a tenant of your colony. \n\n[tenantPawn_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one. \n\n[questDescriptionRoomRequired]</li>
+                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenantPawn_age]-year-old [tenantGenes] named [tenantPawn_nameDef] hail from nearby. \n[tenantPawn_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenantPawn_nameDef] won't do any work! [questDescriptionViolenceEnabled] \nMistreating tenants and keeping them unhappay will make them leave and give you a bad reputation. A reputation that may have unforeseen effects... \n\n[questDescriptionRoomRequired] \n\n[questDescriptionMayJoin]</li>
+                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenantPawn_nameDef] is a tenant of your colony. \n\n[tenantPawn_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one.</li>
 
                 
                 <li>questDescriptionRejected(rejected==true)->[tenantPawn_nameDef] decided against coming to your colony.\n\n</li>
@@ -382,6 +383,9 @@
                 <li>questDescriptionRoomRequired(roomRequired==true)->[tenantPawn_nameDef] wants a single room and offers to pay extra for it.</li>
                 <li>questDescriptionRoomRequired(roomRequired==false)-></li>
 
+                <li>questDescriptionMayJoin(mayJoin==true)-></li>
+                <li>questDescriptionMayJoin(mayJoin==false)->[tenantPawn_nameDef] does not want to join your faction ever.</li>
+                
                 <li>questDescriptionViolenceEnabled(violenceEnabled==true)->However, [tenantPawn_pronoun] can be drafted and fight if necessary.</li>
                 <li>questDescriptionViolenceEnabled(violenceEnabled==false)->[tenantPawn_pronoun] won't fight at all expecting you to protect [tenantPawn_objective] as well.</li>
             </rulesStrings>

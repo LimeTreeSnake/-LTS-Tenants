@@ -57,7 +57,6 @@
         <hidden>true</hidden>
         <rescueesCanJoin>false</rescueesCanJoin>
         <autoFlee>false</autoFlee>
-
     </FactionDef>
 
     <FactionDef ParentName="FactionBase">

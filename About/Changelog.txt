@@ -1,4 +1,15 @@
 [LTS]Tenants
+2024-
+    - May join state is now properly stored, so it does not toggle of during reload.
+    - Removed duplicate text in quest description when having accepted a tenant as a tenant.
+
+2024-04-21
+    - Courier and Tenants faction upon load have their relation set to Neutral. This to combat the issue where they are hostile to the player.
+    - Added a "May Join" option gizmo to the Notice Board. Whether a pawn may ask to join your faction or not.
+
+2024-04-05
+    - Fix for messages disappearing.
+
 2024-03-29
     - Kept 1.4 as is, updated to 1.5.
     - Messages have a prefix of LTS to avoid message conflicts. Sorry translators for the extra job. :(

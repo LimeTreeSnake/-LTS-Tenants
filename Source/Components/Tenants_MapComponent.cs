@@ -49,6 +49,39 @@ namespace Tenants.Components
 
 		#region Methods
 
+		public override void FinalizeInit()
+		{
+			base.FinalizeInit();
+
+			Faction factionCourier = Find.FactionManager.FirstFactionOfDef(Defs.FactionDefOf.LTS_Courier);
+
+			if (factionCourier != null)
+			{
+				Find.FactionManager.OfPlayer.SetRelationDirect(factionCourier, FactionRelationKind.Neutral);
+			}
+			else
+			{
+				Faction faction = FactionGenerator.NewGeneratedFaction(
+					new FactionGeneratorParms(Defs.FactionDefOf.LTS_Courier));
+				Find.FactionManager.Add(faction);
+				Find.FactionManager.OfPlayer.SetRelationDirect(faction, FactionRelationKind.Neutral);
+			}
+			
+			Faction factionTenants = Find.FactionManager.FirstFactionOfDef(Defs.FactionDefOf.LTS_Tenant);
+			
+			if (factionTenants != null)
+			{
+				Find.FactionManager.OfPlayer.SetRelationDirect(factionTenants, FactionRelationKind.Neutral);
+			}
+			else
+			{
+				Faction faction = FactionGenerator.NewGeneratedFaction(
+					new FactionGeneratorParms(Defs.FactionDefOf.LTS_Tenant));
+				Find.FactionManager.Add(faction);
+				Find.FactionManager.OfPlayer.SetRelationDirect(faction, FactionRelationKind.Neutral);
+			}
+		}
+
 		public bool IsCourier(Pawn pawn)
 		{
 			return _courierPool.Contains(pawn);

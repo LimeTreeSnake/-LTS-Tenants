@@ -25,6 +25,8 @@
     <LTSAdvertisementSingleRoomGizmoDesc>A pawn will require a single room but pays extra for it. Failure to provide a single room will cause frustration for the tenant.</LTSAdvertisementSingleRoomGizmoDesc>
     <LTSAdvertisementFightableGizmo>Fighter</LTSAdvertisementFightableGizmo>
     <LTSAdvertisementFightableGizmoDesc>Whether they can fight(✓) or not(X). Does not take account for pawn traits or other means of disabling violence.</LTSAdvertisementFightableGizmoDesc>
+    <LTSAdvertisementMayJoinGizmo>May join</LTSAdvertisementMayJoinGizmo>
+    <LTSAdvertisementMayJoinGizmoDesc>Whether they can ask to join your faction(✓) or not(X).</LTSAdvertisementMayJoinGizmoDesc>
     <LTSAdvertisementXenosAnyGizmo>Any Xeno</LTSAdvertisementXenosAnyGizmo>
     <LTSAdvertisementCost>Advertisement cost:</LTSAdvertisementCost>
     <LTSAdvertisementCostDesc>How much silver it costs to put up an advert for tenancy which forces the event upon courier retrieval.</LTSAdvertisementCostDesc>

@@ -64,7 +64,7 @@ namespace Tenants.QuestNodes
 				Find.WindowStack.Add(new Dialog_NodeTree(diaNode, delayInteractivity: true, radioMode: true,
 					Translate.ContractTitle()));
 			}
-			else if (signal.tag == joinSignal && !askedJoin)
+			else if (contract._mayJoin && signal.tag == joinSignal && !askedJoin)
 			{
 				var stringBuilder = new StringBuilder();
 				stringBuilder.AppendLine(Translate.ContractJoin(contract._tenant));

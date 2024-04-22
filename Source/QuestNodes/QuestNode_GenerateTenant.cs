@@ -25,6 +25,7 @@ namespace Tenants.QuestNodes
 		[NoTranslate] public SlateRef<int> rent;
 		[NoTranslate] public SlateRef<int> rentSum;
 		[NoTranslate] public SlateRef<bool> roomRequired;
+		[NoTranslate] public SlateRef<bool> mayJoin;
 		[NoTranslate] public SlateRef<bool> violenceEnabled;
 		[NoTranslate] public SlateRef<int> ticks;
 		[NoTranslate] public SlateRef<bool> rejected;
@@ -113,6 +114,7 @@ namespace Tenants.QuestNodes
 				slate.Set("startDate", contracts._startDate);
 				slate.Set("endDate", contracts._endDate);
 				slate.Set("roomRequired", contracts._singleRoomRequirement);
+				slate.Set("mayJoin", contracts._mayJoin);
 				slate.Set("violenceEnabled", contracts._violenceEnabled);
 
 				var signalWorker = new QuestPart_GenerateTenant
