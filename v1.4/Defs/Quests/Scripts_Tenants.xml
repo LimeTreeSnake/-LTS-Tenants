@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
     <!-- TenancyTimer -->
     <QuestScriptDef>
         <defName>TenancyTimer</defName>
@@ -12,7 +11,6 @@
                     <badSignal>tenants.BadEnding</badSignal>
                     <joinSignal>tenants.WannaJoin</joinSignal>
                     <leaveSignal>tenants.leaveSignal</leaveSignal>
-                    <postponeSignal>tenants.Postponed</postponeSignal>
                     <recruitSignal>tenants.TenantRecruited</recruitSignal>
                     <rejectSignal>tenants.Rejected</rejectSignal>
                     <terminateSignal>tenants.ContractTerminated</terminateSignal>
@@ -29,7 +27,7 @@
                             <li Class="QuestNode_Letter">
                                 <label TKey="TenantContractLabel">Tenancy concluded</label>
                                 <text TKey="TenantContractText">You have upheld your part of the bargain! A courier should deliver your silver to your Notice Board during their next visit.</text>
-                                <lookTargets>$tenants</lookTargets>
+                                <lookTargets>$tenantList</lookTargets>
                             </li>
                             <li Class="QuestNode_SendSignals">
                                 <outSignals>
@@ -47,143 +45,149 @@
         <defName>TenancySetup</defName>
         <root Class="QuestNode_Sequence">
             <nodes>
-                <li Class="QuestNode_GetMap" />
-                <li Class="QuestNode_GetWalkInSpot" />
+                <li Class="QuestNode_GetMap"/>
+                <li Class="QuestNode_GetWalkInSpot"/>
                 <li Class="Tenants.QuestNodes.QuestNode_GenerateTenant">
                     <map>$map</map>
-                    <tenant>tenant</tenant>
-                    <addToList>tenants</addToList>
+                    <tenant>tenantPawn</tenant>
+                    <addToList>tenantList</addToList>
                     <tenantFaction>tenantFaction</tenantFaction>
-                    <race>tenantRace</race>
                     <genes>tenantGenes</genes>
                     <gender>tenantGender</gender>
                     <rejected>rejected</rejected>
+                    <inSignalRemovePawn>tenants.ExtraFaction</inSignalRemovePawn>
+                    <contract>contract</contract>
+                    <startDate>startdate</startDate>
+                    <endDate>endDate</endDate>
+                    <days>days</days>
+                    <rent>rent</rent>
+                    <ticks>ticks</ticks>
+                    <roomRequired>roomRequired</roomRequired>
+                    <mayJoin>mayJoin</mayJoin>
+                    <violenceEnabled>violenceEnabled</violenceEnabled>
+                    <destroyedSignal>tenantPawn.Destroyed</destroyedSignal>
+                    <killedSignal>tenantPawn.Killed</killedSignal>
+                    <kidnappedSignal>tenantPawn.Kidnapped</kidnappedSignal>
+                    <arrestedSignal>tenantPawn.Arrested</arrestedSignal>
+                    <surgeryViolationSignal>tenantPawn.SurgeryViolation</surgeryViolationSignal>
+                    <banishedSignal>tenantPawn.Banished</banishedSignal>
+                    <psychicRitualTargetSignal>tenantPawn.PsychicRitualTarget</psychicRitualTargetSignal>
                 </li>
-                <li Class="QuestNode_Set">
-                    <name>tenancyRejected</name>
+                <li Class="QuestNode_IsTrue">
                     <value>$rejected</value>
-                </li>
-                <li Class="QuestNode_IsNull">
-                    <value>$tenant</value>
-                    <!--If tenancy generation fails-->
+                    <!--Rejected tenancy-->
                     <node Class="QuestNode_Sequence">
                         <nodes>
-                            <li Class="QuestNode_Letter">
-                                <label>Tenancy</label>
-                                <text>Could not find any available tenants.</text>
+                            <li Class="QuestNode_SendSignals">
+                                <outSignals>
+                                    <li>tenants.Rejected</li>
+                                </outSignals>
                             </li>
-                            <li Class="QuestNode_End" />
+                            <li Class="QuestNode_Letter">
+                                <label>Tenancy rejection</label>
+                                <text>[tenantPawn_nameDef] decided against coming to your colony after inquiring about your past conduct.</text>
+                                <letterDef>NegativeEvent</letterDef>
+                            </li>
+                            <li Class="QuestNode_End"/>
                         </nodes>
                     </node>
-                    <!--Tenant Generated-->
+                    <!--Accepted tenancy-->
                     <elseNode Class="QuestNode_Sequence">
                         <nodes>
-                            <li Class="Tenants.QuestNodes.QuestNode_TenancyContract">
-                                <map>$map</map>
-                                <tenant>$tenant</tenant>
-                                <contract>contract</contract>
-                                <startdate>startdate</startdate>
-                                <endDate>endDate</endDate>
-                                <days>days</days>
-                                <rent>rent</rent>
-                                <ticks>ticks</ticks>
-                                <roomRequired>roomRequired</roomRequired>
-                            </li>
-                            <li Class="QuestNode_Set">
-                                <name>singleRoomRequired</name>
-                                <value>$roomRequired</value>
+                            <li Class="QuestNode_SetAllApparelLocked">
+                                <pawns>$tenantList</pawns>
                             </li>
                             <li Class="QuestNode_IsTrue">
-                                <value>$rejected</value>
-                                <!--Rejected tenancy-->
+                                <value>$violenceEnabled</value>
+                                <node Class="QuestNode_WorkDisabled">
+                                    <pawns>$tenantList</pawns>
+                                    <disabledWorkTags>
+                                        <li>AllWork</li>
+                                    </disabledWorkTags>
+                                </node>
+                                <elseNode Class="QuestNode_WorkDisabled">
+                                    <pawns>$tenantList</pawns>
+                                    <disabledWorkTags>
+                                        <li>AllWork</li>
+                                        <li>Violent</li>
+                                    </disabledWorkTags>
+                                </elseNode>
+                            </li>
+                            <li Class="Tenants.QuestNodes.QuestNode_TenancyMood">
+                                <contract>$contract</contract>
+                                <thresholdLow>0.25</thresholdLow>
+                                <thresholdHigh>0.75</thresholdHigh>
                                 <node Class="QuestNode_Sequence">
                                     <nodes>
+                                        <li Class="QuestNode_Letter">
+                                            <label TKey="TenantLabelUnhappy">[tenantPawn_nameDef] unhappy!</label>
+                                            <text TKey="TenantTextUnhappy">[tenantPawn_nameDef] seem to think you are a terrible host thus decided to leave without paying.</text>
+                                            <lookTargets>$tenantList</lookTargets>
+                                        </li>
                                         <li Class="QuestNode_SendSignals">
                                             <outSignals>
-                                                <li>tenants.Rejected</li>
+                                                <li>tenants.ExtraFaction</li>
+                                                <li>tenants.LeaveOnCleanup</li>
+                                                <li>tenants.leaveSignal</li>
+                                                <li>tenants.ContractTerminated</li>
                                             </outSignals>
                                         </li>
-                                        <li Class="QuestNode_Letter">
-                                            <label>Tenancy rejection</label>
-                                            <text>[tenant_nameDef] decided against coming to your colony due to your prior conducts.</text>
-                                            <letterDef>NegativeEvent</letterDef>
-                                        </li>
-                                        <li Class="QuestNode_End" />
                                     </nodes>
                                 </node>
-                                <!--Accepted tenancy-->
                                 <elseNode Class="QuestNode_Sequence">
                                     <nodes>
-                                        <li Class="QuestNode_SetAllApparelLocked">
-                                            <pawns>$tenants</pawns>
-                                        </li>
-                                        <li Class="QuestNode_WorkDisabled">
-                                            <pawns>$tenants</pawns>
-                                            <disabledWorkTags>
-                                                <li>AllWork</li>
-                                            </disabledWorkTags>
-                                        </li>
-                                        <li Class="Tenants.QuestNodes.QuestNode_TenancyMood">
-                                            <contract>$contract</contract>
-                                            <thresholdLow>0.25</thresholdLow>
-                                            <thresholdHigh>0.75</thresholdHigh>
-                                            <inSignalPostpone>tenants.Postponed</inSignalPostpone>
-                                            <node Class="QuestNode_Sequence">
-                                                <nodes>
-                                                    <li Class="QuestNode_Letter">
-                                                        <label TKey="TenantLabelUnhappy">[tenant_nameDef] unhappy!</label>
-                                                        <text TKey="TenantTextUnhappy">[tenant_nameDef] seem to think you are a terrible host thus decided to leave without paying.</text>
-                                                        <lookTargets>$tenants</lookTargets>
-                                                    </li>
-                                                    <li Class="QuestNode_SendSignals">
-                                                        <outSignals>
-                                                            <li>tenants.ExtraFaction</li>
-                                                            <li>tenants.LeaveOnCleanup</li>
-                                                            <li>tenants.leaveSignal</li>
-                                                            <li>tenants.ContractTerminated</li>
-                                                        </outSignals>
-                                                    </li>
-                                                </nodes>
-                                            </node>
-                                            <elsenode Class="QuestNode_Sequence">
-                                                <nodes>
-                                                    <li Class="QuestNode_SendSignals">
-                                                        <outSignals>
-                                                            <li>tenants.WannaJoin</li>
-                                                        </outSignals>
-                                                    </li>
-                                                </nodes>
-                                            </elsenode>
-                                        </li>
-                                        <li Class="QuestNode_ExtraFaction">
-                                            <faction>$tenantFaction</faction>
-                                            <pawns>$tenants</pawns>
-                                            <factionType>HomeFaction</factionType>
-                                            <inSignalRemovePawn>tenants.ExtraFaction</inSignalRemovePawn>
-                                        </li>
-                                        <li Class="QuestNode_LeaveOnCleanup">
-                                            <pawns>$tenants</pawns>
-                                            <sendStandardLetter>false</sendStandardLetter>
-                                            <inSignalRemovePawn>tenants.LeaveOnCleanup</inSignalRemovePawn>
-                                        </li>
-                                        <li Class="QuestNode_PawnsArrive">
-                                            <pawns>$tenants</pawns>
-                                            <joinPlayer>true</joinPlayer>
-                                            <customLetterLabel TKey="TenantArrivedLabel">Tenant arrived</customLetterLabel>
-                                            <customLetterText TKey="TenantArrivedText">A contracted tenant named [tenant_nameDef] have arrived.</customLetterText>
-                                        </li>
                                         <li Class="QuestNode_SendSignals">
                                             <outSignals>
-                                                <li>tenants.ContractReboot</li>
+                                                <li>tenants.WannaJoin</li>
                                             </outSignals>
                                         </li>
                                     </nodes>
                                 </elseNode>
                             </li>
+                            <li Class="Tenants.QuestNodes.QuestNode_TenancyRoom">
+                                <contract>$contract</contract>
+                                <node Class="QuestNode_Sequence">
+                                    <nodes>
+                                        <li Class="QuestNode_Letter">
+                                            <label TKey="TenantLabelUnhappy">[tenantPawn_nameDef] unhappy!</label>
+                                            <text TKey="TenantTextUnhappy">[tenantPawn_nameDef] think you are a terrible host and decided to leave without paying.</text>
+                                            <lookTargets>$tenantList</lookTargets>
+                                        </li>
+                                        <li Class="QuestNode_SendSignals">
+                                            <outSignals>
+                                                <li>tenants.ExtraFaction</li>
+                                                <li>tenants.LeaveOnCleanup</li>
+                                                <li>tenants.leaveSignal</li>
+                                                <li>tenants.ContractTerminated</li>
+                                            </outSignals>
+                                        </li>
+                                    </nodes>
+                                </node>
+                            </li>
+                            <li Class="QuestNode_LeaveOnCleanup">
+                                <pawns>$tenantList</pawns>
+                                <sendStandardLetter>false</sendStandardLetter>
+                                <inSignalRemovePawn>tenants.LeaveOnCleanup</inSignalRemovePawn>
+                            </li>
+                            <li Class="QuestNode_SetFaction">
+                                <things>$tenantList</things>
+                                <faction>$tenantFaction</faction>
+                                <inSignal>tenants.ContractTerminated</inSignal>
+                            </li>
+                            <li Class="QuestNode_PawnsArrive">
+                                <pawns>$tenantList</pawns>
+                                <joinPlayer>true</joinPlayer>
+                                <customLetterLabel TKey="TenantArrivedLabel">Tenant arrived</customLetterLabel>
+                                <customLetterText TKey="TenantArrivedText">A contracted tenant named [tenantPawn_nameDef] arrived.</customLetterText>
+                            </li>
+                            <li Class="QuestNode_SendSignals">
+                                <outSignals>
+                                    <li>tenants.ContractReboot</li>
+                                </outSignals>
+                            </li>
                         </nodes>
                     </elseNode>
                 </li>
-
             </nodes>
         </root>
     </QuestScriptDef>
@@ -194,7 +198,7 @@
             <nodes>
                 <!-- KIA  -->
                 <li Class="QuestNode_Signal">
-                    <inSignal>tenant.Destroyed</inSignal>
+                    <inSignal>tenantPawn.Destroyed</inSignal>
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
@@ -205,7 +209,27 @@
                             <li Class="QuestNode_SendSignals">
                                 <outSignals>
                                     <li>tenants.ExtraFaction</li>
-                                    <li>tenants.LeaveOnCleanup</li>
+                                    <li>tenants.BadEnding</li>
+                                </outSignals>
+                            </li>
+                            <li Class="QuestNode_End">
+                                <outcome>Fail</outcome>
+                            </li>
+                        </nodes>
+                    </node>
+                </li>
+                <li Class="QuestNode_Signal">
+                    <inSignal>tenantPawn.Killed</inSignal>
+                    <node Class="QuestNode_Sequence">
+                        <nodes>
+                            <li Class="QuestNode_Letter">
+                                <label>Tenant died: {SUBJECT_definite}</label>
+                                <text>A tenant died, this is bad news.</text>
+                                <letterDef>NegativeEvent</letterDef>
+                            </li>
+                            <li Class="QuestNode_SendSignals">
+                                <outSignals>
+                                    <li>tenants.ExtraFaction</li>
                                     <li>tenants.BadEnding</li>
                                 </outSignals>
                             </li>
@@ -217,7 +241,7 @@
                 </li>
                 <!-- Arrested  -->
                 <li Class="QuestNode_Signal">
-                    <inSignal>tenant.Arrested</inSignal>
+                    <inSignal>tenantPawn.Arrested</inSignal>
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
@@ -228,7 +252,6 @@
                             <li Class="QuestNode_SendSignals">
                                 <outSignals>
                                     <li>tenants.ExtraFaction</li>
-                                    <li>tenants.LeaveOnCleanup</li>
                                     <li>tenants.BadEnding</li>
                                 </outSignals>
                             </li>
@@ -240,7 +263,7 @@
                 </li>
                 <!-- Surgery  -->
                 <li Class="QuestNode_Signal">
-                    <inSignal>tenant.SurgeryViolation</inSignal>
+                    <inSignal>tenantPawn.SurgeryViolation</inSignal>
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
@@ -263,36 +286,13 @@
                 </li>
                 <!-- Left map  -->
                 <li Class="QuestNode_Signal">
-                    <inSignal>tenant.LeftMap</inSignal>
+                    <inSignal>tenantPawn.LeftMap</inSignal>
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
                                 <label>Tenant is gone: {SUBJECT_definite}</label>
                                 <text>Where did {SUBJECT_definite} go?</text>
                                 <letterDef>NegativeEvent</letterDef>
-                            </li>
-                            <li Class="QuestNode_End">
-                                <outcome>Fail</outcome>
-                            </li>
-                        </nodes>
-                    </node>
-                </li>
-                <!-- Gone wild  -->
-                <li Class="QuestNode_Signal">
-                    <inSignal>tenant.RanWild</inSignal>
-                    <node Class="QuestNode_Sequence">
-                        <nodes>
-                            <li Class="QuestNode_Letter">
-                                <label>Tenant is wild: {SUBJECT_definite}</label>
-                                <text>{SUBJECT_definite} lost their mind.</text>
-                                <letterDef>NegativeEvent</letterDef>
-                            </li>
-                            <li Class="QuestNode_SendSignals">
-                                <outSignals>
-                                    <li>tenants.ExtraFaction</li>
-                                    <li>tenants.LeaveOnCleanup</li>
-                                    <li>tenants.BadEnding</li>
-                                </outSignals>
                             </li>
                             <li Class="QuestNode_End">
                                 <outcome>Fail</outcome>
@@ -316,6 +316,29 @@
                         </nodes>
                     </node>
                 </li>
+                <!-- Gone wild  -->
+                <li Class="QuestNode_Signal">
+                    <inSignal>tenantPawn.RanWild</inSignal>
+                    <node Class="QuestNode_Sequence">
+                        <nodes>
+                            <li Class="QuestNode_Letter">
+                                <label>Tenant is wild: {SUBJECT_definite}</label>
+                                <text>{SUBJECT_definite} lost their mind.</text>
+                                <letterDef>NegativeEvent</letterDef>
+                            </li>
+                            <li Class="QuestNode_SendSignals">
+                                <outSignals>
+                                    <li>tenants.ExtraFaction</li>
+                                    <li>tenants.LeaveOnCleanup</li>
+                                    <li>tenants.BadEnding</li>
+                                </outSignals>
+                            </li>
+                            <li Class="QuestNode_End">
+                                <outcome>Fail</outcome>
+                            </li>
+                        </nodes>
+                    </node>
+                </li>
                 <li Class="QuestNode_Signal">
                     <inSignal>tenants.ContractTerminated</inSignal>
                     <node Class="QuestNode_End">
@@ -327,17 +350,20 @@
     </QuestScriptDef>
     <!-- Main Tenancy Quest -->
     <QuestScriptDef>
-        <defName>Tenancy</defName>
+        <defName>LTS_Tenancy</defName>
         <rootSelectionWeight>3</rootSelectionWeight>
         <rootMinPoints>0</rootMinPoints>
         <rootMinProgressScore>3</rootMinProgressScore>
         <expireDaysRange>1.0</expireDaysRange>
         <affectedByPoints>false</affectedByPoints>
         <hideOnCleanup>true</hideOnCleanup>
+        <hideInvolvedFactionsInfo>false</hideInvolvedFactionsInfo>
         <questNameRules>
             <rulesStrings>
-                <li>questName->Tenancy for [tenant_nameDef]</li>
-                <li>questName->[tenant_nameDef] on vacation</li>
+                <li>questName->Tenancy for [tenantPawn_nameDef]</li>
+                <li>questName->[tenantPawn_nameDef] on vacation</li>
+                <li>questName->A new home for [tenantPawn_nameDef]</li>
+                <li>questName->[tenantPawn_nameDef] the tenant</li>
             </rulesStrings>
         </questNameRules>
         <questDescriptionRules>
@@ -347,14 +373,21 @@
         </questDescriptionRules>
         <questContentRules>
             <rulesStrings>
-                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenant_age]-year-old [tenantRace] [tenantGenes] named [tenant_nameDef] hail from nearby. \n[tenant_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenant_nameDef] won't do any work! However, [tenant_pronoun] can be drafted and fight if necessary. \nMistreating and keeping unhappy tenants will earn you a bad reputation. \n\n[questDescriptionRoomRequired]</li>
-                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenant_nameDef] is a tenant of your colony. \n\n[tenant_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one. \n\n[questDescriptionRoomRequired]</li>
+                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenantPawn_age]-year-old [tenantGenes] named [tenantPawn_nameDef] hail from nearby. \n[tenantPawn_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenantPawn_nameDef] won't do any work! [questDescriptionViolenceEnabled] \nMistreating tenants and keeping them unhappay will make them leave and give you a bad reputation. A reputation that may have unforeseen effects... \n\n[questDescriptionRoomRequired] \n\n[questDescriptionMayJoin]</li>
+                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenantPawn_nameDef] is a tenant of your colony. \n\n[tenantPawn_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one.</li>
 
-                <li>questDescriptionRejected(tenancyRejected==true)->[tenant_nameDef] decided against coming to your colony.\n\n</li>
-                <li>questDescriptionRejected(tenancyRejected==false)-></li>
+                
+                <li>questDescriptionRejected(rejected==true)->[tenantPawn_nameDef] decided against coming to your colony.\n\n</li>
+                <li>questDescriptionRejected(rejected==false)-></li>
 
-                <li>questDescriptionRoomRequired(singleRoomRequired==true)->[tenant_nameDef] wants a single room and offers to pay extra for it.</li>
-                <li>questDescriptionRoomRequired(singleRoomRequired==false)->Have no special requirements.</li>
+                <li>questDescriptionRoomRequired(roomRequired==true)->[tenantPawn_nameDef] wants a single room and offers to pay extra for it.</li>
+                <li>questDescriptionRoomRequired(roomRequired==false)-></li>
+
+                <li>questDescriptionMayJoin(mayJoin==true)-></li>
+                <li>questDescriptionMayJoin(mayJoin==false)->[tenantPawn_nameDef] does not want to join your faction ever.</li>
+                
+                <li>questDescriptionViolenceEnabled(violenceEnabled==true)->However, [tenantPawn_pronoun] can be drafted and fight if necessary.</li>
+                <li>questDescriptionViolenceEnabled(violenceEnabled==false)->[tenantPawn_pronoun] won't fight at all expecting you to protect [tenantPawn_objective] as well.</li>
             </rulesStrings>
         </questContentRules>
         <root Class="QuestNode_Sequence">

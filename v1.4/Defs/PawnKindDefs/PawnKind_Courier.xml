@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-    <PawnKindDef Name="CourierDef">
+    <PawnKindDef Name="LTS_CourierBase">
         <defName>LTS_Courier</defName>
         <race>Human</race>
         <defaultFactionType>LTS_Courier</defaultFactionType>
@@ -40,7 +40,18 @@
         <initialWillRange>4~8</initialWillRange>
         <initialResistanceRange>20~40</initialResistanceRange>
         <modExtensions>
-            <li Class="Tenants.DefModExtensions.CourierExtension" />
+            <li Class="Tenants.DefModExtensions.CourierExtension">
+                <choiceWeight>1</choiceWeight>
+            </li>
         </modExtensions>
+        <xenotypeSet>
+            <xenotypeChances>
+                <Hussar MayRequire="Ludeon.RimWorld.Biotech">0.05</Hussar>
+                <LTS_Nyankind MayRequire="LimeTreeSnake.Xenotech">0.05</LTS_Nyankind>
+                <LTS_Growler MayRequire="LimeTreeSnake.Xenotech">0.025</LTS_Growler>
+                <LTS_Ork MayRequire="LimeTreeSnake.Xenotech">0.025</LTS_Ork>
+                <LTS_Lilime MayRequire="LimeTreeSnake.Xenotech">0.005</LTS_Lilime>
+            </xenotypeChances>
+        </xenotypeSet>
     </PawnKindDef>
 </Defs>
