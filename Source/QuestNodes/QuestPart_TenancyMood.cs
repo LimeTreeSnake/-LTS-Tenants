@@ -86,6 +86,7 @@ namespace Tenants.QuestNodes
 				}
 
 				moodAboveThresholdTicks = 0;
+
 				var signalArgs = new SignalArgs(contract._tenant.Named("SUBJECT"));
 				Find.SignalManager.SendSignal(new Signal(this.OutSignalCompleted, signalArgs));
 				foreach (string t in this.outSignalsCompleted.Where(t => !t.NullOrEmpty()))

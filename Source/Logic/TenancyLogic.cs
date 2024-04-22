@@ -58,6 +58,7 @@ namespace Tenants.Logic
 				contract._endDate = Find.TickManager.TicksAbs + contract._length + 60000;
 				contract._singleRoomRequirement = component.NoticeBoard()?._singleRoom ?? false;
 				contract._violenceEnabled = component.NoticeBoard()?._violenceEnabled ?? true;
+				contract._mayJoin = component.NoticeBoard()?._mayJoin ?? false;
 				contract._rent = (int?)component.NoticeBoard()?.CalculateRent() ?? Settings.Settings.Rent;
 
 				return contract;

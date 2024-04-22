@@ -27,6 +27,8 @@ namespace Tenants.Language {
         public static string AdvertisementSingleRoomGizmoDesc() => "LTSAdvertisementSingleRoomGizmoDesc".Translate();
         public static string AdvertisementFightableGizmo() => "LTSAdvertisementFightableGizmo".Translate();
         public static string AdvertisementFightableGizmoDesc() => "LTSAdvertisementFightableGizmoDesc".Translate();
+        public static string AdvertisementMayJoinGizmo() => "LTSAdvertisementMayJoinGizmo".Translate();
+        public static string AdvertisementMayJoinGizmoDesc() => "LTSAdvertisementMayJoinGizmoDesc".Translate();
         public static string AdvertisementXenosAnyGizmo() => "LTSAdvertisementXenosAnyGizmo".Translate();
         public static string AdvertisementCost() => "LTSAdvertisementCost".Translate();
         public static string AdvertisementCostDesc() => "LTSAdvertisementCostDesc".Translate();

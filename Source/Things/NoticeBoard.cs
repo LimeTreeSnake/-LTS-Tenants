@@ -16,13 +16,14 @@ namespace Tenants.Things
 		public bool _noticeUp;
 		public int _silverAmount;
 		public bool _femaleOnly, _maleOnly;
-		public bool _singleRoom;
+		public bool _singleRoom, _mayJoin;
 		public bool _violenceEnabled = true;
 		public XenotypeDef _chosenXeno;
 		public CustomXenotype _chosenCustomXeno;
 		private List<XenotypeDef> _availableXenos = new List<XenotypeDef>();
 		private List<CustomXenotype> _customXenotypes = new List<CustomXenotype>();
 		private static readonly Texture2D _advertIcon = ContentFinder<Texture2D>.Get("Icons/AdvertIcon");
+		private static readonly Texture2D _homeIcon = ContentFinder<Texture2D>.Get("UI/Designators/HomeAreaOn");
 		public int _maxAge = 50;
 
 		public Gender GetForcedGender()
@@ -67,6 +68,21 @@ namespace Tenants.Things
 
 			yield return commandToggle;
 
+			//MayJoin
+			var mayJoinToggle = new Command_Toggle
+			{
+				defaultLabel = Translate.AdvertisementMayJoinGizmo(),
+				defaultDesc = Translate.AdvertisementMayJoinGizmoDesc(),
+				icon = _homeIcon,
+				isActive = () => _mayJoin,
+				toggleAction = delegate
+				{
+					_mayJoin = !_mayJoin;
+				}
+			};
+			
+			yield return mayJoinToggle;
+			
 			//Room
 			var roomToggle = new Command_Toggle
 			{
@@ -204,6 +220,7 @@ namespace Tenants.Things
 			Scribe_Values.Look(ref _femaleOnly, "FemaleOnly");
 			Scribe_Values.Look(ref _maleOnly, "MaleOnly");
 			Scribe_Values.Look(ref _maxAge, "MaxAge");
+			Scribe_Values.Look(ref _mayJoin, "MayJoin");
 			Scribe_Values.Look(ref _singleRoom, "SingleRoom");
 			Scribe_Values.Look(ref _violenceEnabled, "ViolenceEnabled");
 			Scribe_Defs.Look(ref _chosenXeno, "ChosenXeno");

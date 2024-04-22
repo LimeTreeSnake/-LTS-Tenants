@@ -7,6 +7,7 @@ namespace Tenants.Models {
         public int _startDate;
         public int _endDate;
         public int _rent;
+        public bool _mayJoin;
         public bool _singleRoomRequirement;
         public bool _violenceEnabled = true;
         //public RoomRequirement roomRequirement;
@@ -17,6 +18,7 @@ namespace Tenants.Models {
             Scribe_Values.Look(ref _startDate, "startDate");
             Scribe_Values.Look(ref _endDate, "endDate");
             Scribe_Values.Look(ref _rent, "rent");
+            Scribe_Values.Look(ref _mayJoin, "MayJoin");
             Scribe_Values.Look(ref _singleRoomRequirement, "SingleRoomRequirement");
             Scribe_Values.Look(ref _violenceEnabled, "ViolenceEnabled");
             Scribe_References.Look(ref _tenant, "tenant");
