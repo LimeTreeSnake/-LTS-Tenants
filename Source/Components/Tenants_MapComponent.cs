@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Verse;
 using System;
 using System.Linq;
+using System.Reflection;
 using RimWorld.QuestGen;
 using Tenants.Logic;
 using Tenants.Models;
@@ -53,30 +54,28 @@ namespace Tenants.Components
 		{
 			base.FinalizeInit();
 
-			Faction factionCourier = Find.FactionManager.FirstFactionOfDef(Defs.FactionDefOf.LTS_Courier);
+			GenerateFaction(Defs.FactionDefOf.LTS_Courier);
+			GenerateFaction(Defs.FactionDefOf.LTS_Tenant);
+			// var field = typeof(Defs.FactionDefOf).GetFields(BindingFlags.Static | BindingFlags.Public);
+		}
 
-			if (factionCourier != null)
+		public void GenerateFaction(FactionDef def)
+		{
+			if (def == null)
 			{
-				Find.FactionManager.OfPlayer.SetRelationDirect(factionCourier, FactionRelationKind.Neutral);
+				return;
 			}
-			else
+			
+			Faction faction = Find.FactionManager.FirstFactionOfDef(def);
+
+			
+			if (faction != null)
 			{
-				Faction faction = FactionGenerator.NewGeneratedFaction(
-					new FactionGeneratorParms(Defs.FactionDefOf.LTS_Courier));
-				Find.FactionManager.Add(faction);
 				Find.FactionManager.OfPlayer.SetRelationDirect(faction, FactionRelationKind.Neutral);
 			}
-			
-			Faction factionTenants = Find.FactionManager.FirstFactionOfDef(Defs.FactionDefOf.LTS_Tenant);
-			
-			if (factionTenants != null)
-			{
-				Find.FactionManager.OfPlayer.SetRelationDirect(factionTenants, FactionRelationKind.Neutral);
-			}
 			else
 			{
-				Faction faction = FactionGenerator.NewGeneratedFaction(
-					new FactionGeneratorParms(Defs.FactionDefOf.LTS_Tenant));
+				faction = FactionGenerator.NewGeneratedFaction(new FactionGeneratorParms(def));
 				Find.FactionManager.Add(faction);
 				Find.FactionManager.OfPlayer.SetRelationDirect(faction, FactionRelationKind.Neutral);
 			}
@@ -201,7 +200,7 @@ namespace Tenants.Components
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Error at GetCourier method: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - GetCourier: {ex.Message}\n{ex.StackTrace}");
 				return null;
 			}
 		}
@@ -224,7 +223,7 @@ namespace Tenants.Components
 					    Defs.ResearchDefOf.LTS_CourierTech.TechprintsApplied <
 					    Defs.ResearchDefOf.LTS_CourierTech.TechprintCount)
 					{
-						Messages.Message(Language.Translate.CourierDeliveredTech(), _noticeBoard,
+						Messages.Message(Language.Translate.CourierDeliveredTech, _noticeBoard,
 							MessageTypeDefOf.PositiveEvent);
 
 						Find.ResearchManager.ApplyTechprint(Defs.ResearchDefOf.LTS_CourierTech, null);
@@ -284,7 +283,7 @@ namespace Tenants.Components
 			}
 			catch (Exception ex)
 			{
-				Log.Message("Error at EmptyBoard method: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - EmptyBoard: {ex.Message}\n{ex.StackTrace}");
 			}
 		}
 

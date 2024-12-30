@@ -3,7 +3,7 @@
     <JobDef>
         <defName>LTS_AddNotice</defName>
         <driverClass>Tenants.JobDrivers.JobDriver_SetupTenancyNotice</driverClass>
-        <reportString>setting up advertisement.</reportString>
+        <reportString>setting up a tenancy advertisement.</reportString>
         <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
     </JobDef>
 </Defs>

@@ -48,7 +48,7 @@ namespace Tenants.Logic
 
 				if (component.CourierKills > 0)
 				{
-					Find.LetterStack.ReceiveLetter(Language.Translate.CourierDenied(),
+					Find.LetterStack.ReceiveLetter(Language.Translate.CourierDenied,
 						Language.Translate.CourierDeniedMessage(courier), LetterDefOf.NegativeEvent);
 
 					Log.Message(component.CourierKills.ToString());
@@ -63,7 +63,7 @@ namespace Tenants.Logic
 
 					GenSpawn.Spawn(courier, loc, map);
 					courier.relations.everSeenByPlayer = true;
-					Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival(),
+					Find.LetterStack.ReceiveLetter(Language.Translate.CourierArrival,
 						Language.Translate.CourierArrivalMessage(courier), LetterDefOf.PositiveEvent, courier);
 
 					LordMaker.MakeNewLord(courier.Faction, new Lords.Courier_LordJob(), map, new List<Pawn>
@@ -76,7 +76,7 @@ namespace Tenants.Logic
 			}
 			catch (Exception ex)
 			{
-				Log.Message("Error at CourierEvent method: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - CourierEvent: {ex.Message}\n{ex.StackTrace}");
 				return false;
 			}
 		}

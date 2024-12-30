@@ -25,10 +25,10 @@
         <colorGenerator Class="ColorGenerator_Options">
             <options>
                 <li>
-                    <only>(0.44,0.44,0.44)</only>
+                    <only>(0.22,0.22,0.22)</only>
                 </li>
                 <li>
-                    <only>(0.62,0.62,0.62)</only>
+                    <only>(0.33,0.33,0.33)</only>
                 </li>
             </options>
         </colorGenerator>
@@ -47,6 +47,7 @@
             <texPath>Apparel/CourierCoat/CourierCoat</texPath>
             <graphicClass>Graphic_Single</graphicClass>
             <drawSize>0.90</drawSize>
+            <shaderType>CutoutComplex</shaderType>
         </graphicData>
         <costStuffCount>90</costStuffCount>
         <costList>
@@ -90,6 +91,7 @@
             <texPath>Apparel/CourierHat/CourierHat</texPath>
             <graphicClass>Graphic_Single</graphicClass>
             <drawSize>0.90</drawSize>
+            <shaderType>CutoutComplex</shaderType>
         </graphicData>
         <costStuffCount>50</costStuffCount>
         <costList>

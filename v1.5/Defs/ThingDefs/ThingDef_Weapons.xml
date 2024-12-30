@@ -95,8 +95,8 @@
     <!-- Firearms -->
     <ThingDef ParentName="LTS_CourierRangedArms">
         <defName>LTS_RevolverMusket</defName>
-        <label>revolver musket</label>
-        <description>An ancient pattern double-action revolver. It may seem inferior to their industrial equivalent and have a longer reloading time but due to some hidden techniques of the Courier association, this arm packs quite the punch.</description>
+        <label>Revolver Musket</label>
+        <description>An ancient-pattern, double-action revolver musket. While it may appear outdated with its longer reload time, hidden techniques perfected by the Courier Association have imbued this weapon with formidable power, rivaling even modern firearms.</description>
         <graphicData>
             <texPath>Weapons/RevolverMusket</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -154,8 +154,8 @@
     </ThingDef>
     <ThingDef ParentName="LTS_CourierRangedArms">
         <defName>LTS_QuadMusket</defName>
-        <label>quad musket</label>
-        <description>An ancient pattern quad barreled revolver but fires a lot of bullets in short succession at the detriment of a longer reload time. It may seem inferior to their industrial equivalent but due to some hidden techniques of the Courier association, this arm packs quite the punch.</description>
+        <label>Quad Musket</label>
+        <description>An ancient-pattern, quad-barreled revolver musket capable of unleashing a hail of bullets in quick succession, though at the cost of an extended reload time. Despite its seemingly outdated design, hidden techniques perfected by the Courier Association make this weapon a force to be reckoned with, rivaling even the most advanced firearms.</description>
         <graphicData>
             <texPath>Weapons/QuadMusket</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -215,8 +215,8 @@
     </ThingDef>
     <ThingDef ParentName="LTS_CourierRangedArms">
         <defName>LTS_MusketRifle</defName>
-        <label>musket rifle</label>
-        <description>An ancient pattern rifle with chambered musket balls ready to be fired in quick succession. This specialized arm is the hallmark arm of the Courier Association. Using hidden techniques that is practically impossible to replicate without the insider know how. The drawback is the loading time in between shots.</description>
+        <label>Musket Rifle</label>
+        <description>An ancient-pattern rifle designed to fire chambered musket balls in rapid succession. This advanced weapon is the signature arm of the Courier Association, utilizing secret techniques that are nearly impossible to replicate without insider knowledge. While its design is ahead of its time, the trade-off lies in its extended reloading time between shots.</description>
         <graphicData>
             <texPath>Weapons/MusketRifle</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -275,8 +275,8 @@
     </ThingDef>
     <ThingDef ParentName="LTS_CourierRangedArms">
         <defName>LTS_PressureGun</defName>
-        <label>Pressure gun</label>
-        <description>A pressurised gun with chambered primers ready to be fired in relatively quick succession. Using hidden techniques that is practically impossible to replicate without the insider know how.</description>
+        <label>Pressure Gun</label>
+        <description>A pressurized firearm designed to fire chambered primers in rapid succession. This unique weapon, utilizing hidden techniques of the Courier Association, is nearly impossible to replicate without insider knowledge. Its pneumatic design offers a silent but deadly alternative to traditional firearms.</description>
         <graphicData>
             <texPath>Weapons/PressureGun</texPath>
             <graphicClass>Graphic_Single</graphicClass>

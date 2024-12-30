@@ -51,7 +51,7 @@ namespace Tenants.QuestNodes
 
 		public override bool AlertCritical => true;
 
-		public override string AlertLabel => Translate.MoodBelowThreshold();
+		public override string AlertLabel => Translate.MoodBelowThreshold;
 
 		public override string AlertExplanation => Translate.MoodBelowThresholdDesc(contract._tenant);
 

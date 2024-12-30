@@ -26,6 +26,12 @@ namespace Tenants.QuestNodes
 		public SlateRef<string> joinSignal;
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
+		public SlateRef<string> joinAcceptSignal;
+		
+		[NoTranslate, TranslationHandle(Priority = 100)]
+		public SlateRef<string> joinRejectSignal;
+		
+		[NoTranslate, TranslationHandle(Priority = 100)]
 		public SlateRef<string> leaveSignal;
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
@@ -36,7 +42,7 @@ namespace Tenants.QuestNodes
 
 		[NoTranslate, TranslationHandle(Priority = 100)]
 		public SlateRef<string> terminateSignal;
-
+		
 		protected override void RunInt()
 		{
 			try
@@ -60,6 +66,8 @@ namespace Tenants.QuestNodes
 					leaveSignal = QuestGenUtility.HardcodedSignalWithQuestID(leaveSignal.GetValue(slate)),
 					recruitSignal = QuestGenUtility.HardcodedSignalWithQuestID(recruitSignal.GetValue(slate)),
 					rejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(rejectSignal.GetValue(slate)),
+					joinAcceptSignal = QuestGenUtility.HardcodedSignalWithQuestID(joinAcceptSignal.GetValue(slate)),
+					joinRejectSignal = QuestGenUtility.HardcodedSignalWithQuestID(joinRejectSignal.GetValue(slate)),
 					terminateSignal = QuestGenUtility.HardcodedSignalWithQuestID(terminateSignal.GetValue(slate)),
 					signalListenMode = QuestPart.SignalListenMode.Always,
 					contract = cont,
@@ -70,7 +78,7 @@ namespace Tenants.QuestNodes
 			}
 			catch (Exception ex)
 			{
-				Log.Message("Error at QuestNode_ContractConclusion RunInt: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - QuestNode_ContractConclusion: {ex.Message}\n{ex.StackTrace}");
 			}
 		}
 

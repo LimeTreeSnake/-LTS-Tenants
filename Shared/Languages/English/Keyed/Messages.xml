@@ -1,64 +1,106 @@
 <LanguageData>
     <!-- Courier -->
-    <LTSCourierDenied>No courier!</LTSCourierDenied>
-    <LTSCourierDeniedMessage>You have been denied a courier due to previous unfortunate incidents.</LTSCourierDeniedMessage>
-    <LTSCourierArrival>Courier</LTSCourierArrival>
-    <LTSCourierArrivalMessage>A courier named {PAWN_nameDef} has arrived. {PAWN_pronoun} will deliver rent and perhaps other things too! Do try to keep {PAWN_objective} alive.</LTSCourierArrivalMessage>
-    <LTSCourierDelivered>{PAWN_nameDef} has concluded {PAWN_possessive} delivery and will soon leave.</LTSCourierDelivered>
-    <LTSCourierDeliveredRent>{PAWN_nameDef} delivered a grand total of {0} silver from tenants.</LTSCourierDeliveredRent>
-    <LTSCourierDeliveredRentGold>{PAWN_nameDef} delivered a grand total of {0} silver and {1} gold from tenants.</LTSCourierDeliveredRentGold>
-    <LTSCourierDeliveredGift>{PAWN_nameDef} delivered a gift from a previous happy tenant! How nice!</LTSCourierDeliveredGift>
-    <LTSCourierDeliveredTech>The Courier Association is pleased with your work and decided to gift you a hint of their technology.</LTSCourierDeliveredTech>
-    <LTSCourierTenancyNotice>{PAWN_nameDef} noticed your note for tenancy and posted a possible applicant.</LTSCourierTenancyNotice>
-    <LTSCourierTenancyNoticeFailFunds>{PAWN_nameDef} noticed some issue with your advertisement and leaves it as is urging you to correct this issue.</LTSCourierTenancyNoticeFailFunds>
-    <LTSLoneCourierDied>A courier {PAWN_nameDef} died while in the area. You are blamed for this incident.</LTSLoneCourierDied>
-    <LTSAdvertisementPlaced>Advertisement is put up, now to wait for a courier to pick it up.</LTSAdvertisementPlaced>
-    <LTSAdvertisementFailed>{PAWN_nameDef} somehow failed {PAWN_possessive} task of placing an advertisement. not enough silver.</LTSAdvertisementFailed>
-    <LTSAdvertisementGizmo>Place Advert</LTSAdvertisementGizmo>
-    <LTSAdvertisementGizmoDesc>If toggled on, a pawn will make sure you have an advert up at all times as long as you can afford it.</LTSAdvertisementGizmoDesc>
-    <LTSAdvertisementFemaleGizmo>Female applicants</LTSAdvertisementFemaleGizmo>
-    <LTSAdvertisementMaleGizmo>Male applicants</LTSAdvertisementMaleGizmo>
+    <LTSCourierDenied>No Courier Available</LTSCourierDenied>
+    <LTSCourierDeniedMessage>Your request for a courier has been denied due to previous incidents. Please address any outstanding issues before making another request.</LTSCourierDeniedMessage>
+    
+    <LTSCourierArrival>Courier Arrived</LTSCourierArrival>
+    <LTSCourierArrivalMessage>A courier named {PAWN_nameDef} has arrived to deliver rent and possibly other items. Ensure {PAWN_pronoun} is kept safe during {PAWN_objective} task.</LTSCourierArrivalMessage>
+
+    <LTSCourierDelivered>Delivery Completed</LTSCourierDelivered>
+    <LTSCourierDeliveredMessage>{PAWN_nameDef} has completed {PAWN_possessive} delivery and will be departing shortly.</LTSCourierDeliveredMessage>
+
+    <LTSCourierDeliveredRent>Rent Delivered</LTSCourierDeliveredRent>
+    <LTSCourierDeliveredRentMessage>{PAWN_nameDef} delivered a total of {0} silver from your tenants.</LTSCourierDeliveredRentMessage>
+
+    <LTSCourierDeliveredRentGold>Rent and Gold Delivered</LTSCourierDeliveredRentGold>
+    <LTSCourierDeliveredRentGoldMessage>{PAWN_nameDef} delivered a total of {0} silver and {1} gold from your tenants.</LTSCourierDeliveredRentGoldMessage>
+
+    <LTSCourierDeliveredGift>Tenant’s Gift</LTSCourierDeliveredGift>
+    <LTSCourierDeliveredGiftMessage>{PAWN_nameDef} delivered a gift from a satisfied tenant. How thoughtful!</LTSCourierDeliveredGiftMessage>
+
+    <LTSCourierDeliveredTech>Tech Delivery</LTSCourierDeliveredTech>
+    <LTSCourierDeliveredTechMessage>The Courier Association is impressed with your management and has sent you a piece of their advanced technology as a token of appreciation.</LTSCourierDeliveredTechMessage>
+
+    <LTSCourierTenancyNotice>Tenancy Notice Posted</LTSCourierTenancyNotice>
+    <LTSCourierTenancyNoticeMessage>{PAWN_nameDef} has noticed your note for tenancy and has posted a possible applicant for you to review.</LTSCourierTenancyNoticeMessage>
+
+    <LTSCourierTenancyNoticeFailFunds>Tenancy Notice Issue</LTSCourierTenancyNoticeFailFunds>
+    <LTSCourierTenancyNoticeFailFundsMessage>{PAWN_nameDef} noticed an issue with your advertisement due to insufficient funds and has left it as is. Please address this issue to proceed.</LTSCourierTenancyNoticeFailFundsMessage>
+
+    <LTSLoneCourierDied>Courier Incident</LTSLoneCourierDied>
+    <LTSLoneCourierDiedMessage>The courier {PAWN_nameDef} has died while in your area. You are being held responsible for this incident.</LTSLoneCourierDiedMessage>
+    
+    
+    <!-- Advertisement and Status -->
+    <LTSAdvertisementPlaced>Advertisement placed. Awaiting courier pickup.</LTSAdvertisementPlaced>
+    <LTSAdvertisementFailed>{PAWN_nameDef} failed to place the advertisement due to insufficient silver.</LTSAdvertisementFailed>
+    <LTSAdvertisementGizmo>Place Advertisement</LTSAdvertisementGizmo>
+    <LTSAdvertisementGizmoDesc>When toggled on, a pawn will ensure an advertisement is always posted, provided you have enough silver.</LTSAdvertisementGizmoDesc>
+    <LTSAdvertisementFemaleGizmo>Female Applicants</LTSAdvertisementFemaleGizmo>
+    <LTSAdvertisementMaleGizmo>Male Applicants</LTSAdvertisementMaleGizmo>
     <LTSAdvertisementGenderGizmo>Any Gender</LTSAdvertisementGenderGizmo>
-    <LTSAdvertisementAgeGizmo>Max age: {0}</LTSAdvertisementAgeGizmo>
+    <LTSAdvertisementAgeGizmo>Maximum Age: {0}</LTSAdvertisementAgeGizmo>
     <LTSAdvertisementAnyAgeGizmo>Any Age</LTSAdvertisementAnyAgeGizmo>
-    <LTSAdvertisementSingleRoomGizmo>Single room</LTSAdvertisementSingleRoomGizmo>
-    <LTSAdvertisementSingleRoomGizmoDesc>A pawn will require a single room but pays extra for it. Failure to provide a single room will cause frustration for the tenant.</LTSAdvertisementSingleRoomGizmoDesc>
-    <LTSAdvertisementFightableGizmo>Fighter</LTSAdvertisementFightableGizmo>
-    <LTSAdvertisementFightableGizmoDesc>Whether they can fight(✓) or not(X). Does not take account for pawn traits or other means of disabling violence.</LTSAdvertisementFightableGizmoDesc>
-    <LTSAdvertisementMayJoinGizmo>May join</LTSAdvertisementMayJoinGizmo>
-    <LTSAdvertisementMayJoinGizmoDesc>Whether they can ask to join your faction(✓) or not(X).</LTSAdvertisementMayJoinGizmoDesc>
-    <LTSAdvertisementXenosAnyGizmo>Any Xeno</LTSAdvertisementXenosAnyGizmo>
-    <LTSAdvertisementCost>Advertisement cost:</LTSAdvertisementCost>
-    <LTSAdvertisementCostDesc>How much silver it costs to put up an advert for tenancy which forces the event upon courier retrieval.</LTSAdvertisementCostDesc>
-    <LTSExpectedRent>New applicants daily rent of: {0} silver</LTSExpectedRent>
+    <LTSAdvertisementSingleRoomGizmo>Single Room</LTSAdvertisementSingleRoomGizmo>
+    <LTSAdvertisementSingleRoomGizmoDesc>A pawn will require a single room but will pay extra. Failing to provide this will cause tenant frustration.</LTSAdvertisementSingleRoomGizmoDesc>
+    <LTSAdvertisementFightableGizmo>Combat Capable</LTSAdvertisementFightableGizmo>
+    <LTSAdvertisementFightableGizmoDesc>Select whether applicants can engage in combat (✓) or not (X). This setting doesn't account for traits or other factors that disable violence.</LTSAdvertisementFightableGizmoDesc>
+    <LTSAdvertisementMayJoinGizmo>May Request to Join</LTSAdvertisementMayJoinGizmo>
+    <LTSAdvertisementMayJoinGizmoDesc>Select whether applicants can request to join your faction (✓) or not (X).</LTSAdvertisementMayJoinGizmoDesc>
+    <LTSAdvertisementXenosAnyGizmo>Any Xenotype</LTSAdvertisementXenosAnyGizmo>
+    <LTSAdvertisementCost>Advertisement Cost</LTSAdvertisementCost>
+    <LTSAdvertisementCostDesc>Displays the silver cost for placing an advertisement, which triggers the tenancy event upon courier retrieval.</LTSAdvertisementCostDesc>
+    <LTSExpectedRent>Expected Daily Rent: {0} silver</LTSExpectedRent>
+
+    
     <!-- Tenancy -->
-    <LTSContractText>{PAWN_nameDef} would love to prolong {PAWN_possessive} stay. Would you accept the same contract of {0} silver per day for {1} days?</LTSContractText>
-    <LTSContractJoin>{PAWN_nameDef} seems to love {PAWN_possessive} stay and wishes to become a full fledged member of your colony. Do you accept? \n\nReject now and {PAWN_pronoun} wont ask again! (At least, until next reload.) \n\n{PAWN_gender} {PAWN_race}, age {PAWN_ageFull}  </LTSContractJoin>
-    <LTSContractJoinReject>{PAWN_nameDef} is saddened but does not pry further.</LTSContractJoinReject>
-    <LTSContractJoinAccept>{PAWN_nameDef} is very happy and vows that {PAWN_pronoun} will not make you regret your decision.</LTSContractJoinAccept>
-    <LTSContractTitle>Tenancy</LTSContractTitle>
-    <LTSContractAgree>Accept tenant</LTSContractAgree>
-    <LTSContractReject>Reject tenant</LTSContractReject>
-    <LTSContractPostpone>Ask me later</LTSContractPostpone>
-    <LTSMoodBelowThreshold>Tenants unhappy</LTSMoodBelowThreshold>
-    <LTSMoodBelowThresholdDesc>Your tenant {PAWN_nameDef} is unhappy. Try to make {PAWN_objective} feel better or {PAWN_pronoun}'ll leave.</LTSMoodBelowThresholdDesc>
-    <LTSTenantPassionMinor>Is interested in</LTSTenantPassionMinor>
-    <LTSTenantPassionMajor>Loves</LTSTenantPassionMajor>
-    <LTSTenancyRoomRequired>Rooms</LTSTenancyRoomRequired>
-    <LTSTenancyRoomRequiredDesc>A tenant pays for a single room but does not have one! You might earn their ire should this not be fixed soon.</LTSTenancyRoomRequiredDesc>
-    <LTSLoneTenantDied>The tenant {PAWN_nameDef} died while leaving the area. You are blamed for this incident.</LTSLoneTenantDied>
+    <LTSContractText>{PAWN_nameDef} wishes to extend {PAWN_possessive} stay. Will you accept the same contract of {0} silver per day for the next {1} days?</LTSContractText>
+    <LTSContractJoin>{PAWN_nameDef} is thoroughly enjoying {PAWN_possessive} stay and wishes to become a permanent member of your colony. Do you accept? \n\nReject now, and {PAWN_pronoun} won’t ask again! (At least, not until the next reload.) \n\n{PAWN_gender} {PAWN_race}, age {PAWN_ageFull}</LTSContractJoin>
+    <LTSContractJoinReject>{PAWN_nameDef} is saddened by your decision but respects your choice.</LTSContractJoinReject>
+    <LTSContractJoinAccept>{PAWN_nameDef} is overjoyed and promises that {PAWN_pronoun} will make you proud of your decision.</LTSContractJoinAccept>
+    <LTSContractTitle>Tenancy Agreement</LTSContractTitle>
+    <LTSContractAgree>Accept Tenant</LTSContractAgree>
+    <LTSContractReject>Reject Tenant</LTSContractReject>
+    <LTSContractPostpone>Decide Later</LTSContractPostpone>
+    <LTSMoodBelowThreshold>Tenant Unhappy</LTSMoodBelowThreshold>
+    <LTSMoodBelowThresholdDesc>Your tenant {PAWN_nameDef} is unhappy. Take steps to improve {PAWN_possessive} mood, or {PAWN_pronoun} may leave.</LTSMoodBelowThresholdDesc>
+    <LTSTenantPassionMinor>Interested In</LTSTenantPassionMinor>
+    <LTSTenantPassionMajor>Passionate About</LTSTenantPassionMajor>
+    <LTSTenantPassionOther>Other Interests</LTSTenantPassionOther>
+    <LTSTenancyRoomRequired>Room Required</LTSTenancyRoomRequired>
+    <LTSTenancyRoomRequiredDesc>Your tenant has paid for a single room but does not currently have one! Resolve this soon, or risk earning their ire.</LTSTenancyRoomRequiredDesc>
+    <LTSLoneTenantDied>The tenant {PAWN_nameDef} died while leaving the area. You are held responsible for this incident.</LTSLoneTenantDied>
+    <LTSTenancyAutoRenew>Auto-Renewal</LTSTenancyAutoRenew>
+    <LTSTenancyAutoRenewDesc>This contract will automatically renew upon its conclusion unless canceled. Keep this in mind to avoid unexpected tenant extensions.</LTSTenancyAutoRenewDesc>
+    <LTSContractAutoRenewText>{PAWN_nameDef}'s tenancy contract has been automatically renewed.</LTSContractAutoRenewText>
+
     <!-- Settings -->
-    <LTSCourierDaysSpawn>Forced courier event: {0}-{1} days</LTSCourierDaysSpawn>
-    <LTSCourierDaysSpawnDesc>The minimum time between courier events. Note: You still require a noticeboard.</LTSCourierDaysSpawnDesc>
-    <LTSTenancyDaysContract>Tenancy contract: {0}-{1} days</LTSTenancyDaysContract>
-    <LTSTenancyRentContract>Daily rent of:</LTSTenancyRentContract>
-    <LTSTenancyRentContractDesc>How much silver is paid per contract day.</LTSTenancyRentContractDesc>    
-    <LTSMoodTicks>Mood ticks:</LTSMoodTicks>
-    <LTSMoodTicksDesc>Amount of required ticks to trigger a mood related event for tenants.</LTSMoodTicksDesc>
-    <LTSKillPenalty>Kill penalty</LTSKillPenalty>
-    <LTSKillPenaltyDesc>Whether killing tenants and couriers have other consequenses.</LTSKillPenaltyDesc>
-    <LTSGoldPayment>Partial payment in gold?</LTSGoldPayment>
-    <LTSGoldPaymentDesc>Couriers deliver mix of silver and gold upon delivery if accumulated rent is over 500 silver. A random amount up to 20% can be converted to gold. Conversion rate: 1 gold = 10 silver.</LTSGoldPaymentDesc>
-    <LTSAdvertNoticeSound>Advert message</LTSAdvertNoticeSound>
-    <LTSAdvertNoticeSoundDesc>Whether a beep and a message should be played whenever a pawn set ups a notice or any other tenancy related events.</LTSAdvertNoticeSoundDesc>
+    <LTSCourierDaysSpawn>Courier Event Interval: {0}-{1} days</LTSCourierDaysSpawn>
+    <LTSCourierDaysSpawnDesc>Sets the minimum time between courier events. Note: A noticeboard is still required.</LTSCourierDaysSpawnDesc>
+
+    <LTSTenancyDaysContract>Tenancy Contract Duration: {0}-{1} days</LTSTenancyDaysContract>
+
+    <LTSTenancyRentContract>Daily Rent:</LTSTenancyRentContract>
+    <LTSTenancyRentContractDesc>Specifies the amount of silver paid per day under the tenancy contract.</LTSTenancyRentContractDesc>
+
+    <LTSMoodTicks>Mood Check Interval:</LTSMoodTicks>
+    <LTSMoodTicksDesc>Determines the number of ticks required to trigger a mood-related event for tenants.</LTSMoodTicksDesc>
+
+    <LTSKillPenalty>Kill Penalty</LTSKillPenalty>
+    <LTSKillPenaltyDesc>Enables or disables additional consequences for killing tenants or couriers.</LTSKillPenaltyDesc>
+
+    <LTSSameIdeo>Shared Ideology</LTSSameIdeo>
+    <LTSSameIdeoDesc>When enabled, the tenancy association will share the same primary ideology as the player. The faction's primary ideology updates whenever a new tenancy contract is created.</LTSSameIdeoDesc>
+
+    <LTSGoldPayment>Partial Gold Payment</LTSGoldPayment>
+    <LTSGoldPaymentDesc>Allows couriers to deliver a mix of silver and gold if accumulated rent exceeds 500 silver. Up to 20% of the total can be converted to gold at a conversion rate of 1 gold = 10 silver.</LTSGoldPaymentDesc>
+
+    <LTSAdvertNoticeSound>Advertisement Notifications</LTSAdvertNoticeSound>
+    <LTSAdvertNoticeSoundDesc>Enables a beep and message notification whenever a pawn sets up a notice or any other tenancy-related event.</LTSAdvertNoticeSoundDesc>
+
+    <LTSAllowArchite>Biotech: Allow Archite Tenants</LTSAllowArchite>
+    <LTSAllowArchiteDesc>Enables or disables the option to accept tenants with archite genes. These advanced genes can significantly impact gameplay and balance.</LTSAllowArchiteDesc>
+
+    <LTSAllowNonFlesh>Biotech: Allow Non-Flesh Tenants</LTSAllowNonFlesh>
+    <LTSAllowNonFleshDesc>Enables or disables the option to accept tenants who are either artificial beings, such as androids, or do not require food or rest to survive, like mechanoids or other entities.</LTSAllowNonFleshDesc>
 </LanguageData>

@@ -10,6 +10,8 @@
                     <outSignal>tenants.ContractReboot</outSignal>
                     <badSignal>tenants.BadEnding</badSignal>
                     <joinSignal>tenants.WannaJoin</joinSignal>
+                    <joinRejectSignal>tenants.JoinReject</joinRejectSignal>
+                    <joinAcceptSignal>tenants.JoinAccept</joinAcceptSignal>
                     <leaveSignal>tenants.leaveSignal</leaveSignal>
                     <recruitSignal>tenants.TenantRecruited</recruitSignal>
                     <rejectSignal>tenants.Rejected</rejectSignal>
@@ -25,8 +27,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label TKey="TenantContractLabel">Tenancy concluded</label>
-                                <text TKey="TenantContractText">You have upheld your part of the bargain! A courier should deliver your silver to your Notice Board during their next visit.</text>
+                                <label TKey="TenantContractLabel">Tenancy Concluded</label>
+                                <text TKey="TenantContractText">Contract fulfilled! A courier will deliver your earned silver to the Notice Board during their next visit.</text>
                                 <lookTargets>$tenantList</lookTargets>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -40,6 +42,7 @@
             </nodes>
         </root>
     </QuestScriptDef>
+   
     <!-- TenancySetup -->
     <QuestScriptDef>
         <defName>TenancySetup</defName>
@@ -84,8 +87,8 @@
                                 </outSignals>
                             </li>
                             <li Class="QuestNode_Letter">
-                                <label>Tenancy rejection</label>
-                                <text>[tenantPawn_nameDef] decided against coming to your colony after inquiring about your past conduct.</text>
+                                <label>Tenancy Rejection</label>
+                                <text>{tenantPawn_nameDef} has chosen not to join your colony after reviewing your past conduct.</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_End"/>
@@ -120,8 +123,8 @@
                                 <node Class="QuestNode_Sequence">
                                     <nodes>
                                         <li Class="QuestNode_Letter">
-                                            <label TKey="TenantLabelUnhappy">[tenantPawn_nameDef] unhappy!</label>
-                                            <text TKey="TenantTextUnhappy">[tenantPawn_nameDef] seem to think you are a terrible host thus decided to leave without paying.</text>
+                                            <label TKey="TenantLabelUnhappy">{tenantPawn_nameDef} Unhappy!</label>
+                                            <text TKey="TenantTextUnhappy">{tenantPawn_nameDef} believes you are a terrible host and has decided to leave without paying.</text>
                                             <lookTargets>$tenantList</lookTargets>
                                         </li>
                                         <li Class="QuestNode_SendSignals">
@@ -149,8 +152,8 @@
                                 <node Class="QuestNode_Sequence">
                                     <nodes>
                                         <li Class="QuestNode_Letter">
-                                            <label TKey="TenantLabelUnhappy">[tenantPawn_nameDef] unhappy!</label>
-                                            <text TKey="TenantTextUnhappy">[tenantPawn_nameDef] think you are a terrible host and decided to leave without paying.</text>
+                                            <label TKey="TenantLabelUnhappy">{tenantPawn_nameDef} Unhappy!</label>
+                                            <text TKey="TenantTextUnhappy">{tenantPawn_nameDef} believes you are a terrible host and has decided to leave without paying.</text>
                                             <lookTargets>$tenantList</lookTargets>
                                         </li>
                                         <li Class="QuestNode_SendSignals">
@@ -177,8 +180,8 @@
                             <li Class="QuestNode_PawnsArrive">
                                 <pawns>$tenantList</pawns>
                                 <joinPlayer>true</joinPlayer>
-                                <customLetterLabel TKey="TenantArrivedLabel">Tenant arrived</customLetterLabel>
-                                <customLetterText TKey="TenantArrivedText">A contracted tenant named [tenantPawn_nameDef] arrived.</customLetterText>
+                                <customLetterLabel TKey="TenantArrivedLabel">Tenant Arrived</customLetterLabel>
+                                <customLetterText TKey="TenantArrivedText">A contracted tenant named [tenantPawn_nameDef] has arrived.</customLetterText>
                             </li>
                             <li Class="QuestNode_SendSignals">
                                 <outSignals>
@@ -191,6 +194,7 @@
             </nodes>
         </root>
     </QuestScriptDef>
+    
     <!-- TenancyEndings -->
     <QuestScriptDef>
         <defName>TenancyEnds</defName>
@@ -202,8 +206,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant died: {SUBJECT_definite}</label>
-                                <text>A tenant died, this is bad news.</text>
+                                <label>Tenant Died: {SUBJECT_definite}</label>
+                                <text>A tenant has died—this is unfortunate news.</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -223,8 +227,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant died: {SUBJECT_definite}</label>
-                                <text>A tenant died, this is bad news.</text>
+                                <label>Tenant Died: {SUBJECT_definite}</label>
+                                <text>A tenant has died—this is unfortunate news.</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -245,8 +249,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant captured: {SUBJECT_definite}</label>
-                                <text>A tenant have been captured, this is bad news.</text>
+                                <label>Tenant Captured: {SUBJECT_definite}</label>
+                                <text>A tenant has been captured—this is unfortunate news.</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -267,8 +271,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant violated: {SUBJECT_definite}</label>
-                                <text>A tenant have been violated, how could you?</text>
+                                <label>Tenant Violated: {SUBJECT_definite}</label>
+                                <text>A tenant has been violated—by your own hand. How could you?</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -290,8 +294,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant is gone: {SUBJECT_definite}</label>
-                                <text>Where did {SUBJECT_definite} go?</text>
+                                <label>Tenant Gone: {SUBJECT_definite}</label>
+                                <text>Where has {SUBJECT_definite} gone?</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_End">
@@ -322,8 +326,8 @@
                     <node Class="QuestNode_Sequence">
                         <nodes>
                             <li Class="QuestNode_Letter">
-                                <label>Tenant is wild: {SUBJECT_definite}</label>
-                                <text>{SUBJECT_definite} lost their mind.</text>
+                                <label>Tenant Gone Wild: {SUBJECT_definite}</label>
+                                <text>{SUBJECT_definite} has lost their mind.</text>
                                 <letterDef>NegativeEvent</letterDef>
                             </li>
                             <li Class="QuestNode_SendSignals">
@@ -348,10 +352,11 @@
             </nodes>
         </root>
     </QuestScriptDef>
+    
     <!-- Main Tenancy Quest -->
     <QuestScriptDef>
         <defName>LTS_Tenancy</defName>
-        <rootSelectionWeight>3</rootSelectionWeight>
+        <rootSelectionWeight>0</rootSelectionWeight> <!-- Fired from incident -->
         <rootMinPoints>0</rootMinPoints>
         <rootMinProgressScore>3</rootMinProgressScore>
         <expireDaysRange>1.0</expireDaysRange>
@@ -360,10 +365,13 @@
         <hideInvolvedFactionsInfo>false</hideInvolvedFactionsInfo>
         <questNameRules>
             <rulesStrings>
-                <li>questName->Tenancy for [tenantPawn_nameDef]</li>
-                <li>questName->[tenantPawn_nameDef] on vacation</li>
-                <li>questName->A new home for [tenantPawn_nameDef]</li>
-                <li>questName->[tenantPawn_nameDef] the tenant</li>
+                <li>questName->A Room for [tenantPawn_nameDef]</li>
+                <li>questName->[tenantPawn_nameDef] in Need of Lodging</li>
+                <li>questName->[tenantPawn_nameDef] Requests Tenancy</li>
+                <li>questName->Housing [tenantPawn_nameDef]</li>
+                <li>questName->Providing for [tenantPawn_nameDef]</li>
+                <li>questName->[tenantPawn_nameDef] Needs a Home</li>
+                <li>questName->[tenantPawn_nameDef] Requests Housing</li>
             </rulesStrings>
         </questNameRules>
         <questDescriptionRules>
@@ -373,21 +381,21 @@
         </questDescriptionRules>
         <questContentRules>
             <rulesStrings>
-                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenantPawn_age]-year-old [tenantGenes] named [tenantPawn_nameDef] hail from nearby. \n[tenantPawn_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day every [days] days for a total of [rentSum]. \n\n[tenantPawn_nameDef] won't do any work! [questDescriptionViolenceEnabled] \nMistreating tenants and keeping them unhappay will make them leave and give you a bad reputation. A reputation that may have unforeseen effects... \n\n[questDescriptionRoomRequired] \n\n[questDescriptionMayJoin]</li>
-                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenantPawn_nameDef] is a tenant of your colony. \n\n[tenantPawn_pronoun] pays [rent] silver per day every [days] days for a total of [rentSum]. Couriers will occassionaly bring the accumulated rent to your noticeboard if you have one.</li>
+                <li>questDescriptionBeforeAccepted->[questDescriptionRejected]A [tenantGender] [tenantPawn_age]-year-old [tenantGenes] named [tenantPawn_nameDef] hails from nearby. \n[tenantPawn_pronoun] wishes to rent a place to stay and is willing to pay [rent] silver per day, every [days] days, for a total of [rentSum]. \n\n[tenantPawn_nameDef] won't do any work! [questDescriptionViolenceEnabled] \nMistreating tenants or keeping them unhappy will make them leave and tarnish your reputation—potentially leading to unforeseen consequences. \n\n[questDescriptionRoomRequired] \n\n[questDescriptionMayJoin]</li>
 
-                
-                <li>questDescriptionRejected(rejected==true)->[tenantPawn_nameDef] decided against coming to your colony.\n\n</li>
+                <li>questDescriptionAfterAccepted->[questDescriptionRejected][tenantPawn_nameDef] is now a tenant of your colony. \n\n[tenantPawn_pronoun] will pay [rent] silver per day, every [days] days, for a total of [rentSum]. Couriers will occasionally deliver the accumulated rent to your noticeboard if you have one.</li>
+
+                <li>questDescriptionRejected(rejected==true)->[tenantPawn_nameDef] has decided against coming to your colony.\n\n</li>
                 <li>questDescriptionRejected(rejected==false)-></li>
 
-                <li>questDescriptionRoomRequired(roomRequired==true)->[tenantPawn_nameDef] wants a single room and offers to pay extra for it.</li>
+                <li>questDescriptionRoomRequired(roomRequired==true)->[tenantPawn_nameDef] requires a single room and is willing to pay extra for it.</li>
                 <li>questDescriptionRoomRequired(roomRequired==false)-></li>
 
                 <li>questDescriptionMayJoin(mayJoin==true)-></li>
-                <li>questDescriptionMayJoin(mayJoin==false)->[tenantPawn_nameDef] does not want to join your faction ever.</li>
-                
-                <li>questDescriptionViolenceEnabled(violenceEnabled==true)->However, [tenantPawn_pronoun] can be drafted and fight if necessary.</li>
-                <li>questDescriptionViolenceEnabled(violenceEnabled==false)->[tenantPawn_pronoun] won't fight at all expecting you to protect [tenantPawn_objective] as well.</li>
+                <li>questDescriptionMayJoin(mayJoin==false)->[tenantPawn_nameDef] has no interest in joining your faction.</li>
+
+                <li>questDescriptionViolenceEnabled(violenceEnabled==true)->However, [tenantPawn_pronoun] can be drafted to fight if necessary.</li>
+                <li>questDescriptionViolenceEnabled(violenceEnabled==false)->[tenantPawn_pronoun] refuses to fight and expects you to protect [tenantPawn_objective] as well.</li>
             </rulesStrings>
         </questContentRules>
         <root Class="QuestNode_Sequence">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using RimWorld.QuestGen;
 using Tenants.Components;
@@ -19,7 +20,7 @@ namespace Tenants.Logic
 					x.HasModExtension<DefModExtensions.TenancyExtension>())
 				.ToList();
 		}
-		
+
 		public static PawnKindDef GetRandomPawnKindDef()
 		{
 			if (_availablePawnKinds.NullOrEmpty())
@@ -37,11 +38,40 @@ namespace Tenants.Logic
 			{
 				return 1;
 			}
-			
+
 			int below = 50 - age;
 			int decrementCount = below / 10;
 
 			return 1 + decrementCount * 0.5f;
+		}
+
+		public static void AppendListData<T>(StringBuilder stringBuilder, string header, IEnumerable<T> items,
+			Func<T, string> itemLabelFunc)
+		{
+			var itemList = items.ToList();
+
+			stringBuilder.AppendInNewLine(header.Colorize(ColoredText.NameColor));
+			stringBuilder.AppendLine();
+			stringBuilder.Append("   ");
+
+			if (itemList.Any())
+			{
+				string itemText = string.Join(" - ", itemList.Select(item => itemLabelFunc(item)));
+				stringBuilder.Append(itemText);
+			}
+			else
+			{
+				stringBuilder.Append(" - ");
+			}
+		}
+		
+		public static void AppendWorkTypes(StringBuilder stringBuilder, string header, WorkTags workTags)
+		{
+			var relevantWorkTypes = DefDatabase<WorkTypeDef>.AllDefs
+				.Where(def => (def.workTags & workTags) > WorkTags.None)
+				.Select(def => def.pawnLabel);
+
+			AppendListData(stringBuilder, header, relevantWorkTypes, label => label);
 		}
 
 		public static Models.Contract GenerateBasicTenancyContract(Pawn tenant, TenantsMapComponent component)
@@ -63,9 +93,9 @@ namespace Tenants.Logic
 
 				return contract;
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				Log.Message("Error generating GenerateBasicTenancyContract: " + e.Message);
+				Log.Error($"LTS_Tenants Error - GenerateBasicTenancyContract: {ex.Message}\n{ex.StackTrace}");
 				return null;
 			}
 		}

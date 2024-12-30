@@ -21,25 +21,53 @@ namespace Tenants.Lords
 						useAvoidGrid = true
 					};
 				stateGraph.AddToil(toilTravel);
+				
 				LordToil toilDeliver = new CourierDeliver_LordToil();
 				stateGraph.AddToil(toilDeliver);
 
-				LordToil toilLeave = new LordToil_ExitMap()
+				LordToil toilLeave = new LordToil_ExitMap(LocomotionUrgency.Jog)
 				{
 					useAvoidGrid = true
 				};
-
 				stateGraph.AddToil(toilLeave);
+
+				LordToil toilDefendSelfPre = new LordToil_DefendSelf();
+				
+				LordToil toilDefendSelfPost = new LordToil_DefendSelf();
+				
 				var transitionWait = new Transition(toilTravel, toilDeliver);
 				transitionWait.AddTrigger(new Trigger_Memo("TravelArrived"));
 				stateGraph.AddTransition(transitionWait);
+				
 				var transitionLeave = new Transition(toilDeliver, toilLeave);
 				transitionLeave.AddTrigger(new Trigger_TicksPassedAndNoRecentHarm(3000));
 				stateGraph.AddTransition(transitionLeave);
+				
+				var transitionDefendGo = new Transition(toilTravel, toilDefendSelfPre);
+				transitionDefendGo.AddTrigger(new Trigger_PawnHarmed());
+				stateGraph.AddTransition(transitionDefendGo);
+				
+				var transitionDefendLeave = new Transition(toilDeliver, toilDefendSelfPost);
+				transitionDefendLeave.AddTrigger(new Trigger_PawnHarmed());
+				stateGraph.AddTransition(transitionDefendLeave);
+				
+				var transitionDefendHold = new Transition(toilLeave, toilDefendSelfPost);
+				transitionDefendHold.AddTrigger(new Trigger_PawnHarmed());
+				stateGraph.AddTransition(transitionDefendHold);
+				
+				var transitionTravel = new Transition(toilDefendSelfPre, toilTravel);
+				transitionTravel.AddTrigger(new Trigger_TicksPassedAndNoRecentHarm(3000));
+				stateGraph.AddTransition(transitionTravel);
+				
+				var transitionLeaveFinished = new Transition(toilDefendSelfPost, toilLeave);
+				transitionLeaveFinished.AddTrigger(new Trigger_TicksPassedAndNoRecentHarm(3000));
+				stateGraph.AddTransition(transitionLeaveFinished);
+				
+				
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				Log.Message(e.Message + " Failed to create graph for courier.");
+				Log.Error($"LTS_Tenants Error - Courier_LordJob Failed to create graph: {ex.Message}\n{ex.StackTrace}");
 			}
 
 			return stateGraph;

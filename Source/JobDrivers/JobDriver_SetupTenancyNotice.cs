@@ -51,7 +51,7 @@ namespace Tenants.JobDrivers
 						this.pawn.carryTracker.CarriedThing.SplitOff(amount).Destroy();
 						if (Settings.Settings.AdvertNoticeSound)
 						{
-							Messages.Message(Language.Translate.AdvertisementPlaced(), NoticeBoard,
+							Messages.Message(Language.Translate.AdvertisementPlaced, NoticeBoard,
 								MessageTypeDefOf.NeutralEvent);
 						}
 					}

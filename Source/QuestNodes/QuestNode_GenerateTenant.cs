@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using RimWorld.QuestGen;
 using Tenants.Components;
@@ -70,6 +69,11 @@ namespace Tenants.QuestNodes
 					Find.FactionManager.Add(faction);
 				}
 
+				if (Settings.Settings.SameIdeo)
+				{
+					faction.ideos.SetPrimary(Find.FactionManager.OfPlayer.ideos.PrimaryIdeo);
+				}
+
 				var request = new PawnGenerationRequest(
 					TenancyLogic.GetRandomPawnKindDef(),
 					faction,
@@ -78,7 +82,7 @@ namespace Tenants.QuestNodes
 					forcedCustomXenotype: comp?.NoticeBoard()?._chosenCustomXeno,
 					biologicalAgeRange: new FloatRange(15, comp?.NoticeBoard()?._maxAge ?? 50),
 					fixedGender: comp?.NoticeBoard()?.GetForcedGender());
-				
+
 				Pawn tenantPawn = quest.GeneratePawn(request);
 				if (tenantPawn == null)
 				{
@@ -96,10 +100,7 @@ namespace Tenants.QuestNodes
 
 				quest.AddPart(new QuestPart_ExtraFaction
 				{
-					affectedPawns = new List<Pawn>()
-					{
-						tenantPawn
-					},
+					affectedPawns = new List<Pawn>() { tenantPawn },
 					extraFaction = new ExtraFaction(tenantPawn.Faction, ExtraFactionType.HomeFaction),
 					areHelpers = false,
 					inSignalRemovePawn = inSignalRemovePawn.GetValue(slate)
@@ -124,7 +125,8 @@ namespace Tenants.QuestNodes
 					inSignalKilled = QuestGenUtility.HardcodedSignalWithQuestID(killedSignal.GetValue(slate)),
 					inSignalBanished = QuestGenUtility.HardcodedSignalWithQuestID(banishedSignal.GetValue(slate)),
 					inSignalKidnapped = QuestGenUtility.HardcodedSignalWithQuestID(kidnappedSignal.GetValue(slate)),
-					inSignalSurgeryViolation = QuestGenUtility.HardcodedSignalWithQuestID(surgeryViolationSignal.GetValue(slate)),
+					inSignalSurgeryViolation =
+						QuestGenUtility.HardcodedSignalWithQuestID(surgeryViolationSignal.GetValue(slate)),
 					inSignalArrested = QuestGenUtility.HardcodedSignalWithQuestID(arrestedSignal.GetValue(slate)),
 					inSignalPsychicRitualTarget =
 						QuestGenUtility.HardcodedSignalWithQuestID(psychicRitualTargetSignal.GetValue(slate)),
@@ -141,18 +143,17 @@ namespace Tenants.QuestNodes
 					comp.TenantKills = 0;
 					return;
 				}
-				
+
 				if (Settings.Settings.DebugLog)
 				{
-					Log.Message(comp.TenantKills);
+					Log.Message("Amount of killed/abused tenant penalty score: " + comp.TenantKills);
 				}
 
 				slate.Set("rejected", comp.TenantKills > 0);
-
 			}
 			catch (Exception ex)
 			{
-				Log.Message("Error at QuestNode_GenerateTenant RunInt: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - QuestNode_GenerateTenant: {ex.Message}\n{ex.StackTrace}");
 			}
 		}
 

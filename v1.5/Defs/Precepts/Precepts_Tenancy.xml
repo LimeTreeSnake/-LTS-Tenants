@@ -22,13 +22,13 @@
   <PreceptDef>
     <defName>Tenancy_Encouraged</defName>
     <issue>Tenancy</issue>
-    <label>encouraged</label>
-    <description>Hosting a safe haven for tenants is both profitable and humane.</description>
+    <label>Tenant Hosting Encouraged</label>
+    <description>Providing a safe haven for tenants is not only profitable but also considered a humane act.</description>
     <impact>Medium</impact>
     <comps>
       <li Class="PreceptComp_SituationalThought">
         <thought>Tenancy_Encouraged</thought>
-        <description>Hosting tenants makes your pawns happy but failure to have any make them sad</description>
+        <description>Hosting tenants boosts morale, but the absence of tenants can leave your pawns feeling unfulfilled.</description>
       </li>
       <li Class="PreceptComp_KnowsMemoryThought">
         <eventDef>TenancyLeave</eventDef>
@@ -44,7 +44,7 @@
       </li>
     </comps>
   </PreceptDef>
-  
+
   <ThoughtDef>
     <defName>Tenancy_Encouraged</defName>
     <workerClass>Tenants.ThoughtWorkers.ThoughtWorker_PreceptTenancy</workerClass>
@@ -52,22 +52,22 @@
     <doNotApplyToQuestLodgers>true</doNotApplyToQuestLodgers>
     <stages>
       <li>
-        <label>lack of tenants</label>
-        <description>We could do more for the world.</description>
+        <label>Tenant Shortage</label>
+        <description>We could be doing more to help others.</description>
         <baseMoodEffect>-2</baseMoodEffect>
       </li>
       <li>
-        <label>we got a tenant!</label>
-        <description>It's a start, but we should take in more guests.</description>
+        <label>First Tenant Arrived</label>
+        <description>It's a start, but we should welcome more guests.</description>
         <baseMoodEffect>2</baseMoodEffect>
       </li>
       <li>
-        <label>we have tenants!</label>
-        <description>We have some tenants under our protection, this is good.</description>
+        <label>Several Tenants</label>
+        <description>We are providing for multiple tenants; this is a good start.</description>
         <baseMoodEffect>3</baseMoodEffect>
       </li>
       <li>
-        <label>tenants!</label>
+        <label>Tenants!</label>
         <description>We are doing our part!</description>
         <baseMoodEffect>5</baseMoodEffect>
       </li>
@@ -84,8 +84,8 @@
     </nullifyingTraits>
     <stages>
       <li>
-        <label>tenant left</label>
-        <description>A tenant left without as much as a word, what did we do wrong?</description>
+        <label>Tenant Left</label>
+        <description>A tenant departed without a word—what could we have done wrong?</description>
         <baseMoodEffect>-3</baseMoodEffect>
       </li>
     </stages>
@@ -102,12 +102,13 @@
     </nullifyingTraits>
     <stages>
       <li>
-        <label>a tenant died</label>
+        <label>A Tenant Died</label>
         <description>How could this happen?!</description>
         <baseMoodEffect>-6</baseMoodEffect>
       </li>
     </stages>
   </ThoughtDef>
+  
   <ThoughtDef>
     <defName>TenancyJoin</defName>
     <thoughtClass>Thought_Memory</thoughtClass>
@@ -118,8 +119,8 @@
     </nullifyingTraits>
     <stages>
       <li>
-        <label>a tenant decided to join us</label>
-        <description>a tenant decided to become a permanent member of our colony. This is a wonderful thing!</description>
+        <label>A Tenant Decided to Join Us</label>
+        <description>A tenant has chosen to become a permanent member of our colony. This is a wonderful development!</description>
         <baseMoodEffect>3</baseMoodEffect>
       </li>
     </stages>

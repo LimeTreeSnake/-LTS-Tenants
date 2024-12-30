@@ -44,7 +44,7 @@ namespace Tenants.QuestNodes
 				QuestGen.quest.AddPart(questPartTenancyRoom);
 			}
 			catch (Exception ex) {
-				Log.Message("Error at QuestNode_TenancyRoom RunInt: " + ex.Message);
+				Log.Error($"LTS_Tenants Error - QuestNode_TenancyRoom: {ex.Message}\n{ex.StackTrace}");
 			}
 		}
 		protected override bool TestRunInt(Slate slate) {

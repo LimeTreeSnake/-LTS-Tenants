@@ -25,10 +25,10 @@
         <colorGenerator Class="ColorGenerator_Options">
             <options>
                 <li>
-                    <only>(0.44,0.44,0.44)</only>
+                    <only>(0.22,0.22,0.22)</only>
                 </li>
                 <li>
-                    <only>(0.62,0.62,0.62)</only>
+                    <only>(0.33,0.33,0.33)</only>
                 </li>
             </options>
         </colorGenerator>
@@ -42,10 +42,11 @@
     <ThingDef ParentName="CourierWear">
         <defName>LTS_CourierCoat</defName>
         <label>courier coat</label>
-        <description>A sophisticated coat only for the finest of couriers.</description>
+        <description>A refined coat tailored for the elite couriers of the colony, blending style and function with a hint of old-world elegance.</description>
         <graphicData>
             <texPath>Apparel/CourierCoat/CourierCoat</texPath>
             <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>CutoutComplex</shaderType>
             <drawSize>0.90</drawSize>
         </graphicData>
         <costStuffCount>90</costStuffCount>
@@ -85,10 +86,11 @@
     <ThingDef ParentName="CourierWear">
         <defName>LTS_CourierHat</defName>
         <label>courier hat</label>
-        <description>A sophisticated coat only for the finest of couriers.</description>
+        <description>A distinguished hat, designed for the elite couriers, offering both protection and a mark of their esteemed role.</description>
         <graphicData>
             <texPath>Apparel/CourierHat/CourierHat</texPath>
             <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>CutoutComplex</shaderType>
             <drawSize>0.90</drawSize>
         </graphicData>
         <costStuffCount>50</costStuffCount>

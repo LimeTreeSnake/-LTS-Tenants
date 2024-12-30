@@ -1,7 +1,27 @@
 [LTS]Tenants
-2024-
+2024-12-30
+    - Moved the GUI Icons to LTS Systems, this to avoid some bugs people have had.
+
+2024-10-03
+    - Updated a lot of art and icons with new art made by Anthitei
+    - Added Tenancy/Courier faction non hostile to player faction and some modded factions.
+    - Vanilla Skills expanded skills are shown in the tenancy join message.
+    - The join message is no longer a popup but a letter with timed choice.
+    - A new setting (default true) whether tenants should share the same primary ideology as the player.
+    - Couriers now defend themselves somewhat...
+    - Some code cleanup and refactoring
+    - Made the tenancy join popup a timed letter instead.
+    - Updated messages and language for clarity.
+    - Tenancy quest now only able to fire if there is a notice board on the player map.
+    - Added option to opt out of Archite gened tenants in mod settings.
+    - Added mod option to opt out of "Non flesh" tenants in mod settings. Basically checks if they disable food/rest need or have a Vanilla Expanded Android gene.
+    - Added a few more factions to non-hostile list from Medieval Overhaul and Aoba's DMS to couriers and tenant faction.
+    - Added toggleable autorenewal of contracts gizmo on tenants. This to allow auto accepting contract extension.
+    
+2024-04-22
     - May join state is now properly stored, so it does not toggle of during reload.
     - Removed duplicate text in quest description when having accepted a tenant as a tenant.
+    - Fixes to 1.4 and added some 1.5 stuff to it.
 
 2024-04-21
     - Courier and Tenants faction upon load have their relation set to Neutral. This to combat the issue where they are hostile to the player.

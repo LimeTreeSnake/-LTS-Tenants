@@ -53,7 +53,7 @@ namespace Tenants.QuestNodes {
                 QuestGen.quest.AddPart(questPartTenancyMoodAbove);
             }
             catch (Exception ex) {
-                Log.Message("Error at QuestNode_TenancyMood RunInt: " + ex.Message);
+	            Log.Error($"LTS_Tenants Error - QuestNode_TenancyMood: {ex.Message}\n{ex.StackTrace}");
             }
         }
 

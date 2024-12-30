@@ -44,8 +44,8 @@ namespace Tenants.QuestNodes
 		}
 		
 		public override bool AlertCritical => true;
-		public override string AlertLabel => Translate.TenancyRoomRequired();
-		public override string AlertExplanation => Translate.TenancyRoomRequiredDesc();
+		public override string AlertLabel => Translate.TenancyRoomRequired;
+		public override string AlertExplanation => Translate.TenancyRoomRequiredDesc;
 		
 		public override void QuestPartTick()
 		{

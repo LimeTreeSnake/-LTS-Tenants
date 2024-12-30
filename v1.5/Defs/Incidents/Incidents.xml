@@ -10,7 +10,22 @@
             <workerClass>Tenants.IncidentWorkers.CourierArrival_IncidentWorker</workerClass>
             <category>Misc</category>
             <baseChance>2.2</baseChance>
-            <pointsScaleable>true</pointsScaleable>
+            <earliestDay>30</earliestDay>
             <minRefireDays>4</minRefireDays>
+        </IncidentDef>
+
+        <IncidentDef>
+            <defName>LTS_TenancyQuestIncident</defName>
+            <category>Misc</category>
+            <targetTags>
+                <li>Map_PlayerHome</li>
+            </targetTags>
+            <workerClass>Tenants.IncidentWorkers.TenancyQuest_IncidentWorker</workerClass>
+            <questScriptDef>LTS_Tenancy</questScriptDef>
+            <baseChance>1</baseChance>
+            <earliestDay>45</earliestDay>
+            <minRefireDays>6</minRefireDays>
+            <requireColonistsPresent>True</requireColonistsPresent>
+            <populationEffect>IncreaseEasy</populationEffect>
         </IncidentDef>
     </Defs>

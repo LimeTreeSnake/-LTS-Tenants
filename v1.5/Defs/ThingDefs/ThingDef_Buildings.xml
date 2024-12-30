@@ -6,7 +6,7 @@
         <label>notice board</label>
         <thingClass>Tenants.Things.NoticeBoard</thingClass>
         <category>Building</category>
-        <description>A notice board, the main use of this board is to put notices on it. A great invention to spread news of what is transpiring within your colony and elsewhere. Couriers love these!</description>
+        <description>A notice board—a simple yet essential tool for posting news and notices. Whether it's announcing colony events or spreading word of far-off happenings, this board does it all. Couriers adore these, as they bring order and purpose to their vital deliveries!</description>
         <statBases>
             <MaxHitPoints>200</MaxHitPoints>
             <WorkToBuild>900</WorkToBuild>

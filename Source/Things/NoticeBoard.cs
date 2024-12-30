@@ -22,8 +22,6 @@ namespace Tenants.Things
 		public CustomXenotype _chosenCustomXeno;
 		private List<XenotypeDef> _availableXenos = new List<XenotypeDef>();
 		private List<CustomXenotype> _customXenotypes = new List<CustomXenotype>();
-		private static readonly Texture2D _advertIcon = ContentFinder<Texture2D>.Get("Icons/AdvertIcon");
-		private static readonly Texture2D _homeIcon = ContentFinder<Texture2D>.Get("UI/Designators/HomeAreaOn");
 		public int _maxAge = 50;
 
 		public Gender GetForcedGender()
@@ -51,9 +49,9 @@ namespace Tenants.Things
 			//Place Advert
 			var commandToggle = new Command_Toggle
 			{
-				defaultLabel = Translate.AdvertisementGizmo(),
-				defaultDesc = Translate.AdvertisementGizmoDesc(),
-				icon = _advertIcon,
+				defaultLabel = Translate.AdvertisementGizmo,
+				defaultDesc = Translate.AdvertisementGizmoDesc,
+				icon = LTS_Systems.GUI.Icons.AdvertIcon,
 				isActive = () => _isActive,
 				toggleAction = delegate
 				{
@@ -71,23 +69,23 @@ namespace Tenants.Things
 			//MayJoin
 			var mayJoinToggle = new Command_Toggle
 			{
-				defaultLabel = Translate.AdvertisementMayJoinGizmo(),
-				defaultDesc = Translate.AdvertisementMayJoinGizmoDesc(),
-				icon = _homeIcon,
+				defaultLabel = Translate.AdvertisementMayJoinGizmo,
+				defaultDesc = Translate.AdvertisementMayJoinGizmoDesc,
+				icon = LTS_Systems.GUI.Icons.HomeIcon,
 				isActive = () => _mayJoin,
 				toggleAction = delegate
 				{
 					_mayJoin = !_mayJoin;
 				}
 			};
-			
+
 			yield return mayJoinToggle;
-			
+
 			//Room
 			var roomToggle = new Command_Toggle
 			{
-				defaultLabel = Translate.AdvertisementSingleRoomGizmo(),
-				defaultDesc = Translate.AdvertisementSingleRoomGizmoDesc(),
+				defaultLabel = Translate.AdvertisementSingleRoomGizmo,
+				defaultDesc = Translate.AdvertisementSingleRoomGizmoDesc,
 				icon = ThingDefOf.Bed.uiIcon,
 				isActive = () => _singleRoom,
 				toggleAction = delegate
@@ -102,8 +100,8 @@ namespace Tenants.Things
 			//Room
 			var violenceToggle = new Command_Toggle
 			{
-				defaultLabel = Translate.AdvertisementFightableGizmo(),
-				defaultDesc = Translate.AdvertisementFightableGizmoDesc(),
+				defaultLabel = Translate.AdvertisementFightableGizmo,
+				defaultDesc = Translate.AdvertisementFightableGizmoDesc,
 				icon = TexCommand.Draft,
 				isActive = () => _violenceEnabled,
 				toggleAction = delegate
@@ -119,10 +117,10 @@ namespace Tenants.Things
 			var genderToggle = new Command_Action
 			{
 				defaultLabel = _femaleOnly
-					? Translate.AdvertisementFemaleGizmo()
+					? Translate.AdvertisementFemaleGizmo
 					: _maleOnly
-						? Translate.AdvertisementMaleGizmo()
-						: Translate.AdvertisementGenderGizmo(),
+						? Translate.AdvertisementMaleGizmo
+						: Translate.AdvertisementGenderGizmo,
 				icon = _femaleOnly
 					? LTS_Systems.GUI.Icons.Female
 					: _maleOnly
@@ -156,7 +154,7 @@ namespace Tenants.Things
 			var ageToggle = new Command_Action()
 			{
 				defaultLabel =
-					_maxAge > 40 ? Translate.AdvertisementAnyAge() : Translate.AdvertisementAge(_maxAge),
+					_maxAge > 40 ? Translate.AdvertisementAnyAge : Translate.AdvertisementAge(_maxAge),
 				icon = LTS_Systems.GUI.Icons.Info,
 				action = delegate
 				{
@@ -185,7 +183,7 @@ namespace Tenants.Things
 			{
 				defaultLabel = _chosenXeno != null ? _chosenXeno.label
 					: _chosenCustomXeno != null ? _chosenCustomXeno.name
-					: Translate.AdvertisementXenosAnyGizmo(),
+					: Translate.AdvertisementXenosAnyGizmo,
 				icon = _chosenXeno != null ? _chosenXeno.Icon
 					: _chosenCustomXeno != null ? _chosenCustomXeno.iconDef.Icon
 					: LTS_Systems.GUI.Icons.Info,
@@ -202,11 +200,11 @@ namespace Tenants.Things
 		{
 			var stringBuilder = new StringBuilder();
 			stringBuilder.Append(base.GetInspectString());
-			stringBuilder.AppendLine(Translate.AdvertisementCost() + " " + AdvertisementCost());
+			stringBuilder.AppendLine(Translate.AdvertisementCost + " " + AdvertisementCost());
 			stringBuilder.AppendLine(Translate.ExpectedRent(CalculateRent()));
 			if (_noticeUp)
 			{
-				stringBuilder.AppendLine(Translate.AdvertisementPlaced());
+				stringBuilder.AppendLine(Translate.AdvertisementPlaced);
 			}
 
 			return stringBuilder.ToString().TrimEndNewlines();
@@ -273,7 +271,7 @@ namespace Tenants.Things
 
 		private IEnumerable<FloatMenuOption> GenerateXenoMenu()
 		{
-			yield return new FloatMenuOption(Translate.AdvertisementXenosAnyGizmo(), delegate
+			yield return new FloatMenuOption(Translate.AdvertisementXenosAnyGizmo, delegate
 			{
 				_chosenXeno = null;
 				_chosenCustomXeno = null;
@@ -292,7 +290,18 @@ namespace Tenants.Things
 						continue;
 					}
 
-					if (xenoDef == XenotypeDefOf.Sanguophage)
+					if (!Settings.Settings.AllowArchiteTenants
+					    && xenoDef.genes.Any(g => g.biostatArc > 0))
+					{
+						continue;
+					}
+
+					if (!Settings.Settings.AllowNonFleshTenants
+					    && xenoDef.genes.Any(g =>
+						    g.geneClass.Namespace == "VREAndroids"
+						    || (g.disablesNeeds != null
+						        && (g.disablesNeeds.Contains(NeedDefOf.Food)
+						            || g.disablesNeeds.Contains(NeedDefOf.Rest)))))
 					{
 						continue;
 					}

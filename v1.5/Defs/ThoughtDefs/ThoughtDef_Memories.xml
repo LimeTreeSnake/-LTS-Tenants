@@ -6,8 +6,8 @@
         <stackLimit>5</stackLimit>
         <stages>
             <li>
-                <label>Join rejection</label>
-                <description>Am I not good enough to join?</description>
+                <label>Rejected from Joining</label>
+                <description>They didn't want me to join. Am I not good enough?</description>
                 <baseMoodEffect>-5</baseMoodEffect>
             </li>
         </stages>
@@ -18,8 +18,8 @@
         <stackLimit>1</stackLimit>
         <stages>
             <li>
-                <label>Accepted resident</label>
-                <description>I am now a permanent member of this colony!</description>
+                <label>Accepted into Colony</label>
+                <description>I’ve been accepted as a permanent member of this colony. I finally belong!</description>
                 <baseMoodEffect>5</baseMoodEffect>
             </li>
         </stages>
